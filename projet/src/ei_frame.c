@@ -3,12 +3,68 @@
 #include "ei_types.h"
 #include "ei_widgetclass.h"
 #include "hw_interface.h"
+
+
+/**
+ *\brief    Fonction utilitaire pour ei_frame_drawfunc_t :
+ *
+ *@param    anchor  the anchor point of the text (north north_west)
+ *@param    surface the surface on which the text is to be drawn
+ *@param    point   the point that is to be returned
+ *
+ */
+void associate_point_anchor     (ei_anchor_t*    anchor,
+                                ei_surface_t    surface,
+                                ei_point_t* point)
+{
+    // association ancrage-surface avec coordonnées
+    ei_rect_t rect = hw_surface_get_rect(surface);
+    switch (*anchor) {
+            case 1:
+                    point->x = rect.top_left.x + rect.size.width / 2;
+                    point->y = rect.top_left.y + rect.size.height / 2;
+                    break;
+            case 2:
+                    point->x = rect.top_left.x + rect.size.width / 2;
+                    point->y = rect.top_left.y;
+                    break;
+            case 3:
+                    point->x = rect.top_left.x + rect.size.width;
+                    point->y = rect.top_left.y;
+                    break;
+            case 4:
+                    point->x = rect.top_left.x + rect.size.width;
+                    point->y = rect.top_left.y + rect.size.height / 2;
+                    break;
+            case 5:
+                    point->x = rect.top_left.x + rect.size.width;
+                    point->y = rect.top_left.y + rect.size.height;
+                    break;
+            case 6:
+                    point->x = rect.top_left.x + rect.size.width / 2;
+                    point->y = rect.top_left.y + rect.size.height;
+                    break;
+            case 7:
+                    point->x = rect.top_left.x;
+                    point->y = rect.top_left.y + rect.size.height;
+                    break;
+            case 8:
+                    point->x = rect.top_left.x;
+                    point->y = rect.top_left.y + rect.size.height / 2;
+                    break;
+            case 9: //defaut : topleft corner
+                    point->x = rect.top_left.x;
+                    point->y = rect.top_left.y;
+                    break;
+            default:
+                    point->x = rect.top_left.x;
+                    point->y = rect.top_left.y;
+    }
+}
+
 /**
   *\brief allocate the memory for frame
  */
-
-ei_point_t* associate_point_anchor  (enum ei_anchor_t    anchor,
-                                     ei_surface_t    surface);
 void* ei_frame_allocfunc_t()
 {
         return malloc(sizeof(ei_frame_t));
@@ -32,17 +88,16 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
         ei_fill(surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the surface with the frame colour
         ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the offscreen surface with the frame colour
         if (((ei_frame_t*)widget) -> text != NULL ){
-                //TODO : probleme avec ei_drawtext : argument "where" = point. ancrage = enum
-                // cf ei_draw.c
-                ei_point_t* point = associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, surface);
+                ei_point_t* point = NULL;
+                associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, surface, point);
                 ///< adressing the top-left corner as a point from its anchor
-                ei_draw_text(surface, point, ((ei_frame_t*)widget) -> text, \
-                        ((ei_frame_t*)widget) -> font, ((ei_frame_t*)widget) -> color_text, clipper);
+                ei_draw_text(surface, point, *(((ei_frame_t*)widget) -> text), \
+                        ((ei_frame_t*)widget) -> font, *(((ei_frame_t*)widget) -> color_text), clipper);
                         ///< Drawing said text on the surface
         }
         if (((ei_frame_t*)widget) -> image != NULL){
                 ei_copy_surface (surface, clipper, ((ei_frame_t*)widget) -> image, \
-                        ((ei_frame_t*)widget) -> rect, hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
+                        *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
                         ///< drawing image if exists
         }
 }
@@ -76,55 +131,4 @@ void ei_frame_setdefaultsfunc_t(struct ei_widget_t*   widget)
         ((ei_frame_t*)widget) -> color = &default_color;
         ((ei_frame_t*)widget) -> font = &ei_default_font;
         ((ei_frame_t*)widget) -> color_text = &text_defaut_color;
-}
-
-// Fonction utilitaire pour ei_frame_drawfunc_t :
-ei_point_t* associate_point_anchor  (enum ei_anchor_t    anchor,
-                                    ei_surface_t    surface)
-{
-    //TODO : association ancrage-surface avec coordonnées
-    ei_point_t point;
-    ei_rect_t rect = hw_surface_get_rect;
-    switch (anchor) {
-            case 1:
-                    point.x = rect.top_left.x + rect.size.width / 2;
-                    point.y = rect.top_left.y + rect.size.height / 2;
-                    break;
-            case 2:
-                    point.x = rect.top_left.x + rect.size.width / 2;
-                    point.y = rect.top_left.y;
-                    break;
-            case 3:
-                    point.x = rect.top_left.x + rect.size.width;
-                    point.y = rect.top_left.y;
-                    break;
-            case 4:
-                    point.x = rect.top_left.x + rect.size.width;
-                    point.y = rect.top_left.y + rect.size.height / 2;
-                    break;
-            case 5:
-                    point.x = rect.top_left.x + rect.size.width;
-                    point.y = rect.top_left.y + rect.size.height;
-                    break;
-            case 6:
-                    point.x = rect.top_left.x + rect.size.width / 2;
-                    point.y = rect.top_left.y + rect.size.height;
-                    break;
-            case 7:
-                    point.x = rect.top_left.x;
-                    point.y = rect.top_left.y + rect.size.height;
-                    break;
-            case 8:
-                    point.x = rect.top_left.x;
-                    point.y = rect.top_left.y + rect.size.height / 2;
-                    break;
-            case 9: //defaut : topleft corner
-                    point.x = rect.top_left.x;
-                    point.y = rect.top_left.y
-                    break;
-            default :
-                    point.x = rect.top_left.x;
-                    point.y = rect.top_left.y;
-    }
-    return(&point)
 }
