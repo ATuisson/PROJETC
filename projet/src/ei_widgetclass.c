@@ -1,22 +1,15 @@
+#include <stdlib.h>
+
 #include "ei_widgetclass.h"
 #include "ei_frame.h"
 
 ei_widgetclass_t* CLASSES;
 
-void insertion_classe_enq (ei_widgetclass_t* widgetclass);
-
-
-
-static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name)
-{
-
-}
-
 void			ei_widgetclass_register		(ei_widgetclass_t* widgetclass)
 {
 				widgetclass -> next = NULL;
 				if (CLASSES == NULL) {
-								CLASSES = widgetclass
+								CLASSES = widgetclass;
 				}
 				else {
 								ei_widgetclass_t* current = CLASSES;
@@ -35,7 +28,14 @@ ei_widgetclass_t*	ei_widgetclass_from_name	(ei_widgetclass_name_t name)
 void			ei_frame_register_class 	()
 {
 				ei_widgetclass_t frame;
-				frame.ei_widgetclass_name_t = "frame";
+				// char name_class[20];
+				// name_class[0] = 'f';
+				// name_class[1] = 'r';
+				// name_class[2] = 'a';
+				// name_class[3] = 'm';
+				// // name_class[4] = 'e';
+				// ei_widgetclass_name_t name_class = {1};
+				frame.name = "frame";
 				frame.allocfunc = &ei_frame_allocfunc_t;
 				frame.releasefunc = &ei_frame_releasefunc_t;
 				frame.drawfunc = &ei_frame_drawfunc_t;
@@ -51,9 +51,4 @@ void			ei_button_register_class 	()
 void			ei_toplevel_register_class 	()
 {
 
-}
-
-static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name)
-{
-	return (char*)name;
 }
