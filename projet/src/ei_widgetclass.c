@@ -1,38 +1,11 @@
 #include "ei_widgetclass.h"
 #include "ei_frame.h"
 
-ei_widgetclass_t* CLASSES = NULL;
+ei_widgetclass_t* CLASSES;
 
 void insertion_classe_enq (ei_widgetclass_t* widgetclass);
 
-void*	(*ei_widgetclass_allocfunc_t)		(void)
-{
 
-}
-
-void	(*ei_widgetclass_releasefunc_t)		(struct ei_widget_t*	widget)
-{
-
-}
-
-void	(*ei_widgetclass_drawfunc_t)		(struct ei_widget_t*	widget,
-							 ei_surface_t		surface,
-							 ei_surface_t		pick_surface,
-							 ei_rect_t*		clipper)
-{
-
-}
-
-void	(*ei_widgetclass_setdefaultsfunc_t)	(struct ei_widget_t*	widget)
-{
-
-}
-
-void	(*ei_widgetclass_geomnotifyfunc_t)	(struct ei_widget_t*	widget,
-							 ei_rect_t		rect)
-{
-
-}
 
 static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name)
 {

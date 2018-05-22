@@ -32,6 +32,12 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 							 ei_rect_t**		img_rect,
 							 ei_anchor_t*		img_anchor)
 {
+	/* pour les parametres par défauts :
+	*		Parameters obey the "default" protocol: if a parameter is "NULL" and it has never
+	*		been defined before, then a default value should be used (default values are
+	*		specified for each parameter). If the parameter is "NULL" but was defined on a
+	*		previous call, then its value must not be changed.
+	*/
 		ei_frame_t* frame = (ei_frame_t*)widget;
 		if (requested_size != NULL)	{
 				widget -> requested_size = *requested_size;

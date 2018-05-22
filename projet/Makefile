@@ -16,7 +16,8 @@ CCFLAGS		:= -c ${OPTFLAGS} -Wall -std=c99
 LIBEIOBJS	:= 	${OBJDIR}/ei_application.o \
 							${OBJDIR}/ei_geometrymanager.o \
 							${OBJDIR}/ei_widget.o \
-							${OBJDIR}/ei_frame.o
+							${OBJDIR}/ei_frame.o \
+							${OBJDIR}/ei_widgetclass.o
 
 
 

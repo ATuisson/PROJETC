@@ -4,23 +4,24 @@
 #include "ei_types.h"
 #include <stdio.h>
 
-ei_widget_t* ROOT = NULL;
+extern ei_widgetclass_t* CLASSES;
+ei_widget_t* ROOT;
+void explore(ei_widget_t* widget);
+ei_surface_t surface_fenetre_syst;
+ei_surface_t surface_offscreen;
 
 void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
 {
 
         hw_init();
-  // il va falloir appeler ei_widgetclass_register ici.
-//  surface_fenetre_syst = malloc(main_window_size->width*main_window_size->height*4)
-        ei_surface_t surface_fenetre_syst;
         surface_fenetre_syst = hw_create_window(main_window_size, fullscreen);
-        ei_surface_t surface_offscreen;
         surface_offscreen = hw_create_window(main_window_size, fullscreen);
         ei_frame_register_class();
         ei_color_t root_color = {20,20,20,255};
         ei_point_t root_top_left_point = {0, 0};
         ei_rect_t root_screen_location = {root_top_left_point, *main_window_size};
-        *ROOT = {CLASSES, 1, &root_color, NULL, NULL, NULL, NULL, NULL, *main_window_size, root_screen_location, &root_screen_location};
+        ei_widget_t root_temp = {CLASSES, 1, &root_color, NULL, NULL, NULL, NULL, NULL, *main_window_size, root_screen_location, &root_screen_location};
+        *ROOT = root_temp;
         explore(ROOT);
 }
 
@@ -47,7 +48,7 @@ void ei_app_quit_request(void)
 
 ei_widget_t* ei_app_root_widget(void)
 {
-      return ROOT
+      return ROOT;
 }
 
 ei_surface_t ei_app_root_surface(void)
@@ -57,7 +58,7 @@ ei_surface_t ei_app_root_surface(void)
 
 void explore(ei_widget_t* widget)
 {
-
+        // suis teubé faut acceder a surface_offscreen et surface_fenetre_syst avec des pointeurs...
         widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
                                                   widget->parent->content_rect);
         if (widget->children_tail != NULL){
