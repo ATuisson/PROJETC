@@ -21,6 +21,7 @@ void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
         ei_point_t root_top_left_point = {0, 0};
         ei_rect_t root_screen_location = {root_top_left_point, *main_window_size};
         *ROOT = {CLASSES, 1, &root_color, NULL, NULL, NULL, NULL, NULL, *main_window_size, root_screen_location, &root_screen_location};
+        explore(ROOT);
 }
 
 
@@ -57,7 +58,8 @@ ei_surface_t ei_app_root_surface(void)
 void explore(ei_widget_t* widget)
 {
 
-        widget->wclass->drawfunc(widget, widget->screen_location ,pick_surface , widget->parent->content_rect)
+        widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
+                                                  widget->parent->content_rect);
         if (widget->children_tail != NULL){
                 explore(widget->children_tail);
                 ei_widget_t* current = widget->children_tail->next_sibling;
