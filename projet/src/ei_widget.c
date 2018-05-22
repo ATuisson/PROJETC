@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "ei_widget.h"
-
+#include "ei_frame.h"
 
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
@@ -32,7 +32,40 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 							 ei_rect_t**		img_rect,
 							 ei_anchor_t*		img_anchor)
 {
-
+		ei_frame_t* frame = (ei_frame_t*)widget;
+		if (requested_size != NULL)	{
+				widget -> requested_size = *requested_size;
+		}
+		if (color != NULL)	{
+				frame -> color = color;
+		}
+		if (border_width != NULL)	{
+				frame -> border_width = border_width;
+		}
+		if (relief != NULL)	{
+				frame -> relief = relief;
+		}
+		if (text != NULL)	{
+				frame -> text = text;
+		}
+		if (text_font != NULL)	{
+				frame -> font = text_font;
+		}
+		if (text_color != NULL)	{
+				frame -> color_text = text_color;
+		}
+		if (text_anchor != NULL)	{
+				frame -> anchor_text = text_anchor;
+		}
+		if (img != NULL)	{
+				frame -> image = img;
+		}
+		if (img_rect != NULL)	{
+				frame -> rect = img_rect;
+		}
+		if (img_anchor != NULL)	{
+				frame -> anchor_image = img_anchor;
+		}
 }
 
 void			ei_button_configure		(ei_widget_t*		widget,
@@ -64,5 +97,5 @@ void			ei_toplevel_configure		(ei_widget_t*		widget,
 							 ei_axis_set_t*		resizable,
 						 	 ei_size_t**		min_size)
 {
-  
+
 }
