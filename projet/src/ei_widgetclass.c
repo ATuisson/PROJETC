@@ -1,7 +1,7 @@
 #include "ei_widgetclass.h"
 #include "ei_frame.h"
 
-ei_widgetclass_t* list_class = NULL;
+ei_widgetclass_t* CLASSES = NULL;
 
 void insertion_classe_enq (ei_widgetclass_t* widgetclass);
 
@@ -42,11 +42,11 @@ static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name)
 void			ei_widgetclass_register		(ei_widgetclass_t* widgetclass)
 {
 				widgetclass -> next = NULL;
-				if (list_class == NULL) {
-								list_class = widgetclass
+				if (CLASSES == NULL) {
+								CLASSES = widgetclass
 				}
 				else {
-								ei_widgetclass_t* current = list_class;
+								ei_widgetclass_t* current = CLASSES;
 								while(current -> next != NULL) {
 												current = current -> next;
 								}
@@ -83,21 +83,4 @@ void			ei_toplevel_register_class 	()
 static inline char*	ei_widgetclass_stringname	(ei_widgetclass_name_t name)
 {
 	return (char*)name;
-}
-
-//Fonction d'insertion en queue de la liste chainée définie en variable globale
-ei_widgetclass_t* insertion_classe_enq (ei_widgetclass_t* widgetclass)
-{
-				widgetclass -> next = NULL;
-				if (list_class == NULL) {
-								return widgetclass
-				}
-				else {
-								ei_widgetclass_t* current = list_class;
-								while(current -> next != NULL) {
-												current = current -> next;
-								}
-								current -> next = widgetclass;
-								return list_class;
-				}
 }
