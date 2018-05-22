@@ -2,7 +2,7 @@
 #include "hw_interface.h"
 #include <stdio.h>
 
-void explore(ei_widget_t* noeud);
+void explore(ei_widget_t* widget);
 void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
 {
 
@@ -25,9 +25,7 @@ void ei_app_free(void)
 void ei_app_run(void)
 {       ei_widget_t*  racine=;
         ei_widget_t*  courant=;
-        while (courant.children_head != NULL) && (courant.next_sibling != NULL){
-
-        }
+        explore(racine);
         // partir de la racine et "recursivement" passer les desendants et appeler leur drawfunc
         // racine : faire une variable globale qui memorise la racine ?
         // tant que children != null continuer
@@ -56,15 +54,16 @@ ei_surface_t ei_app_root_surface(void)
 {
 
 }
-void explore(ei_widget_t* noeud)
+void explore(ei_widget_t* widget)
 {
-        draw(noeud);
-        if (noeud.children_tail != NULL){
-                explore(noeud.children_tail);
-                ei_widget_t* current = noeud.children_tail.next_sibling;
+
+        widget->wclass->drawfunc(widget, widget->screen_location ,pick_surface , widget->parent->content_rect)
+        if (widget->children_tail != NULL){
+                explore(widget->children_tail);
+                ei_widget_t* current = widget->children_tail->next_sibling;
                 while (current != NULL){
                       explore(current);
-                      current = current.next_sibling;
+                      current = current->next_sibling;
                 }
         }
 
