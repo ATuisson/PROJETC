@@ -12,13 +12,15 @@ void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
         hw_init();
   // il va falloir appeler ei_widgetclass_register ici.
 //  surface_fenetre_syst = malloc(main_window_size->width*main_window_size->height*4)
+        ei_surface_t surface_fenetre_syst;
+        surface_fenetre_syst = hw_create_window(main_window_size, fullscreen);
+        ei_surface_t surface_offscreen;
+        surface_offscreen = hw_create_window(main_window_size, fullscreen);
         ei_frame_register_class();
         ei_color_t root_color = {20,20,20,255};
         ei_point_t root_top_left_point = {0, 0};
-        ei_rect_t root_screen_location = {root_top_left_point, }
-        *ROOT = {CLASSES, 1, root_color, NULL, NULL, NULL, NULL, NULL, NULL, main_window_size, };
-        ei_surface_t surface_fenetre_syst = NULL;
-        surface_fenetre_syst = hw_create_window(main_window_size, fullscreen);
+        ei_rect_t root_screen_location = {root_top_left_point, *main_window_size};
+        *ROOT = {CLASSES, 1, &root_color, NULL, NULL, NULL, NULL, NULL, *main_window_size, root_screen_location, &root_screen_location};
 }
 
 
