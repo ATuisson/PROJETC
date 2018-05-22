@@ -19,7 +19,7 @@
  */
 typedef struct ei_frame_t {
         ei_widget_t*          widget; ///< Structure commune enntre tous les widgets
-        ei_color_t*           color; ///< Couleur du cadre
+        const ei_color_t*     color; ///< Couleur du cadre
         int*                  border_width; ///< largeur de la bordure du cadre
         ei_relief_t*          relief; ///< Relief du cadre
         char**                text; ///< Chaine de caractère à insérer
