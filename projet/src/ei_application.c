@@ -53,3 +53,18 @@ ei_surface_t ei_app_root_surface(void)
 {
 
 }
+
+void explore(ei_widget_t* widget)
+{
+
+        widget->wclass->drawfunc(widget, widget->screen_location ,pick_surface , widget->parent->content_rect)
+        if (widget->children_tail != NULL){
+                explore(widget->children_tail);
+                ei_widget_t* current = widget->children_tail->next_sibling;
+                while (current != NULL){
+                      explore(current);
+                      current = current->next_sibling;
+                }
+        }
+
+}
