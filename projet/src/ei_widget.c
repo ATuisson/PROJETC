@@ -6,12 +6,12 @@
 #include "ei_frame.h"
 #include "ei_widgetclass.h"
 
-extern ei_widget_class_t CLASSES;
+extern ei_widgetclass_t* CLASSES;
 
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
 {
-				ei_widget_class_t* current = CLASSES;
+				ei_widgetclass_t* current = CLASSES;
 				while (strcmp(current -> name, class_name) != 0) {
 								current = current -> next;
 				}
