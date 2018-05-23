@@ -22,7 +22,7 @@ typedef struct ei_placer_t {
         float*      rel_y;
         float*      rel_width;
         float*      rel_height;
-} ei_placeur_t;
+} ei_placer_t;
 
 
 /**
@@ -31,7 +31,7 @@ typedef struct ei_placer_t {
  *
  * @param	widget		The widget instance for which to compute placeur.
  */
-void ei_placeur_runfunc_t (ei_widget_t* widget);
+void ei_placer_runfunc_t (ei_widget_t* widget);
 
 /**
  * \brief	A function called when a widget ceases to be managed by placer.
@@ -41,5 +41,5 @@ void ei_placeur_runfunc_t (ei_widget_t* widget);
  *
  * @param	widget		The widget instance that must be forgotten by the placeur.
  */
-void ei_placeur_releasefunc_t (ei_widget_t* widget);
+void ei_placer_releasefunc_t (ei_widget_t* widget);
 #endif
