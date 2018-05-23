@@ -17,7 +17,8 @@ LIBEIOBJS	:= 	${OBJDIR}/ei_application.o \
 							${OBJDIR}/ei_geometrymanager.o \
 							${OBJDIR}/ei_widget.o \
 							${OBJDIR}/ei_frame.o \
-							${OBJDIR}/ei_widgetclass.o
+							${OBJDIR}/ei_widgetclass.o \
+							${OBJDIR}/ei_draw.o
 
 
 

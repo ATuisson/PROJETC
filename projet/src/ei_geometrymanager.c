@@ -1,6 +1,7 @@
 #include"ei_geometrymanager.h"
 #include"ei_placer.h"
-
+#include"ei_types.h"
+#include"stdlib.h"
 // typedef void	(*ei_geometrymanager_runfunc_t)		(struct ei_widget_t*	widget);
 // typedef void	(*ei_geometrymanager_releasefunc_t)	(struct ei_widget_t*	widget);
 
@@ -83,30 +84,70 @@ void			ei_place			(ei_widget_t*		widget,
 		if (anchor != NULL)	{
 				placer -> anchor = anchor;
 		}
+		else if (placer -> anchor == NULL){
+				ei_anchor_t ancre = ei_anc_northwest;
+				placer -> anchor = &ancre;
+		}
 		if (x != NULL)	{
 				placer -> x = x;
+		}
+		else if (placer -> x == NULL)	{
+				int zero = 0;
+				placer -> x = &zero;
 		}
 		if (y != NULL)	{
 				placer -> y = y;
 		}
+		else if (placer -> y == NULL)	{
+				int zero = 0;
+				placer -> y = &zero;
+		}
 		if (width != NULL)	{
 				placer -> width = width;
 		}
+		else if (placer -> rel_width == NULL)	{
+				placer -> width = &((widget -> requested_size).width);
+		}
+		else	{
+				int zero = 0;
+				placer -> width = &zero;
+		}
 		if (height != NULL)	{
-				height -> heigth = heigth;
+				placer -> height = height;
+		}
+		else if (placer -> rel_height == NULL)	{
+				placer -> height = &((widget -> requested_size).height);
+		}
+		else	{
+				int zero = 0;
+				placer -> height = &zero;
 		}
 		if (rel_x != NULL)	{
 				placer -> rel_x = rel_x;
 		}
+		else if (placer -> rel_x == NULL)	{
+				float zero = 0.0;
+				placer -> rel_x = &zero;
+		}
 		if (rel_y != NULL)	{
 				placer -> rel_y = rel_y;
+		}
+		else if (placer -> rel_y == NULL)	{
+				float zero = 0.0;
+				placer -> rel_y = &zero;
 		}
 		if (rel_width != NULL)	{
 				placer -> rel_width = rel_width;
 		}
-		if (rel_height != NULL)	{
-				placer -> rel_heigth = rel_heigth;
+		else if (placer -> rel_width == NULL)	{
+				float zero = 0.0;
+				placer -> rel_width = &zero;
 		}
-		//TODO : relative coords see A.5
-		//TODO : default values
+		if (rel_height != NULL)	{
+				placer -> rel_height = rel_height;
+		}
+		else if (placer -> rel_width == NULL)	{
+				float zero = 0.0;
+				placer -> rel_y = &zero;
+		}
 }

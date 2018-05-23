@@ -1,14 +1,21 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "ei_widget.h"
 #include "ei_frame.h"
+#include "ei_widgetclass.h"
 
-
+extern ei_widget_class_t CLASSES;
 
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
 {
-
+				ei_widget_class_t* current = CLASSES;
+				while (strcmp(current -> name, class_name) != 0) {
+								current = current -> next;
+				}
+				ei_widget_t* new_widget = NULL;
 }
 
 void			ei_widget_destroy		(ei_widget_t*		widget)
@@ -46,13 +53,10 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 			exit(1000);
 		}
 		if (requested_size != NULL)	{
-						widget -> requested_size = *requested_size;
+				widget -> requested_size = *requested_size;
 		}
-		if (color != NULL) {
-						frame -> color = color;
-		}
-		else if (frame -> color == NULL)  	{
-						frame -> color = &ei_default_background_color;
+		if (color != NULL)	{
+				frame -> color = color;
 		}
 		if (border_width != NULL)	{
 						frame -> border_width = border_width;
@@ -62,42 +66,25 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 						frame -> border_width = &zero ;
 		}
 		if (relief != NULL)	{
-						frame -> relief = relief;
+				frame -> relief = relief;
 		}
-		else if (frame -> relief == NULL){
-						ei_relief_t relief_default = ei_relief_none;
-						frame -> relief = &relief_default;
-		}
-		if (text != NULL) {
-						frame -> text = text;
-						// la ligne suivante, est la pour changer la valeur par défaut de image si le programmeur veut un texte.
-						frame -> image = NULL;
+		if (text != NULL)	{
+				frame -> text = text;
 		}
 		if (text_font != NULL)	{
-						frame -> font = text_font;
-		}
-		else if (frame -> font == NULL ){
-						frame -> font = &ei_default_font;
+				frame -> font = text_font;
 		}
 		if (text_color != NULL)	{
-						frame -> color_text = text_color;
-		}
-		else if (frame -> color_text == NULL) {
-						frame -> color_text = &ei_font_default_color;
+				frame -> color_text = text_color;
 		}
 		if (text_anchor != NULL)	{
-						frame -> anchor_text = text_anchor;
-		}
-		else if (frame -> anchor_text == NULL){
-						ei_anchor_t anchor_ref_text = ei_anc_center;
-						frame -> anchor_text = &anchor_ref_text;
+				frame -> anchor_text = text_anchor;
 		}
 		if (img != NULL)	{
-						frame -> image = img;
-						frame -> text = NULL;
+				frame -> image = img;
 		}
 		if (img_rect != NULL)	{
-						frame -> rect = img_rect;
+				frame -> rect = img_rect;
 		}
 		if (img_anchor != NULL)	{
 						frame -> anchor_image = img_anchor;
