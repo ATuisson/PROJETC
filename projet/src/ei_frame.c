@@ -69,7 +69,7 @@ void associate_point_anchor     (ei_anchor_t*    anchor,
  */
 void* ei_frame_allocfunc_t()
 {
-        return malloc(sizeof(ei_frame_t));
+        return malloc(sizeof(ei_frame_t));        
 }
 
 /**
@@ -114,16 +114,7 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
  */
 void ei_frame_releasefunc_t(struct ei_widget_t* widget)
 {
-        free(((ei_frame_t*)widget) -> color);
-        free(((ei_frame_t*)widget) -> border_width);
-        free(((ei_frame_t*)widget) -> relief);
-        free(((ei_frame_t*)widget) -> text);
-        free(((ei_frame_t*)widget) -> font);
-        free(((ei_frame_t*)widget) -> color_text);
-        free(((ei_frame_t*)widget) -> anchor_text);
-        free(((ei_frame_t*)widget) -> image);
-        free(((ei_frame_t*)widget) -> rect);
-        free(((ei_frame_t*)widget) -> anchor_image);
+        free((ei_frame_t*)widget);
 }
 
 void ei_frame_setdefaultsfunc_t(struct ei_widget_t*   widget)

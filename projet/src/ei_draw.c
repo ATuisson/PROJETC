@@ -7,7 +7,7 @@
  *  Created by thomas, lucas, basile on 18.05.18.
  *
  */
-
+#include <stdlib.h>
 #include "ei_draw.h"
 #include "hw_interface.h"
 /**
@@ -35,13 +35,16 @@ void			ei_draw_text		(ei_surface_t		surface,
 
 uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color)
 {
-				int* ir = NULL, ig = NULL, ib = NULL, ia = NULL;
+				int* ir = NULL;
+				int* ig = NULL;
+				int* ib = NULL;
+				int* ia = NULL;
 				hw_surface_get_channel_indices(surface, ir, ig, ib, ia);
 				uint32_t res = 0;
-				res += (color->red)*2**((*ir)*8);
-				res += (color->green)*2**((*ig)*8);
-				res += (color->blue)*2**((*ib)*8);
-				res += (color->alpha)*2**((*ia)*8);
+				res += (color->red)*2^((*ir)*8);
+				res += (color->green)*2^((*ig)*8);
+				res += (color->blue)*2^((*ib)*8);
+				res += (color->alpha)*2^((*ia)*8);
 				return res;
 }
 
