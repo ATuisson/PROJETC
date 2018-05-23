@@ -130,7 +130,17 @@ void ei_frame_setdefaultsfunc_t(struct ei_widget_t*   widget)
 {
         ei_color_t default_color = ei_default_background_color;
         ei_color_t text_defaut_color = ei_font_default_color;
+        int sero = 0;
+        ei_relief_t relief = ei_relief_none;
+        ei_anchor_t anchor = ei_anc_center;
+        ((ei_frame_t*)widget) -> text = NULL;
+        ((ei_frame_t*)widget) -> border_width = &sero;
+        ((ei_frame_t*)widget) -> relief = &relief;
         ((ei_frame_t*)widget) -> color = &default_color;
         ((ei_frame_t*)widget) -> font = &ei_default_font;
         ((ei_frame_t*)widget) -> color_text = &text_defaut_color;
+        ((ei_frame_t*)widget) -> anchor_text = &anchor;
+        ((ei_frame_t*)widget) -> image = NULL;
+        ((ei_frame_t*)widget) -> rect = NULL;
+        ((ei_frame_t*)widget) -> anchor_image = &anchor;
 }
