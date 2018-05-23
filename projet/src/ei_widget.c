@@ -3,14 +3,6 @@
 #include "ei_widget.h"
 #include "ei_frame.h"
 
-ei_color_t ei_default_frame_background_color_user = ei_default_background_color;
-int ei_default_frame_border_width_user = 0;
-ei_relief_t ei_relief_default_frame_user = ei_relief_none;
-ei_font_t ei_default_frame_font_user = ei_default_font;
-ei_color_t ei_default_frame_font_color_user = ei_font_default_color;
-ei_anchor_t ei_text_anchor_default_frame_user = ei_anc_center;
-ei_anchor_t ei_img_anchor_default_frame_user = ei_anc_center;
-
 
 
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
@@ -52,64 +44,67 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 		// if (requested_size = NULL) {
 		//
 		// }
+		if ((img != NULL) && (text != NULL)){
+			printf("attention monsieur le programmeur, il ne faut pas une image et un texte");
+			exit(1000);
+		}
 		if (requested_size != NULL)	{
 						widget -> requested_size = *requested_size;
 		}
-		if (color = NULL) {
-			  		frame -> color = ei_default_frame_background_color_user
-		}
-		else 	{
+		if (color != NULL) {
 						frame -> color = color;
-						ei_default_frame_background_color_user = *color;
+		}
+		else if (frame -> color == NULL)  	{
+						frame -> color = &ei_default_background_color;
 		}
 		if (border_width != NULL)	{
 						frame -> border_width = border_width;
-						ei_default_frame_border_width_user = *border_width;
 		}
-		else {
-						frame -> border_width = &ei_default_frame_border_width_user;
+		else if (frame -> border_width = NULL)
+						int zero = 0;
+						frame -> border_width = &zero ;
 		}
 		if (relief != NULL)	{
 						frame -> relief = relief;
-						ei_relief_default_frame_user = *relief;
 		}
-		else {
-						frame -> relief = &ei_relief_default_frame_user;
+		else if (frame -> relief == NULL){
+						ei_relief_t relief_default = ei_relief_none;
+						frame -> relief = &relief_default;
 		}
-		// on met la priorité à l'image sur le text
-		if (text != NULL) && (img=NULL)	{
+		if (text != NULL) {
 						frame -> text = text;
+						// la ligne suivante, est la pour changer la valeur par défaut de image si le programmeur veut un texte.
+						frame -> image = NULL;
 		}
 		if (text_font != NULL)	{
 						frame -> font = text_font;
-						ei_default_frame_font_user = *text_font;
 		}
-		else {
-						frame -> font = &ei_default_frame_font_user;
+		else if (frame -> font == NULL ){
+						frame -> font = &ei_default_font;
 		}
 		if (text_color != NULL)	{
 						frame -> color_text = text_color;
-						ei_default_frame_font_color_user = *text_color;
 		}
-		else {
-						frame -> color_text = &ei_font_default_color_user;
+		else if (frame -> color_text == NULL) {
+						frame -> color_text = &ei_font_default_color;
 		}
 		if (text_anchor != NULL)	{
 						frame -> anchor_text = text_anchor;
-						ei_text_anchor_default_frame_user = *text_anchor;
 		}
-		else {
-						frame -> anchor_text = &ei_text_anchor_default_frame_user;
+		else if (frame -> anchor_text == NULL){
+						ei_anchor_t anchor_ref_text = ei_anc_center;
+						frame -> anchor_text = &anchor_ref_text;
 		}
 		if (img != NULL)	{
 						frame -> image = img;
+						frame -> text = NULL;
 		}
 		if (img_rect != NULL)	{
 						frame -> rect = img_rect;
 		}
 		if (img_anchor != NULL)	{
-						frame -> anchor_image = img_anchor;
-						ei_img_anchor_default_frame_user = *img_anchor;
+			ei_anchor_t anchor_ref_img = ei_anc_center;
+			frame -> anchor_text = &anchor_ref_img;
 		}
 		else {
 						frame -> anchor_image = &ei_img_anchor_default_frame_user;
