@@ -1,5 +1,7 @@
-#include "ei_frame.h"
 #include <stdlib.h>
+
+#include "ei_draw.h"
+#include "ei_frame.h"
 #include "ei_types.h"
 #include "ei_widgetclass.h"
 #include "hw_interface.h"

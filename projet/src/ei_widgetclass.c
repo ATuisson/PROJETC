@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 
 #include "ei_widgetclass.h"
 #include "ei_frame.h"
@@ -28,14 +29,14 @@ ei_widgetclass_t*	ei_widgetclass_from_name	(ei_widgetclass_name_t name)
 void			ei_frame_register_class 	()
 {
 				ei_widgetclass_t frame;
-				// char name_class[20];
-				// name_class[0] = 'f';
-				// name_class[1] = 'r';
-				// name_class[2] = 'a';
-				// name_class[3] = 'm';
-				// // name_class[4] = 'e';
+				ei_widgetclass_name_t name_class;
+				name_class[0] = 'f';
+				name_class[1] = 'r';
+				name_class[2] = 'a';
+				name_class[3] = 'm';
+				name_class[4] = 'e';
 				// ei_widgetclass_name_t name_class = {1};
-				frame.name = "frame";
+				strcpy(frame.name, name_class);
 				frame.allocfunc = &ei_frame_allocfunc_t;
 				frame.releasefunc = &ei_frame_releasefunc_t;
 				frame.drawfunc = &ei_frame_drawfunc_t;
