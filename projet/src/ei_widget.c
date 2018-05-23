@@ -3,6 +3,15 @@
 #include "ei_widget.h"
 #include "ei_frame.h"
 
+ei_color_t ei_default_background_color_user = ei_default_background_color;
+int ei_default_border_width_user = 0;
+ei_relief_t ei_relief_default_user = ei_relief_none;
+ei_font_t ei_default_font_user = ei_default_font;
+ei_color_t ei_default_font_color_user = ei_font_default_color;
+ei_anchor_t text_anchor_default_user = ei_anc_center;
+ei_anchor_t img_anchor_default_user = ei_anc_center;
+
+
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
 {
@@ -39,14 +48,25 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 	*		previous call, then its value must not be changed.
 	*/
 		ei_frame_t* frame = (ei_frame_t*)widget;
+		// if (requested_size = NULL) {
+		//
+		// }
 		if (requested_size != NULL)	{
-				widget -> requested_size = *requested_size;
+						widget -> requested_size = *requested_size;
 		}
-		if (color != NULL)	{
-				frame -> color = color;
+		if (color = NULL) {
+			  		frame -> color = ei_default_background_color_user
+		}
+		else 	{
+						frame -> color = color;
+						ei_default_background_color_user = *color;
 		}
 		if (border_width != NULL)	{
-				frame -> border_width = border_width;
+						frame -> border_width = border_width;
+						ei_default_border_width_user = *border_width;
+		}
+		else {
+						frame -> border_width = &ei_default_border_width_user;
 		}
 		if (relief != NULL)	{
 				frame -> relief = relief;
