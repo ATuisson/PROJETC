@@ -3,13 +3,14 @@
 #include "ei_widget.h"
 #include "ei_frame.h"
 
-ei_color_t ei_default_background_color_user = ei_default_background_color;
-int ei_default_border_width_user = 0;
-ei_relief_t ei_relief_default_user = ei_relief_none;
-ei_font_t ei_default_font_user = ei_default_font;
-ei_color_t ei_default_font_color_user = ei_font_default_color;
-ei_anchor_t text_anchor_default_user = ei_anc_center;
-ei_anchor_t img_anchor_default_user = ei_anc_center;
+ei_color_t ei_default_frame_background_color_user = ei_default_background_color;
+int ei_default_frame_border_width_user = 0;
+ei_relief_t ei_relief_default_frame_user = ei_relief_none;
+ei_font_t ei_default_frame_font_user = ei_default_font;
+ei_color_t ei_default_frame_font_color_user = ei_font_default_color;
+ei_anchor_t ei_text_anchor_default_frame_user = ei_anc_center;
+ei_anchor_t ei_img_anchor_default_frame_user = ei_anc_center;
+
 
 
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
@@ -55,42 +56,63 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 						widget -> requested_size = *requested_size;
 		}
 		if (color = NULL) {
-			  		frame -> color = ei_default_background_color_user
+			  		frame -> color = ei_default_frame_background_color_user
 		}
 		else 	{
 						frame -> color = color;
-						ei_default_background_color_user = *color;
+						ei_default_frame_background_color_user = *color;
 		}
 		if (border_width != NULL)	{
 						frame -> border_width = border_width;
-						ei_default_border_width_user = *border_width;
+						ei_default_frame_border_width_user = *border_width;
 		}
 		else {
-						frame -> border_width = &ei_default_border_width_user;
+						frame -> border_width = &ei_default_frame_border_width_user;
 		}
 		if (relief != NULL)	{
-				frame -> relief = relief;
+						frame -> relief = relief;
+						ei_relief_default_frame_user = *relief;
 		}
-		if (text != NULL)	{
-				frame -> text = text;
+		else {
+						frame -> relief = &ei_relief_default_frame_user;
+		}
+		// on met la priorité à l'image sur le text
+		if (text != NULL) && (img=NULL)	{
+						frame -> text = text;
 		}
 		if (text_font != NULL)	{
-				frame -> font = text_font;
+						frame -> font = text_font;
+						ei_default_frame_font_user = *text_font;
+		}
+		else {
+						frame -> font = &ei_default_frame_font_user;
 		}
 		if (text_color != NULL)	{
-				frame -> color_text = text_color;
+						frame -> color_text = text_color;
+						ei_default_frame_font_color_user = *text_color;
+		}
+		else {
+						frame -> color_text = &ei_font_default_color_user;
 		}
 		if (text_anchor != NULL)	{
-				frame -> anchor_text = text_anchor;
+						frame -> anchor_text = text_anchor;
+						ei_text_anchor_default_frame_user = *text_anchor;
+		}
+		else {
+						frame -> anchor_text = &ei_text_anchor_default_frame_user;
 		}
 		if (img != NULL)	{
-				frame -> image = img;
+						frame -> image = img;
 		}
 		if (img_rect != NULL)	{
-				frame -> rect = img_rect;
+						frame -> rect = img_rect;
 		}
 		if (img_anchor != NULL)	{
-				frame -> anchor_image = img_anchor;
+						frame -> anchor_image = img_anchor;
+						ei_img_anchor_default_frame_user = *img_anchor;
+		}
+		else {
+						frame -> anchor_image = &ei_img_anchor_default_frame_user;
 		}
 }
 
