@@ -41,9 +41,6 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 	*		previous call, then its value must not be changed.
 	*/
 		ei_frame_t* frame = (ei_frame_t*)widget;
-		// if (requested_size = NULL) {
-		//
-		// }
 		if ((img != NULL) && (text != NULL)){
 			printf("attention monsieur le programmeur, il ne faut pas une image et un texte");
 			exit(1000);
@@ -60,7 +57,7 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 		if (border_width != NULL)	{
 						frame -> border_width = border_width;
 		}
-		else if (frame -> border_width = NULL)
+		else if (frame -> border_width = NULL){
 						int zero = 0;
 						frame -> border_width = &zero ;
 		}
@@ -103,11 +100,30 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 						frame -> rect = img_rect;
 		}
 		if (img_anchor != NULL)	{
-			ei_anchor_t anchor_ref_img = ei_anc_center;
-			frame -> anchor_text = &anchor_ref_img;
+						frame -> anchor_image = img_anchor;
 		}
-		else {
-						frame -> anchor_image = &ei_img_anchor_default_frame_user;
+		else if (frame -> anchor_image == NULL) {
+						ei_anchor_t anchor_ref_img = ei_anc_center;
+						frame -> anchor_text = &anchor_ref_img;
+					}
+		if (requested_size != NULL) {
+						widget -> requested_size = requested_size;
+		}
+		else{
+						if (frame -> image != NULL){
+										ei_size_t surface_minimum = hw_surface_get_size(*img)
+										surface_minimum.width += 2* (*border_width);
+										surface_minimum.height += 2* (*border_width);
+										widget -> requested_size = &surface_minimum;
+						}
+						if (frame -> text != NULL){
+										ei_surface_t surface_text;
+										surface_text = hw_text_create_surface(frame -> text, frame -> font , frame -> color_text);
+										ei_size_t surface_minimum = hw_surface_get_size(surface_text;
+										surface_minimum.width += 2* (*border_width);
+										surface_minimum.height += 2* (*border_width);
+										widget -> requested_size = &surface_minimum;
+						}
 		}
 }
 
