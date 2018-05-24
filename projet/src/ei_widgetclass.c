@@ -35,7 +35,6 @@ void			ei_frame_register_class 	()
 				name_class[2] = 'a';
 				name_class[3] = 'm';
 				name_class[4] = 'e';
-				// ei_widgetclass_name_t name_class = {1};
 				strcpy(frame.name, name_class);
 				frame.allocfunc = &ei_frame_allocfunc_t;
 				frame.releasefunc = &ei_frame_releasefunc_t;
