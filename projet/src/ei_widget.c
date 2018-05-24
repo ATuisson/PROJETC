@@ -15,7 +15,7 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 				if (current == NULL) {
 								return NULL;
 				}
-				while (strcmp(current -> name, class_name) != 0) {
+				while (strcmp((char *)current -> name, class_name) != 0) {
 								current = current -> next;
 								if (current == NULL) {
 												return NULL;
