@@ -35,16 +35,16 @@ void			ei_draw_text		(ei_surface_t		surface,
 
 uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color)
 {
-				int* ir = NULL;
-				int* ig = NULL;
-				int* ib = NULL;
-				int* ia = NULL;
-				hw_surface_get_channel_indices(surface, ir, ig, ib, ia);
+				int ir = 0;
+				int ig = 0;
+				int ib = 0;
+				int ia = 0;
+				hw_surface_get_channel_indices(surface, &ir, &ig, &ib, &ia);
 				uint32_t res = 0;
-				res += (color->red)*2^((*ir)*8);
-				res += (color->green)*2^((*ig)*8);
-				res += (color->blue)*2^((*ib)*8);
-				res += (color->alpha)*2^((*ia)*8);
+				res += (color->red)*2^((ir)*8);
+				res += (color->green)*2^((ig)*8);
+				res += (color->blue)*2^((ib)*8);
+				res += (color->alpha)*2^((ia)*8);
 				return res;
 }
 
