@@ -70,7 +70,7 @@ void associate_point_anchor     (ei_anchor_t*    anchor,
 void* ei_frame_allocfunc_t()
 {
         ei_frame_t* widframe = malloc(sizeof(ei_frame_t));
-        widframe -> text = malloc(sizeof());        
+        widframe -> text = malloc(sizeof());
 }
 
 /**
@@ -125,14 +125,14 @@ void ei_frame_setdefaultsfunc_t(struct ei_widget_t*   widget)
         int sero = 0;
         ei_relief_t relief = ei_relief_none;
         ei_anchor_t anchor = ei_anc_center;
-        ((ei_frame_t*)widget) -> text = NULL;
-        ((ei_frame_t*)widget) -> border_width = &sero;
-        ((ei_frame_t*)widget) -> relief = &relief;
-        ((ei_frame_t*)widget) -> color = &default_color;
-        ((ei_frame_t*)widget) -> font = &ei_default_font;
-        ((ei_frame_t*)widget) -> color_text = &text_defaut_color;
-        ((ei_frame_t*)widget) -> anchor_text = &anchor;
-        ((ei_frame_t*)widget) -> image = NULL;
-        ((ei_frame_t*)widget) -> rect = NULL;
-        ((ei_frame_t*)widget) -> anchor_image = &anchor;
+        ((ei_frame_t*)&widget) -> text = NULL;
+        ((ei_frame_t*)&widget) -> border_width = &sero;
+        ((ei_frame_t*)&widget) -> relief = &relief;
+        ((ei_frame_t*)&widget) -> color = &default_color;
+        ((ei_frame_t*)&widget) -> font = &ei_default_font;
+        ((ei_frame_t*)&widget) -> color_text = &text_defaut_color;
+        ((ei_frame_t*)&widget) -> anchor_text = &anchor;
+        ((ei_frame_t*)&widget) -> image = NULL;
+        ((ei_frame_t*)&widget) -> rect = NULL;
+        ((ei_frame_t*)&widget) -> anchor_image = &anchor;
 }
