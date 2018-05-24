@@ -11,18 +11,9 @@ extern ei_widgetclass_t* CLASSES;
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
 {
-				ei_widgetclass_t* current = CLASSES;
-				if (current == NULL) {
-								return NULL;
-				}
-				while (strcmp((char *)current -> name, class_name) != 0) {
-								current = current -> next;
-								if (current == NULL) {
-												return NULL;
-								}
-				}
+				ei_widgetclass_t* widgetclass = ei_widgetclass_from_name(class_name);
 				ei_widget_t* new_widget = malloc(sizeof(ei_widget_t));
-				new_widget -> wclass = current;
+				new_widget -> wclass = widgetclass;
 				new_widget -> parent = parent;
 				return new_widget;
 }

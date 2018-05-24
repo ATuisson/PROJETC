@@ -23,7 +23,19 @@ void			ei_widgetclass_register		(ei_widgetclass_t* widgetclass)
 
 ei_widgetclass_t*	ei_widgetclass_from_name	(ei_widgetclass_name_t name)
 {
-
+				ei_widgetclass_t* current = CLASSES;
+				if (current == NULL) {
+								printf("Pas de classes enregistrée");
+								exit(5);
+				}
+				while (strcmp(current -> name, name) != 0) {
+								current = current -> next;
+								if (current == NULL) {
+												printf("Classe pas enregistrée");
+												exit(7);
+								}
+				}
+				return current;
 }
 
 void			ei_frame_register_class 	()

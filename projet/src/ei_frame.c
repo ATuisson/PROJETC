@@ -69,7 +69,8 @@ void associate_point_anchor     (ei_anchor_t*    anchor,
  */
 void* ei_frame_allocfunc_t()
 {
-        return malloc(sizeof(ei_frame_t));        
+        ei_frame_t* widframe = malloc(sizeof(ei_frame_t));
+        widframe -> text = malloc(sizeof());        
 }
 
 /**
