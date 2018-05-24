@@ -12,10 +12,12 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
 {
 				ei_widgetclass_t* widgetclass = ei_widgetclass_from_name(class_name);
-				ei_widget_t* new_widget = malloc(sizeof(ei_widget_t));
-				new_widget -> wclass = widgetclass;
-				new_widget -> parent = parent;
-				return new_widget;
+				if strcmp(class_name, "frame") {
+								ei_frame_t* new_widget = malloc(sizeof(ei_frame_t));
+								new_widget -> wclass = widgetclass;
+								new_widget -> parent = parent;
+								return (ei_widget_t*)new_widget;
+				}
 }
 
 void			ei_widget_destroy		(ei_widget_t*		widget)
