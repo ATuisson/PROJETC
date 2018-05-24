@@ -12,10 +12,19 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
 {
 				ei_widgetclass_t* current = CLASSES;
+				if (current == NULL) {
+								return NULL;
+				}
 				while (strcmp(current -> name, class_name) != 0) {
 								current = current -> next;
+								if (current == NULL) {
+												return NULL;
+								}
 				}
-				ei_widget_t* new_widget = NULL;
+				ei_widget_t* new_widget = malloc(sizeof(ei_widget_t));
+				new_widget -> wclass = current;
+				new_widget -> parent = parent;
+				return new_widget;
 }
 
 void			ei_widget_destroy		(ei_widget_t*		widget)
