@@ -29,13 +29,13 @@ ei_widgetclass_t*	ei_widgetclass_from_name	(ei_widgetclass_name_t name)
 void			ei_frame_register_class 	()
 {
 				ei_widgetclass_t frame;
-				ei_widgetclass_name_t name_class;
-				name_class[0] = 'f';
-				name_class[1] = 'r';
-				name_class[2] = 'a';
-				name_class[3] = 'm';
-				name_class[4] = 'e';
-				strcpy(frame.name, name_class);
+				// ei_widgetclass_name_t name_class;
+				// name_class[0] = 'f';
+				// name_class[1] = 'r';
+				// name_class[2] = 'a';
+				// name_class[3] = 'm';
+				// name_class[4] = 'e';
+				strcpy(frame.name, "frame");
 				frame.allocfunc = &ei_frame_allocfunc_t;
 				frame.releasefunc = &ei_frame_releasefunc_t;
 				frame.drawfunc = &ei_frame_drawfunc_t;

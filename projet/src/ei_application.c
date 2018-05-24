@@ -1,8 +1,10 @@
+#include <stdio.h>
+
+#include "ei_draw.h"
 #include "ei_application.h"
 #include "hw_interface.h"
 #include "ei_widgetclass.h"
 #include "ei_types.h"
-#include <stdio.h>
 
 extern ei_widgetclass_t* CLASSES;
 ei_widget_t* ROOT;
@@ -12,17 +14,17 @@ ei_surface_t surface_offscreen;
 
 void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
 {
-
         hw_init();
         surface_fenetre_syst = hw_create_window(main_window_size, fullscreen);
-        surface_offscreen = hw_create_window(main_window_size, fullscreen);
+        ei_bool_t faux = EI_FALSE;
+        surface_offscreen = hw_surface_create(surface_fenetre_syst, main_window_size, EI_FALSE);
         ei_frame_register_class();
         ei_color_t root_color = {20,20,20,255};
         ei_point_t root_top_left_point = {0, 0};
         ei_rect_t root_screen_location = {root_top_left_point, *main_window_size};
+        uint32_t pick_id = ei_map_rgba(surface_offscreen, &root_color);
         ei_widget_t root_temp = {CLASSES, 1, &root_color, NULL, NULL, NULL, NULL, NULL, *main_window_size, root_screen_location, &root_screen_location};
-        *ROOT = root_temp;
-        explore(ROOT);
+        ROOT = &root_temp;
 }
 
 
@@ -33,6 +35,7 @@ void ei_app_free(void)
 
 void ei_app_run(void)
 {
+        explore(ROOT);
         getchar();
 }
 
