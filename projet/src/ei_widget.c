@@ -13,6 +13,7 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 {
 				ei_widgetclass_t* widgetclass = ei_widgetclass_from_name(class_name);
 				ei_widget_t* new_widget = (ei_widget_t*)(widgetclass->allocfunc());
+				return new_widget;
 }
 
 void			ei_widget_destroy		(ei_widget_t*		widget)
@@ -49,11 +50,11 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 			printf("attention monsieur le programmeur, il ne faut pas une image et un texte");
 			exit(1000);
 		}
-		if (requested_size != NULL)	{
-				widget -> requested_size = *requested_size;
-		}
 		if (color != NULL)	{
 				frame -> color = color;
+		}
+		else if (frame -> color == NULL) {
+				frame -> color = &ei_default_background_color;
 		}
 		if (border_width != NULL)	{
 						frame -> border_width = border_width;
@@ -65,20 +66,35 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 		if (relief != NULL)	{
 				frame -> relief = relief;
 		}
+		else if (frame -> relief == NULL){
+				frame -> relief = &ei_relief_none;
+		}
 		if (text != NULL)	{
 				frame -> text = text;
+				frame -> image = NULL;
 		}
 		if (text_font != NULL)	{
 				frame -> font = text_font;
 		}
+		else if (frame -> font == NULL)	{
+				frame -> font = &ei_default_font;
+		}
 		if (text_color != NULL)	{
 				frame -> color_text = text_color;
+		}
+		else if (frame -> color_text == NULL) {
+				frame -> color_text = &ei_font_default_color;
 		}
 		if (text_anchor != NULL)	{
 				frame -> anchor_text = text_anchor;
 		}
+		else if (frame -> anchor_text == NULL)	{
+				ei_anchor_t anchor_ref_text = ei_anc_center;
+				frame -> anchor_text = &anchor_ref_text;
+		}
 		if (img != NULL)	{
 				frame -> image = img;
+				frame -> text = NULL;
 		}
 		if (img_rect != NULL)	{
 				frame -> rect = img_rect;
@@ -95,7 +111,10 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 		}
 		else{
 						if (frame -> image != NULL){
-										ei_size_t surface_minimum = hw_surface_get_size(*img);
+										// SEGMENTATION FAULT
+										// getchar();
+										ei_size_t surface_minimum = hw_surface_get_size(*(frame->image));
+										// getchar();// C'EST LA
 										surface_minimum.width += 2* (*border_width);
 										surface_minimum.height += 2* (*border_width);
 										widget -> requested_size = surface_minimum;
