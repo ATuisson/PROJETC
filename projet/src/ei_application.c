@@ -14,13 +14,13 @@ ei_surface_t surface_offscreen;
 
 void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
 {
-        hw_init();
-        surface_fenetre_syst = hw_create_window(main_window_size, fullscreen);
+        hw_init(); //
         ei_bool_t faux = EI_FALSE;
-        surface_offscreen = hw_surface_create(surface_fenetre_syst, main_window_size, faux);
-        ei_frame_register_class();
+        surface_fenetre_syst = hw_create_window(main_window_size, fullscreen); //
+        surface_offscreen = hw_surface_create(surface_fenetre_syst, main_window_size, faux); //
+        ei_frame_register_class(); //
         ROOT = ei_widget_create("frame", NULL);
-        ei_color_t root_color = {20,20,20,255};
+        const ei_color_t root_color = {20,20,20,255};
         ei_point_t root_top_left_point = {0, 0};
         ei_rect_t root_screen_location = {root_top_left_point, *main_window_size};
         uint32_t pick_id = ei_map_rgba(surface_offscreen, &root_color);
@@ -70,11 +70,17 @@ ei_surface_t ei_app_root_surface(void)
 void explore(ei_widget_t* widget)
 {
         // suis teubé faut acceder a surface_offscreen et surface_fenetre_syst avec des pointeurs...
-        widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
-                                                  widget->parent->content_rect);
-        if (widget->children_tail != NULL){
-                explore(widget->children_tail);
-                ei_widget_t* current = widget->children_tail->next_sibling;
+        if (widget->parent != NULL) {
+                widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
+                                                          widget->parent->content_rect);
+        }
+        else {
+          widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
+                                                    NULL);
+        }
+        if (widget->children_head != NULL){
+                explore(widget->children_head);
+                ei_widget_t* current = widget->children_head->next_sibling;
                 while (current != NULL){
                       explore(current);
                       current = current->next_sibling;

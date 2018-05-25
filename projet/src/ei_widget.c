@@ -15,6 +15,9 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 				ei_widget_t* new_widget = (ei_widget_t*)(widgetclass->allocfunc());
 				widgetclass->setdefaultsfunc(new_widget);
 				new_widget -> parent = parent;
+				if (parent != NULL) {
+								new_widget -> parent -> children_head = new_widget;
+				}
 				new_widget -> wclass = widgetclass;
 }
 
@@ -69,7 +72,7 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 				frame -> relief = relief;
 		}
 		else if (frame -> relief == NULL){
-				frame -> relief = &ei_relief_none;
+				frame -> relief = ei_relief_none;
 		}
 		if (text != NULL)	{
 				frame -> text = text;
