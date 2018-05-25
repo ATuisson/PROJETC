@@ -1,30 +1,41 @@
 #include"ei_geometrymanager.h"
 #include"ei_placer.h"
 #include"ei_types.h"
-#include"stdlib.h"
-// typedef void	(*ei_geometrymanager_runfunc_t)		(struct ei_widget_t*	widget);
-// typedef void	(*ei_geometrymanager_releasefunc_t)	(struct ei_widget_t*	widget);
+#include<stdlib.h>
+#include<string.h>
 
-// création de la structure ei_geometryplacer_t de type ei_geometrymanager_t
-// il faut y mettre les pointeurs vers les fonctions du gestionnaire
-// je comprends pas si ça doit être ei_geometryplacer_t ou ei_geometrymanager_t
-// typedef struct ei_geometrymanager_t {
-// 	ei_geometry_param_t param;
-//
-// } ei_geometryplacer_t;
-// il faut runfunc et releasefunc ( name et next ?) voir ei_geometrymanager_t
-// pour
-//il faut enregistrer le gestionnaire pas un appel a ei_geometrymanager_register
-//ei_geometrymanager_register(&lenomdecequejeviensdedefinir)
+ei_geometrymanager_t* MANAGERS = NULL;
+ei_geometrymanager_t* PLACER = NULL;
 
 void			ei_geometrymanager_register	(ei_geometrymanager_t* geometrymanager)
 {
-
+		geometrymanager -> next = NULL;
+		if (MANAGERS == NULL) {
+					MANAGERS = geometrymanager;
+		}
+		else {
+					ei_geometrymanager_t* current = CLASSES;
+					while(current -> next != NULL) {
+							current = current -> next;
+					}
+					current -> next = geometrymanager;
+		}
 }
 
 ei_geometrymanager_t*	ei_geometrymanager_from_name	(ei_geometrymanager_name_t name)
 {
-
+		ei_geometrymanager_t* current = MANAGERS;
+		if (current == NULL) {
+				printf("Pas de gestionnaire de géométrie enregistré");
+				exit(10);
+		}
+		while (strcmp(current -> name, name) != 0)	{
+				current = current -> next;
+				if (current == NULL)	{
+						printf("Gestionnaire de géométrie pas enregistré");
+						exit(12);
+				}
+		}
 }
 
 void			ei_geometrymanager_unmap	(ei_widget_t*		widget)

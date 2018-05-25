@@ -30,7 +30,7 @@ void			ei_draw_text		(ei_surface_t		surface,
 						 const ei_color_t	color,
 						 const ei_rect_t*	clipper)
 {
- //TODO : voilà
+		
 }
 
 uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color)
@@ -47,9 +47,3 @@ uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color)
 				res += (color->alpha)*2^((ia)*8);
 				return res;
 }
-
-// ei_point_t* associate_point_anchor  (enum ei_anchor_t    anchor,
-//                                     ei_surface_t    surface)
-// {
-//     //TODO : association ancrage-surface avec coordonnées
-// }
