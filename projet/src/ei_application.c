@@ -24,12 +24,15 @@ void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
         ei_point_t root_top_left_point = {0, 0};
         ei_rect_t root_screen_location = {root_top_left_point, *main_window_size};
         uint32_t pick_id = ei_map_rgba(surface_offscreen, &root_color);
-        ei_widget_t root_temp = {CLASSES, pick_id, &root_color, NULL, NULL, NULL, NULL, NULL, *main_window_size, root_screen_location, &root_screen_location};
         ROOT->wclass = CLASSES;
         ROOT->pick_id = pick_id;
         ROOT->pick_color = &root_color;
         ROOT->children_head = NULL;
-        ROOT = &root_temp;
+        ROOT->children_tail = NULL;
+        ROOT->next_sibling = NULL;
+        ROOT->geom_params = NULL;
+        ROOT->screen_location = root_screen_location;
+        ROOT->content_rect = &(ROOT->screen_location);
 }
 
 
