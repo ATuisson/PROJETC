@@ -71,7 +71,7 @@ void* ei_frame_allocfunc_t()
 {
         ei_frame_t* widframe = calloc(1, sizeof(ei_frame_t));
         widframe -> color = calloc(1, sizeof(ei_color_t));
-        widframe -> border_width = calloc(1, int);
+        widframe -> border_width = calloc(1, sizeof(int));
         widframe -> relief = calloc(1, sizeof(ei_relief_t));
         widframe -> text = calloc(1, sizeof(char*));  // Surement à Modifier
         widframe -> font = calloc(1, sizeof(ei_font_t));
@@ -98,6 +98,7 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
     					        ei_surface_t	pick_surface,
     							ei_rect_t*		clipper)
 {
+        hw_surface_lock(surface);
         ei_fill(surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the surface with the frame colour
         ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the offscreen surface with the frame colour
         if (((ei_frame_t*)widget) -> text != NULL ){
@@ -113,6 +114,7 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
                         *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
                         ///< drawing image if exists
         }
+        hw_surface_unlock(surface);
 }
 
 /**
@@ -125,16 +127,16 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
  */
 void ei_frame_releasefunc_t(struct ei_widget_t* widget)
 {
-        free((ei_frame_t*)widget -> color);
-        free((ei_frame_t*)widget -> border_width);
-        free((ei_frame_t*)widget -> relief);
-        free((ei_frame_t*)widget -> text);
-        free((ei_frame_t*)widget -> font);
-        free((ei_frame_t*)widget -> color_text);
-        free((ei_frame_t*)widget -> anchor_text);
-        free((ei_frame_t*)widget -> image);
-        free((ei_frame_t*)widget -> rect);
-        free((ei_frame_t*)widget -> anchor_image);
+        free(((ei_frame_t*)widget) -> color);
+        free(((ei_frame_t*)widget) -> border_width);
+        free(((ei_frame_t*)widget) -> relief);
+        free(((ei_frame_t*)widget) -> text);
+        free(((ei_frame_t*)widget) -> font);
+        free(((ei_frame_t*)widget) -> color_text);
+        free(((ei_frame_t*)widget) -> anchor_text);
+        free(((ei_frame_t*)widget) -> image);
+        free(((ei_frame_t*)widget) -> rect);
+        free(((ei_frame_t*)widget) -> anchor_image);
 }
 
 void ei_frame_setdefaultsfunc_t(struct ei_widget_t*   widget)
