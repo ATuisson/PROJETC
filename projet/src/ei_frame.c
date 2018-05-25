@@ -115,6 +115,7 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
                         ///< drawing image if exists
         }
         hw_surface_unlock(surface);
+        hw_surface_update_rects(surface, NULL);
 }
 
 /**
