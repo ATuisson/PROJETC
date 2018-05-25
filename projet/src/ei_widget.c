@@ -13,7 +13,9 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 {
 				ei_widgetclass_t* widgetclass = ei_widgetclass_from_name(class_name);
 				ei_widget_t* new_widget = (ei_widget_t*)(widgetclass->allocfunc());
-				return new_widget;
+				widgetclass->setdefaultsfunc(new_widget);
+				new_widget -> parent = parent;
+				new_widget -> wclass = widgetclass;
 }
 
 void			ei_widget_destroy		(ei_widget_t*		widget)
