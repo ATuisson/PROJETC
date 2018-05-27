@@ -98,7 +98,6 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
     					        ei_surface_t	pick_surface,
     							ei_rect_t*		clipper)
 {
-        hw_surface_lock(surface);
         ei_fill(surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the surface with the frame colour
         ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the offscreen surface with the frame colour
         if (((ei_frame_t*)widget) -> text != NULL ){
@@ -114,8 +113,6 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
                         *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
                         ///< drawing image if exists
         }
-        hw_surface_unlock(surface);
-        hw_surface_update_rects(surface, NULL);
 }
 
 /**

@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 #include "ei_draw.h"
 #include "ei_application.h"
 #include "hw_interface.h"
@@ -8,9 +8,50 @@
 
 extern ei_widgetclass_t* CLASSES;
 ei_widget_t* ROOT;
-void explore(ei_widget_t* widget);
+void explore(ei_widget_t* widget, ei_rect_t* clipper);
 ei_surface_t surface_fenetre_syst;
 ei_surface_t surface_offscreen;
+ei_linked_rect_t* UPDATES;
+ei_bool_t EXIT = EI_FALSE;
+
+/**
+ * @brief Le parametre clipper servira à la mise à jour de rectangles particuliers
+ *        cad widget supprimé, mis à jour, ... cf 3.8.2
+ *
+ **/
+void explore(ei_widget_t* widget, ei_rect_t* clipper)
+{
+        // suis teubé faut acceder a surface_offscreen et surface_fenetre_syst avec des pointeurs...
+        if (widget->parent != NULL) {
+                if (clipper == NULL){
+                        widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
+                                                          widget->parent->content_rect);
+                }
+                else {
+                        widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
+                                                          clipper);
+                }
+        }
+        else {
+                if (clipper == NULL){
+                        widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
+                                                    NULL);
+                }
+                else {
+                        widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
+                                                    clipper);
+                }
+        }
+        if (widget->children_head != NULL){
+                explore(widget->children_head, clipper);
+                ei_widget_t* current = widget->children_head->next_sibling;
+                while (current != NULL){
+                      explore(current, clipper);
+                      current = current->next_sibling;
+                }
+        }
+
+}
 
 void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
 {
@@ -41,15 +82,42 @@ void ei_app_free(void)
         hw_quit();
 }
 
+/**
+ * CF enonce 3.8.2 et 3.7
+ *
+ **/
 void ei_app_run(void)
 {
-        explore(ROOT);
+        while (EXIT == EI_FALSE){
+                UPDATES = NULL;
+                // attente d'un evenement
+                // il rajoutera des elements à updates
+                while (UPDATES != NULL){
+                        // d'apres l'enonce c'est ici que se fait le lock et l'unlock.
+                        // TODO : optimisation, pousser plus loin le 3.7
+                        hw_surface_unlock(surface_fenetre_syst);
+                        uint8_t* buffer = hw_surface_get_buffer(surface_fenetre_syst);
+                        explore(ROOT, &(UPDATES -> rect));
+                        UPDATES = UPDATES -> next;
+                        hw_surface_unlock(surface_fenetre_syst);
+                        hw_surface_update_rects(surface_fenetre_syst, UPDATES);
+                }
+        }
         getchar();
+
 }
 
+/**
+ * Rajoute le rectangle à la liste des rectangles à mettre à jour
+ * Problème : portée des variables ? # pas sur de moi
+ * TODO : PAS SUR DU CODE
+ **/
 void ei_app_invalidate_rect(ei_rect_t* rect)
 {
-
+      ei_linked_rect_t* temp = malloc(sizeof(ei_linked_rect_t));
+      temp -> rect = *rect;
+      temp -> next = UPDATES;
+      UPDATES = temp;
 }
 
 void ei_app_quit_request(void)
@@ -64,27 +132,5 @@ ei_widget_t* ei_app_root_widget(void)
 
 ei_surface_t ei_app_root_surface(void)
 {
-
-}
-
-void explore(ei_widget_t* widget)
-{
-        // suis teubé faut acceder a surface_offscreen et surface_fenetre_syst avec des pointeurs...
-        if (widget->parent != NULL) {
-                widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
-                                                          widget->parent->content_rect);
-        }
-        else {
-          widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
-                                                    NULL);
-        }
-        if (widget->children_head != NULL){
-                explore(widget->children_head);
-                ei_widget_t* current = widget->children_head->next_sibling;
-                while (current != NULL){
-                      explore(current);
-                      current = current->next_sibling;
-                }
-        }
 
 }

@@ -22,7 +22,7 @@ int ei_main(int argc, char** argv)
 	ei_size_t	frame_size		= {300,200};
 	int		frame_x			= 150;
 	int		frame_y			= 200;
-	ei_color_t	frame_color		= {0x0, 0x0, 0x88, 0xff};
+	ei_color_t	frame_color		= {0x88, 0x88, 0x88, 0xff};
 	ei_relief_t	frame_relief		= ei_relief_raised;
 	int		frame_border_width	= 6;
 
@@ -35,7 +35,7 @@ int ei_main(int argc, char** argv)
 	ei_frame_configure(frame, &frame_size, &frame_color,
 			    &frame_border_width, &frame_relief, NULL, NULL, NULL, NULL,
 			    NULL, NULL, NULL);
-	//ei_place(frame, NULL, &frame_x, &frame_y, NULL, NULL, NULL, NULL, NULL, NULL );
+	ei_place(frame, NULL, &frame_x, &frame_y, NULL, NULL, NULL, NULL, NULL, NULL );
 
 	/* Run the application's main loop. */
 	ei_app_run();

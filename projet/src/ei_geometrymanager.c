@@ -1,11 +1,15 @@
+#include<stdlib.h>
+#include<stdio.h>
+#include<string.h>
+
 #include"ei_geometrymanager.h"
 #include"ei_placer.h"
 #include"ei_types.h"
-#include<stdlib.h>
-#include<string.h>
+#include"ei_utils.h"
+#include"ei_application.h"
 
-ei_geometrymanager_t* MANAGERS = NULL;
-ei_geometrymanager_t* PLACER = NULL;
+ei_geometrymanager_t* MANAGERS;
+ei_geometrymanager_t PLACER;
 
 void			ei_geometrymanager_register	(ei_geometrymanager_t* geometrymanager)
 {
@@ -14,7 +18,7 @@ void			ei_geometrymanager_register	(ei_geometrymanager_t* geometrymanager)
 					MANAGERS = geometrymanager;
 		}
 		else {
-					ei_geometrymanager_t* current = CLASSES;
+					ei_geometrymanager_t* current = MANAGERS;
 					while(current -> next != NULL) {
 							current = current -> next;
 					}
@@ -36,16 +40,43 @@ ei_geometrymanager_t*	ei_geometrymanager_from_name	(ei_geometrymanager_name_t na
 						exit(12);
 				}
 		}
+		return current;
 }
 
+/**
+ * \brief	Tell the geometry manager in charge of a widget to forget it. This removes the
+ *		widget from the screen. If the widget is not currently managed, this function
+ *		returns silently.
+ *		Side effects:
+ *		<ul>
+ *			<li> the \ref ei_geometrymanager_releasefunc_t of the geometry manager in
+ *				charge of this widget is called, </li>
+ *			<li> the geom_param field of the widget is freed, </li>
+ *			<li> the current screen_location of the widget is invalided (which will
+ *				trigger a redraw), </li>
+ *			<li> the screen_location of the widget is reset to 0. </li>
+ *		</ul>
+ *
+ * @param	widget		The widget to unmap from the screen.
+ */
 void			ei_geometrymanager_unmap	(ei_widget_t*		widget)
 {
-
+				if (widget -> geom_params == NULL){
+						return;
+				}
+				ei_geometrymanager_t manager = *(widget -> geom_params -> manager);
+				manager.releasefunc(widget);
+				free(widget -> geom_params);
+				ei_app_invalidate_rect(widget -> screen_location);
+				widget -> screen_location = ei_rect_zero();
 }
 
 void 			ei_register_placer_manager 	()
 {
-
+				strcpy(PLACER.name, "placer");
+				PLACER.runfunc = &ei_placer_runfunc_t;
+				PLACER.releasefunc = &ei_placer_releasefunc_t;
+				ei_geometrymanager_register(&PLACER);
 }
 
 /**
@@ -90,7 +121,39 @@ void			ei_place			(ei_widget_t*		widget,
 							 float*			rel_width,
 							 float*			rel_height)
 {
-		//TODO : cas ou le widget est associe a un autre manager
+		if (widget -> geom_params == NULL){
+						///< on associe le placeur au widget.
+						ei_placer_t* placeur = malloc(sizeof(ei_placer_t));
+						placeur -> manager = malloc(sizeof(ei_geometry_param_t));
+						placeur -> anchor = malloc(sizeof(ei_anchor_t));
+						placeur -> x = malloc(sizeof(int));
+						placeur -> y = malloc(sizeof(int));
+						placeur -> width = malloc(sizeof(int));
+						placeur -> height = malloc(sizeof(int));
+						placeur -> rel_x = malloc(sizeof(float));
+						placeur -> rel_y = malloc(sizeof(float));
+						placeur -> rel_width = malloc(sizeof(float));
+						placeur -> rel_height = malloc(sizeof(float));
+						placeur -> manager = (ei_geometry_param_t*)&PLACER;
+						widget -> geom_params = (ei_geometry_param_t*)&placeur;
+		}
+		if (strcmp((char*)(widget -> geom_params -> manager -> name), "placer") != 0){
+						ei_geometrymanager_unmap(widget);
+						///< on associe le placeur au widget.
+						ei_placer_t* placeur = malloc(sizeof(ei_placer_t));
+						placeur -> manager = malloc(sizeof(ei_geometry_param_t));
+						placeur -> anchor = malloc(sizeof(ei_anchor_t));
+						placeur -> x = malloc(sizeof(int));
+						placeur -> y = malloc(sizeof(int));
+						placeur -> width = malloc(sizeof(int));
+						placeur -> height = malloc(sizeof(int));
+						placeur -> rel_x = malloc(sizeof(float));
+						placeur -> rel_y = malloc(sizeof(float));
+						placeur -> rel_width = malloc(sizeof(float));
+						placeur -> rel_height = malloc(sizeof(float));
+						placeur -> manager = (ei_geometry_param_t*)&PLACER;
+						widget -> geom_params = (ei_geometry_param_t*)&placeur;
+		}
 		ei_placer_t* placer = (ei_placer_t*)(widget->geom_params);
 		if (anchor != NULL)	{
 				placer -> anchor = anchor;
