@@ -174,3 +174,11 @@ ei_linked_point_t* chemin_du_centre(ei_rect_t rectangle,
         point_du_bas -> next = NULL;
         return point_du_haut;
 }
+
+void button_drawfunc (struct ei_widget_t* widget,
+                      ei_surface_t        surface,
+                      ei_surface_t   pick_surface,
+                      ei_rect_t*          clipper)
+{
+
+}
