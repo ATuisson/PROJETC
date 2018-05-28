@@ -38,6 +38,7 @@ int ei_main(int argc, char** argv)
 	ei_draw_polygon(main_window, points, transp_blue, NULL);
 	hw_surface_unlock(main_window);
 	hw_surface_update_rects(main_window, NULL);
+	getchar();
 
 
 	// Free hardware resources.

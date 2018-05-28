@@ -82,6 +82,5 @@ ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
         while (cellule_cour -> next != NULL){
                 cellule_cour = cellule_cour -> next;
         }
-        cellule_cour -> next = arc_haut_gauche;
         return(rectangle_fait);
 }
