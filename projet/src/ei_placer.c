@@ -9,7 +9,7 @@
  *
  * @param	widget		The widget instance for which to compute placeur.
  */
-void ei_placeur_runfunc_t (ei_widget_t* widget){
+void ei_placer_runfunc_t (ei_widget_t* widget){
         ei_placer_t* placeur = (ei_placer_t*)(widget -> geom_params);
         // on change le screen location selon les parametres
         //TODO : gérer le placement relatif, les collisions, l'ancrage
@@ -28,7 +28,7 @@ void ei_placeur_runfunc_t (ei_widget_t* widget){
  *
  * @param	widget		The widget instance that must be forgotten by the placeur.
  */
-void ei_placeur_releasefunc_t (ei_widget_t* widget){
+void ei_placer_releasefunc_t (ei_widget_t* widget){
         ei_placer_t* placeur = (ei_placer_t*)(widget -> geom_params);
         placeur -> manager = NULL;
         free(placeur -> anchor);

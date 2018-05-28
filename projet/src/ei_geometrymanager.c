@@ -67,7 +67,7 @@ void			ei_geometrymanager_unmap	(ei_widget_t*		widget)
 				ei_geometrymanager_t manager = *(widget -> geom_params -> manager);
 				manager.releasefunc(widget);
 				free(widget -> geom_params);
-				ei_app_invalidate_rect(widget -> screen_location);
+				ei_app_invalidate_rect(&(widget -> screen_location));
 				widget -> screen_location = ei_rect_zero();
 }
 
