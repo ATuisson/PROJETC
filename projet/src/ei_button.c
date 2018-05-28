@@ -36,3 +36,33 @@ ei_linked_point_t* arc (ei_point_t centre,
                 cellule_cour = cellule_suiv;
         }
 }
+
+ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
+                                  int rayon){
+        // on doit faire 4 arc en plus des segments droit.
+        // les segment requierent que deux points.
+        ei_linked_point_t* rectangle;
+        ei_point_t point_cour;
+        point_cour.x = rectangle.top_left.x +rayon;
+        point_cour.y = rectangle.top_left.y;
+        // pour les 4 arcs, il faut faire 4 appels à la fonction arc
+        int abscisse_d = rectangle.top_left.x + rectangle.size.width - rayon;
+        int abscisse_g = rectangle.top_left.x + rayon;
+        int ordonne_b = rectangle.top_left.y + rectangle.size.height - rayon;
+        int ordonne_h = rectangle.top_left.y + rayon;
+        ei_linked_point_t* arc_haut_gauche;
+        ei_linked_point_t centre_haut_gauche = {abscisse_g ,ordonne_h};
+        arc_haut_gauche = arc(centre_haut_gauche,rayon,180,90)
+        ei_linked_point_t* arc_haut_droit;
+        ei_linked_point_t centre_haut_droit = {abscisse_d, ordonne_h};
+        arc_haut_droit = arc(centre_haut_droit,rayon,90,0);
+        ei_linked_point_t centre_bas_droit = {abscisse_d,ordonne_b};
+        ei_linked_point_t* arc_bas_droit;
+        arc_bas_droit = arc (centre_bas_droit,rayon,0,-90);
+        ei_linked_point_t centre_bas_gauche = {abscisse_g,ordonne_b };
+        ei_linked_point_t* arc_bas_gauche;
+        arc_bas_gauche = arc(centre_bas_gauche,rayon,-90,-180);
+        
+
+
+}
