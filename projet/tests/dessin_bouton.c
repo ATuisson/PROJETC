@@ -25,12 +25,13 @@ int ei_main(int argc, char** argv)
 
 
 	// Fill the main window in red, draw a transparent blue polygon:
-
+	// PARAM DU BOUTON
+	ei_bouton_param_t type_bouton = ei_bouton_top;
 	// Define the polygon vertices.
-  ei_point_t point_du_rectangle = {10, 10};
+  ei_point_t point_du_rectangle = {50, 50};
   ei_size_t taille_rectangle = {200, 200};
   ei_rect_t rectangle = {point_du_rectangle, taille_rectangle};
-  ei_linked_point_t* points = rounded_frame(rectangle, 30);
+  ei_linked_point_t* points = rounded_frame(rectangle, 80,type_bouton);
 
 	// Lock the surface for drawing, fill, draw polygon, unlock, update screen.
 	hw_surface_lock(main_window);
