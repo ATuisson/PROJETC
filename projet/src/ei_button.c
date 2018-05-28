@@ -29,9 +29,10 @@ ei_linked_point_t* arc (ei_point_t centre,
         //while ((point_cour.x != centre.x + cos(fin_arc)) && (point_cour.y != centre.y + sin(fin_arc))){
         for (k=0; k<=Nomb_sub; k++){
                 ei_linked_point_t* cellule_suiv =  malloc(sizeof(ei_linked_point_t));
-                point_cour.x = centre.x + cos(debut_rad + pas_sub*k);
-                point_cour.y = centre.y - sin(debut_rad + pas_sub*k);
-                cellule_suiv -> point = point_cour;
+                (cellule_suiv -> point).x = centre.x + cos(debut_rad + pas_sub*k);
+                (cellule_suiv -> point).y = centre.y - sin(debut_rad + pas_sub*k);
+                cellule_suiv -> next = NULL;
+                //cellule_suiv -> point = point_cour;
                 cellule_cour -> next = cellule_suiv;
                 cellule_cour = cellule_suiv;
         }
