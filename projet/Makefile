@@ -20,7 +20,8 @@ LIBEIOBJS	:= 	${OBJDIR}/ei_application.o \
 							${OBJDIR}/ei_widgetclass.o \
 							${OBJDIR}/ei_draw.o \
 							${OBJDIR}/ei_button.o \
-							${OBJDIR}/ei_placer.o
+							${OBJDIR}/ei_placer.o \
+							${OBJDIR}/ei_button.o
 
 
 
@@ -152,12 +153,12 @@ ${OBJDIR}/minesweeper.o : ${TESTS}/minesweeper.c
 	${CC} ${CCFLAGS} ${INCFLAGS} ${TESTS}/minesweeper.c -o ${OBJDIR}/minesweeper.o
 #TESTS
 
-	# bonton6
-bouton6 : ${OBJDIR}/bouton6.o ${LIBEIBASE} ${LIBEI}
+	# dessin_boutton
+dessin_bouton : ${OBJDIR}/dessin_bouton.o ${LIBEIBASE} ${LIBEI}
 	${LINK} -o bonton6 ${OBJDIR}/bonton6.o ${LIBEI} ${LIBS}
 
-${OBJDIR}/bouton6.o : ${TESTS}/bouton6.c
-	${CC} ${CCFLAGS} ${INCFLAGS} ${TESTS}/bouton6.c -o ${OBJDIR}/bouton6.o
+${OBJDIR}/dessin_bouton.o : ${TESTS}/dessin_bouton.c
+	${CC} ${CCFLAGS} ${INCFLAGS} ${TESTS}/dessin_bouton.c -o ${OBJDIR}/dessin_bouton.o
 # Building of the library libei
 
 ${LIBEI} : ${LIBEIOBJS}
