@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "ei_draw.h"
 #include "ei_application.h"
 #include "hw_interface.h"
 #include "ei_widgetclass.h"
 #include "ei_types.h"
+#include "ei_geometrymanager.h"
 
 extern ei_widgetclass_t* CLASSES;
+extern ei_geometrymanager_t* MANAGERS;
 ei_widget_t* ROOT;
 void explore(ei_widget_t* widget, ei_rect_t* clipper);
 ei_surface_t surface_fenetre_syst;
@@ -60,6 +63,7 @@ void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
         surface_fenetre_syst = hw_create_window(main_window_size, fullscreen); //
         surface_offscreen = hw_surface_create(surface_fenetre_syst, main_window_size, faux); //
         ei_frame_register_class(); //
+        ei_register_placer_manager();
         ROOT = ei_widget_create("frame", NULL);
         const ei_color_t root_color = {20,20,20,255};
         ei_point_t root_top_left_point = {0, 0};
@@ -89,7 +93,6 @@ void ei_app_free(void)
 void ei_app_run(void)
 {
         while (EXIT == EI_FALSE){
-                UPDATES = NULL;
                 // attente d'un evenement
                 // il rajoutera des elements à updates
                 while (UPDATES != NULL){
@@ -102,8 +105,12 @@ void ei_app_run(void)
                         hw_surface_unlock(surface_fenetre_syst);
                         hw_surface_update_rects(surface_fenetre_syst, UPDATES);
                 }
+                UPDATES = NULL;
+                int sortie = getchar();
+                if (sortie != 0){
+                        EXIT = EI_TRUE;
+                }
         }
-        getchar();
 
 }
 
@@ -132,5 +139,5 @@ ei_widget_t* ei_app_root_widget(void)
 
 ei_surface_t ei_app_root_surface(void)
 {
-
+        return surface_fenetre_syst;
 }

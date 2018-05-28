@@ -19,7 +19,8 @@ LIBEIOBJS	:= 	${OBJDIR}/ei_application.o \
 							${OBJDIR}/ei_frame.o \
 							${OBJDIR}/ei_widgetclass.o \
 							${OBJDIR}/ei_draw.o \
-							${OBJDIR}/ei_button.o
+							${OBJDIR}/ei_button.o \
+							${OBJDIR}/ei_placer.o
 
 
 

@@ -5,6 +5,7 @@
 #include "ei_types.h"
 #include "ei_widgetclass.h"
 #include "hw_interface.h"
+#include "ei_application.h"
 
 
 /**
@@ -113,6 +114,7 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
                         *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
                         ///< drawing image if exists
         }
+        ei_app_invalidate_rect(clipper);
 }
 
 /**

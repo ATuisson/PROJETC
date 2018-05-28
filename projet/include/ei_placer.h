@@ -11,8 +11,10 @@
 #ifndef EI_PLACER_H
 #define EI_PLACER_H
 
-typedef struct ei_placer_t {
-        ei_geometry_param_t*        manager;
+#include "ei_geometrymanager.h"
+
+typedef struct ei_placer_param_t {
+        ei_geometry_param_t        param_generic;
         ei_anchor_t*        anchor;
         int*        x;
         int*        y;
@@ -22,7 +24,7 @@ typedef struct ei_placer_t {
         float*      rel_y;
         float*      rel_width;
         float*      rel_height;
-} ei_placer_t;
+} ei_placer_param_t;
 
 
 /**
