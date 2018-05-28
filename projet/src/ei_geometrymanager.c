@@ -123,78 +123,109 @@ void			ei_place			(ei_widget_t*		widget,
 {
 		if (widget -> geom_params == NULL){
 						///< on associe le placeur au widget.
-						ei_placer_param_t* placeur_params = malloc(sizeof(ei_placer_param_t));
-						placeur_params -> anchor = malloc(sizeof(ei_anchor_t));
-						placeur_params -> x = malloc(sizeof(int));
-						placeur_params -> y = malloc(sizeof(int));
-						placeur_params -> width = malloc(sizeof(int));
-						placeur_params -> height = malloc(sizeof(int));
-						placeur_params -> rel_x = malloc(sizeof(float));
-						placeur_params -> rel_y = malloc(sizeof(float));
-						placeur_params -> rel_width = malloc(sizeof(float));
-						placeur_params -> rel_height = malloc(sizeof(float));
+						ei_placer_param_t* placeur_params = calloc(1,sizeof(ei_placer_param_t));
+						placeur_params -> anchor = NULL;
+						placeur_params -> x = NULL;
+						placeur_params -> y = NULL;
+						placeur_params -> width = NULL;
+						placeur_params -> height = NULL;
+						placeur_params -> rel_x = NULL;
+						placeur_params -> rel_y = NULL;
+						placeur_params -> rel_width = NULL;
+						placeur_params -> rel_height = NULL;
 						(placeur_params -> param_generic).manager = &PLACER;
 						widget -> geom_params = (ei_geometry_param_t*)placeur_params;
 		}
 		if (strcmp((char*)(widget -> geom_params -> manager -> name), "placer") != 0){
 						ei_geometrymanager_unmap(widget); ///< on retire l'ancien geometrymanager
 						///< on associe le placeur_params au widget.
-						ei_placer_param_t* placeur_params = malloc(sizeof(ei_placer_param_t));
-						placeur_params -> anchor = malloc(sizeof(ei_anchor_t));
-						placeur_params -> x = malloc(sizeof(int));
-						placeur_params -> y = malloc(sizeof(int));
-						placeur_params -> width = malloc(sizeof(int));
-						placeur_params -> height = malloc(sizeof(int));
-						placeur_params -> rel_x = malloc(sizeof(float));
-						placeur_params -> rel_y = malloc(sizeof(float));
-						placeur_params -> rel_width = malloc(sizeof(float));
-						placeur_params -> rel_height = malloc(sizeof(float));
+						ei_placer_param_t* placeur_params = calloc(1,sizeof(ei_placer_param_t));
+						placeur_params -> anchor = NULL;
+						placeur_params -> x = NULL;
+						placeur_params -> y = NULL;
+						placeur_params -> width = NULL;
+						placeur_params -> height = NULL;
+						placeur_params -> rel_x = NULL;
+						placeur_params -> rel_y = NULL;
+						placeur_params -> rel_width = NULL;
+						placeur_params -> rel_height = NULL;
 						(placeur_params -> param_generic).manager = &PLACER;
 						widget -> geom_params = (ei_geometry_param_t*)placeur_params;
 		}
 		ei_placer_param_t* placer = (ei_placer_param_t*)(widget->geom_params);
 		if (anchor != NULL)	{
+				if (placer->anchor == NULL){
+						placer -> anchor = malloc(sizeof(ei_anchor_t));
+				}
 				placer -> anchor = anchor;
 		}
 		else if (placer -> anchor == NULL){
-				ei_anchor_t ancre = ei_anc_northwest;
-				placer -> anchor = &ancre;
+				ei_anchor_t* ancre = calloc(1, sizeof(ei_anchor_t));
+				*ancre = ei_anc_northwest;
+				placer -> anchor = ancre;
 		}
 		if (x != NULL)	{
+				if (placer->x == NULL){
+						placer -> x = malloc(sizeof(int));
+				}
 				placer -> x = x;
 		}
 		else if (placer -> x == NULL)	{
-				int zero = 0;
-				placer -> x = &zero;
+				int* zero = malloc(sizeof(int));
+				*zero = 0;
+				placer -> x = zero;
 		}
 		if (y != NULL)	{
+				if (placer->y == NULL){
+						placer -> y = malloc(sizeof(int));
+				}
 				placer -> y = y;
 		}
 		else if (placer -> y == NULL)	{
-				int zero = 0;
-				placer -> y = &zero;
+				int* zero = malloc(sizeof(int));
+				*zero = 0;
+				placer -> y = zero;
 		}
 		if (width != NULL)	{
+				if (placer->width == NULL){
+						placer -> width = malloc(sizeof(int));
+				}
 				placer -> width = width;
 		}
 		else if (placer -> rel_width == NULL)	{
-				placer -> width = &((widget -> requested_size).width);
+				int* largeur = malloc(sizeof(int));
+				*largeur = (widget -> requested_size).width;
+				placer -> width = largeur;
 		}
 		else	{
+				if (placer->width == NULL){
+						placer -> width = malloc(sizeof(int));
+				}
 				int zero = 0;
 				placer -> width = &zero;
 		}
 		if (height != NULL)	{
+				if (placer->height == NULL){
+						placer -> height = malloc(sizeof(int));
+				}
 				placer -> height = height;
 		}
 		else if (placer -> rel_height == NULL)	{
-				placer -> height = &((widget -> requested_size).height);
+				int* hauteur = malloc(sizeof(int));
+				*hauteur = (widget -> requested_size).height;
+				placer -> height = hauteur;
 		}
 		else	{
+				if (placer->height == NULL){
+						placer -> height = malloc(sizeof(int));
+				}
 				int zero = 0;
 				placer -> height = &zero;
 		}
 		if (rel_x != NULL)	{
+				if (placer->rel_x == NULL){
+						placer -> rel_x = malloc(sizeof(float));
+				}
 				placer -> rel_x = rel_x;
 		}
 		else if (placer -> rel_x == NULL)	{
@@ -202,6 +233,9 @@ void			ei_place			(ei_widget_t*		widget,
 				placer -> rel_x = &zero;
 		}
 		if (rel_y != NULL)	{
+				if (placer->rel_x == NULL){
+						placer -> rel_x = malloc(sizeof(float));
+				}
 				placer -> rel_y = rel_y;
 		}
 		else if (placer -> rel_y == NULL)	{
@@ -209,6 +243,9 @@ void			ei_place			(ei_widget_t*		widget,
 				placer -> rel_y = &zero;
 		}
 		if (rel_width != NULL)	{
+				if (placer->rel_width == NULL){
+						placer -> rel_width = malloc(sizeof(float));
+				}
 				placer -> rel_width = rel_width;
 		}
 		else if (placer -> rel_width == NULL)	{
@@ -216,10 +253,14 @@ void			ei_place			(ei_widget_t*		widget,
 				placer -> rel_width = &zero;
 		}
 		if (rel_height != NULL)	{
+				if (placer->rel_height == NULL){
+						placer -> rel_height = malloc(sizeof(float));
+				}
 				placer -> rel_height = rel_height;
 		}
-		else if (placer -> rel_width == NULL)	{
+		else if (placer -> rel_height == NULL)	{
 				float zero = 0.0;
-				placer -> rel_y = &zero;
+				placer -> rel_height = &zero;
 		}
+		widget -> geom_params -> manager -> runfunc(widget);
 }

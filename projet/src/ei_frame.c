@@ -3,6 +3,7 @@
 #include "ei_draw.h"
 #include "ei_frame.h"
 #include "ei_types.h"
+#include "ei_utils.h"
 #include "ei_widgetclass.h"
 #include "hw_interface.h"
 #include "ei_application.h"
@@ -99,7 +100,8 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
     					        ei_surface_t	pick_surface,
     							ei_rect_t*		clipper)
 {
-        ei_fill(surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the surface with the frame colour
+        ei_rect_t rectangle = widget -> screen_location;
+        ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle);  ///< filling the surface with the frame colour
         ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the offscreen surface with the frame colour
         if (((ei_frame_t*)widget) -> text != NULL ){
                 ei_point_t* point = NULL;
@@ -114,7 +116,6 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
                         *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
                         ///< drawing image if exists
         }
-        ei_app_invalidate_rect(clipper);
 }
 
 /**
@@ -156,4 +157,5 @@ void ei_frame_setdefaultsfunc_t(struct ei_widget_t*   widget)
         ((ei_frame_t*)widget) -> image = NULL;
         ((ei_frame_t*)widget) -> rect = NULL;
         ((ei_frame_t*)widget) -> anchor_image = &anchor;
+        widget -> requested_size = ei_size_zero();
 }

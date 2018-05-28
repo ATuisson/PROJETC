@@ -122,9 +122,18 @@ void ei_app_run(void)
 void ei_app_invalidate_rect(ei_rect_t* rect)
 {
       ei_linked_rect_t* temp = malloc(sizeof(ei_linked_rect_t));
+      temp -> next = NULL;
       temp -> rect = *rect;
-      temp -> next = UPDATES;
-      UPDATES = temp;
+      if (UPDATES == NULL) {
+                      UPDATES = temp;
+      }
+      else {
+                      ei_linked_rect_t* current = UPDATES;
+                      while(current -> next != NULL) {
+                                      current = current -> next;
+                      }
+                      current -> next = temp;
+      }
 }
 
 void ei_app_quit_request(void)
