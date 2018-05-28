@@ -180,5 +180,6 @@ void button_drawfunc (struct ei_widget_t* widget,
                       ei_surface_t   pick_surface,
                       ei_rect_t*          clipper)
 {
-
+        ei_rect_t rectangle = widget -> screen_location;
+        ei_fill(surface, ((ei_bouton)))
 }
