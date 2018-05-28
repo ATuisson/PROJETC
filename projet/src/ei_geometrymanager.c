@@ -134,7 +134,7 @@ void			ei_place			(ei_widget_t*		widget,
 						placeur_params -> rel_width = malloc(sizeof(float));
 						placeur_params -> rel_height = malloc(sizeof(float));
 						(placeur_params -> param_generic).manager = &PLACER;
-						widget -> geom_params = (ei_geometry_param_t*)&placeur_params;
+						widget -> geom_params = (ei_geometry_param_t*)placeur_params;
 		}
 		if (strcmp((char*)(widget -> geom_params -> manager -> name), "placer") != 0){
 						ei_geometrymanager_unmap(widget); ///< on retire l'ancien geometrymanager
@@ -150,7 +150,7 @@ void			ei_place			(ei_widget_t*		widget,
 						placeur_params -> rel_width = malloc(sizeof(float));
 						placeur_params -> rel_height = malloc(sizeof(float));
 						(placeur_params -> param_generic).manager = &PLACER;
-						widget -> geom_params = (ei_geometry_param_t*)&placeur_params;
+						widget -> geom_params = (ei_geometry_param_t*)placeur_params;
 		}
 		ei_placer_param_t* placer = (ei_placer_param_t*)(widget->geom_params);
 		if (anchor != NULL)	{
