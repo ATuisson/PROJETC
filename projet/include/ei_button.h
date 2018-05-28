@@ -3,7 +3,13 @@
 #include "ei_types.h"
 #include "ei_widget.h"
 
-int ei_main(int argc, char** argv);
+ei_linked_point_t* arc(ei_point_t centre,
+                       int rayon,
+                       float debut_arc,
+                       float fin_arc);
+
+ei_linked_point_t* rounded_frame(ei_rect_t rectangle,
+                                int rayon);
 
 
 #endif
