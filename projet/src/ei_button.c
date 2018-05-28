@@ -22,13 +22,13 @@ ei_linked_point_t* arc (ei_point_t centre,
         //on x croissant y decroissant
         //on initialise le premier point.
         ei_point_t point_cour = {centre.x + cos(debut_rad),centre.y -sin(debut_rad)};
-        ei_linked_point_t* cellule_cour;
+        ei_linked_point_t* cellule_cour = malloc(sizeof(ei_linked_point_t));
         cellule_cour -> point = point_cour;
         arc = cellule_cour;
-        ei_linked_point_t* cellule_suiv;
         int k;
         //while ((point_cour.x != centre.x + cos(fin_arc)) && (point_cour.y != centre.y + sin(fin_arc))){
         for (k=0; k==Nomb_sub; k++){
+                ei_linked_point_t* cellule_suiv =  malloc(sizeof(ei_linked_point_t));
                 point_cour.x = centre.x + cos(debut_rad + pas_sub*k);
                 point_cour.y = centre.y - sin(debut_rad + pas_sub*k);
                 cellule_suiv -> point = point_cour;

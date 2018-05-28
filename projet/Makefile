@@ -155,7 +155,7 @@ ${OBJDIR}/minesweeper.o : ${TESTS}/minesweeper.c
 
 	# dessin_boutton
 dessin_bouton : ${OBJDIR}/dessin_bouton.o ${LIBEIBASE} ${LIBEI}
-	${LINK} -o bonton6 ${OBJDIR}/bonton6.o ${LIBEI} ${LIBS}
+	${LINK} -o dessin_bouton ${OBJDIR}/dessin_bouton.o ${LIBEI} ${LIBS}
 
 ${OBJDIR}/dessin_bouton.o : ${TESTS}/dessin_bouton.c
 	${CC} ${CCFLAGS} ${INCFLAGS} ${TESTS}/dessin_bouton.c -o ${OBJDIR}/dessin_bouton.o
