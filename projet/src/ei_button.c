@@ -18,7 +18,7 @@ ei_linked_point_t* arc (ei_point_t centre,
 
         // on decompose l'arc en pas_de_la_fonction +1 points.
         int Nomb_sub = 100;
-        int pas_sub = (fin_rad - debut_rad)/Nomb_sub;
+        float pas_sub = (fin_rad - debut_rad)/Nomb_sub;
         //on x croissant y decroissant
         //on initialise le premier point.
         ei_point_t point_cour = {centre.x + cos(debut_rad),centre.y -sin(debut_rad)};
@@ -27,7 +27,7 @@ ei_linked_point_t* arc (ei_point_t centre,
         arc = cellule_cour;
         int k;
         //while ((point_cour.x != centre.x + cos(fin_arc)) && (point_cour.y != centre.y + sin(fin_arc))){
-        for (k=0; k==Nomb_sub; k++){
+        for (k=0; k<=Nomb_sub; k++){
                 ei_linked_point_t* cellule_suiv =  malloc(sizeof(ei_linked_point_t));
                 point_cour.x = centre.x + cos(debut_rad + pas_sub*k);
                 point_cour.y = centre.y - sin(debut_rad + pas_sub*k);
