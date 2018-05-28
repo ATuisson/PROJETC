@@ -5,6 +5,7 @@
 #include "ei_widget.h"
 #include "ei_frame.h"
 #include "ei_widgetclass.h"
+#include "ei_application.h"
 
 extern ei_widgetclass_t* CLASSES;
 
@@ -133,6 +134,8 @@ void			ei_frame_configure		(ei_widget_t*		widget,
 										widget -> requested_size = surface_minimum;
 						}
 		}
+		widget -> content_rect = &(widget -> screen_location);
+		ei_app_invalidate_rect(&(widget -> screen_location));
 }
 
 void			ei_button_configure		(ei_widget_t*		widget,
