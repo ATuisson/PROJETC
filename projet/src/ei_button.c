@@ -94,11 +94,10 @@ ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
         // on peut factoriser ce code... navigation pour while
         // navigation chemin centre pour les deux demi parts.
         if (param == ei_bouton_bot){
-
                 arc_bas_droit = arc (centre_bas_droit,rayon,-90,0);
                 arc_haut_droit = arc(centre_haut_droit,rayon,0,45);
                 arc_bas_gauche = arc(centre_bas_gauche,rayon,-135,-90);
-                cellule_cour = arc_bas_gauche;
+                cellule_cour = arc_bas_droit;
                 rectangle_fait = cellule_cour;
                 while(cellule_cour -> next != NULL){
                         cellule_cour = cellule_cour -> next;
@@ -119,6 +118,7 @@ ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
                         cellule_cour = cellule_cour -> next;
                 }
                 return rectangle_fait;
+        }
         if (param == ei_bouton_top){
                 arc_haut_gauche = arc(centre_haut_gauche,rayon,180,90);
                 arc_haut_droit = arc(centre_haut_droit,rayon,90,45);
@@ -133,14 +133,17 @@ ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
                         cellule_cour = cellule_cour -> next;
                 }
                 cellule_cour -> next = chemin_du_centre_val;
-                cellule_cour = arc_bas_gauche -> next;
                 while (cellule_cour -> next != NULL){
+                        cellule_cour = cellule_cour -> next;
+                }
+                cellule_cour -> next = arc_bas_gauche;
+                while (cellule_cour -> next ){
                         cellule_cour = cellule_cour -> next;
                 }
                 return rectangle_fait;
 
         }
-        }
+
 }
 
 
@@ -158,16 +161,16 @@ ei_linked_point_t* chemin_du_centre(ei_rect_t rectangle,
                                     int plus_court_cote,
                                     ei_point_t centre_haut_droit)
 {
-        ei_linked_point_t* chemin_du_centre_val = malloc(sizeof(ei_linked_point_t));
+        // ei_linked_point_t* chemin_du_centre_val = malloc(sizeof(ei_linked_point_t));
         ei_linked_point_t* point_du_haut = malloc(sizeof(ei_linked_point_t));
-        point_du_haut -> point.x = rectangle.top_left.x + largeur - plus_court_cote;
-        point_du_haut -> point.y = rectangle.top_left.y + plus_court_cote;
         ei_linked_point_t* point_du_bas = malloc(sizeof(ei_linked_point_t));
+        (point_du_haut -> point).x = rectangle.top_left.x + largeur - 0.5*plus_court_cote;
+        (point_du_haut -> point).y = rectangle.top_left.y + 0.5*plus_court_cote;
         point_du_haut -> next = point_du_bas;
-        point_du_bas -> point.x = rectangle.top_left.x + plus_court_cote;
-        point_du_bas -> point.y = rectangle.top_left.y + hauteur - plus_court_cote;
-        chemin_du_centre_val -> point = centre_haut_droit;
-        chemin_du_centre_val -> next = point_du_haut;
+        point_du_bas -> point.x = rectangle.top_left.x + 0.5*plus_court_cote;
+        point_du_bas -> point.y = rectangle.top_left.y + hauteur - 0.5*plus_court_cote;
+        // chemin_du_centre_val -> point = centre_haut_droit;
+        // chemin_du_centre_val -> next = point_du_haut;
         point_du_bas -> next = NULL;
-        return chemin_du_centre_val;
+        return point_du_haut;
 }

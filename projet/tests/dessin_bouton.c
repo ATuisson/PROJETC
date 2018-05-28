@@ -29,7 +29,7 @@ int ei_main(int argc, char** argv)
 	ei_bouton_param_t type_bouton = ei_bouton_top;
 	// Define the polygon vertices.
   ei_point_t point_du_rectangle = {50, 50};
-  ei_size_t taille_rectangle = {200, 200};
+  ei_size_t taille_rectangle = {300, 200};
   ei_rect_t rectangle = {point_du_rectangle, taille_rectangle};
   ei_linked_point_t* points = rounded_frame(rectangle, 80,type_bouton);
 
