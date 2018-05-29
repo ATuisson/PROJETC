@@ -150,11 +150,7 @@ void* ei_frame_allocfunc_t()
                 ei_point_t point = ei_point_zero();
                 associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, rectangle, &point);
                 ///< adressing the top-left corner as a point from its anchor
-<<<<<<< HEAD
-                ei_draw_text(surface, point, *(((ei_frame_t*)widget) -> text), \
-=======
                 ei_draw_text(surface, &point, *(((ei_frame_t*)widget) -> text), \
->>>>>>> b2908aa973ed047eef1cca28613113a4c78ad043
                         *(((ei_frame_t*)widget) -> font), *(((ei_frame_t*)widget) -> color_text), clipper);
                         ///< Drawing said text on the surface
          }
