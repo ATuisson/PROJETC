@@ -13,6 +13,12 @@
 #include "ei_widgetclass.h"
 #include "ei_widget.h"
 #include "ei_types.h"
+ei_linked_point_t* chemin_centre(ei_rect_t rectangle);
+
+void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
+    							ei_surface_t	surface,
+    					        ei_surface_t	pick_surface,
+    							ei_rect_t*		clipper);
 
 void associate_point_anchor     (ei_anchor_t*    anchor,
                                 ei_rect_t       rect,
