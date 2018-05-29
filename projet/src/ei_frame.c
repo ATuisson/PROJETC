@@ -7,6 +7,7 @@
 #include "ei_widgetclass.h"
 #include "hw_interface.h"
 #include "ei_application.h"
+#include "ei_utils.h"
 
 
 /**
@@ -18,11 +19,10 @@
  *
  */
 void associate_point_anchor     (ei_anchor_t*    anchor,
-                                ei_surface_t    surface,
+                                ei_rect_t    rect,
                                 ei_point_t* point)
 {
     // association ancrage-surface avec coordonnées
-    ei_rect_t rect = hw_surface_get_rect(surface);
     switch (*anchor) {
             case 1:
                     point->x = rect.top_left.x + rect.size.width / 2;
@@ -97,14 +97,14 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
     					        ei_surface_t	pick_surface,
     							ei_rect_t*		clipper)
 {
-        ei_rect_t rectangle = widget -> screen_location;
-        ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle);  ///< filling the surface with the frame colour
+        ei_rect_t* rectangle = widget -> content_rect;
+        ei_fill(surface, ((ei_frame_t*)widget) -> color, rectangle);  ///< filling the surface with the frame colour
         ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the offscreen surface with the frame colour
         if (((ei_frame_t*)widget) -> text != NULL ){
-                ei_point_t* point = NULL;
-                associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, surface, point);
+                ei_point_t point = ei_point_zero();
+                associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, *rectangle, &point);
                 ///< adressing the top-left corner as a point from its anchor
-                ei_draw_text(surface, point, *(((ei_frame_t*)widget) -> text), \
+                ei_draw_text(surface, &point, *(((ei_frame_t*)widget) -> text), \
                         ((ei_frame_t*)widget) -> font, *(((ei_frame_t*)widget) -> color_text), clipper);
                         ///< Drawing said text on the surface
         }

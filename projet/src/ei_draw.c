@@ -51,6 +51,8 @@ void			ei_draw_text		(ei_surface_t		surface,
 		if (i + j + k != 0){
 			exit(666);
 		}
+		hw_surface_free(surface_text);
+		hw_surface_free(surface_temp);
 }
 
 uint32_t		ei_map_rgba		(ei_surface_t surface, const ei_color_t* color)

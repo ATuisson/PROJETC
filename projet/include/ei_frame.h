@@ -15,7 +15,7 @@
 #include "ei_types.h"
 
 void associate_point_anchor     (ei_anchor_t*    anchor,
-                                ei_surface_t    surface,
+                                ei_rect_t       rect,
                                 ei_point_t* point);
 
 /**
