@@ -35,16 +35,17 @@ void			ei_draw_text		(ei_surface_t		surface,
 
 		ei_surface_t surface_text = hw_text_create_surface(text, font, color);
 		ei_bool_t faux = EI_FALSE;
+		ei_bool_t vrai = EI_TRUE;
 		// on cree une surface temporaire sur l'offscreen
 		ei_size_t taille_surface = hw_surface_get_size(surface);
-		ei_surface_t surface_temp = hw_surface_create(surface, &taille_surface, faux);
+		ei_surface_t surface_temp = hw_surface_create(surface, &taille_surface, vrai);
 		// on copie l'ecran vers la surface temporaire
 		int i = ei_copy_surface(surface_temp, NULL, surface, NULL, faux);
 		// on colle le texte sur cette surface, au bon endroit
 		ei_size_t text_size = ei_size_zero();
 		hw_text_compute_size(text, font, &(text_size.width), &(text_size.height));
 		ei_rect_t rect_cible = ei_rect(*where, text_size);
-		int j = ei_copy_surface(surface_temp, &rect_cible, surface_text, NULL, faux);
+		int j = ei_copy_surface(surface_temp, &rect_cible, surface_text, NULL, vrai);
 		// on copie le clipper de la surface temporaire, on colle sur le clipper de la surface principale
 		int k = ei_copy_surface(surface, clipper, surface_temp, clipper, faux);
 		// on arrête si ça a pas marché

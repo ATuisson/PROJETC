@@ -8,7 +8,7 @@
 #include "hw_interface.h"
 #include "ei_application.h"
 #include "ei_utils.h"
-
+extern ei_font_t ei_default_font;
 
 /**
  *\brief    Fonction utilitaire pour ei_frame_drawfunc_t :
@@ -105,7 +105,7 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
                 associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, *rectangle, &point);
                 ///< adressing the top-left corner as a point from its anchor
                 ei_draw_text(surface, &point, *(((ei_frame_t*)widget) -> text), \
-                        ((ei_frame_t*)widget) -> font, *(((ei_frame_t*)widget) -> color_text), clipper);
+                        *(((ei_frame_t*)widget) -> font), *(((ei_frame_t*)widget) -> color_text), clipper);
                         ///< Drawing said text on the surface
         }
         if (((ei_frame_t*)widget) -> image != NULL){
