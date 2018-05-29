@@ -7,6 +7,7 @@
 
 ei_widgetclass_t* CLASSES;
 ei_widgetclass_t FRAME;
+ei_w
 
 void			ei_widgetclass_register		(ei_widgetclass_t* widgetclass)
 {

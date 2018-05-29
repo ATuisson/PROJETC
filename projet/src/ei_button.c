@@ -192,15 +192,10 @@ void* ei_button_allocfunc_t()
         widbutton -> border_width = calloc(1, sizeof(int));
         widbutton -> corner_radius = calloc(1, sizeof(int));
         widbutton -> relief = calloc(1, sizeof(ei_relief_t));
-        widbutton -> text = calloc(1, sizeof(char*));
         widbutton -> text_font = calloc(1, sizeof(ei_font_t));
         widbutton -> text_color = calloc(1, sizeof(ei_color_t));
         widbutton -> text_anchor = calloc(1, sizeof(ei_anchor_t));
-        widbutton -> img = calloc(1, sizeof(ei_surface_t));
-        widbutton -> img_rect = calloc(1, sizeof(ei_rect_t*));
         widbutton -> img_anchor = calloc(1, sizeof(ei_anchor_t));
-        widbutton -> callback = calloc(1, sizeof(ei_callback_t));
-        widbutton -> user_param = calloc(1, sizeof(void*));
         return widbutton;
 }
 
