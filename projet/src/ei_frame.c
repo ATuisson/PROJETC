@@ -109,7 +109,6 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
                         ///< Drawing said text on the surface
         }
         if (((ei_frame_t*)widget) -> image != NULL){
-          // quand tu modifiera cela TNL, modifie l'équivalent dans ei_button_drawfunc
                 ei_copy_surface (surface, clipper, ((ei_frame_t*)widget) -> image, \
                         *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
                         ///< drawing image if exists
@@ -146,14 +145,14 @@ void ei_frame_setdefaultsfunc_t(struct ei_widget_t*   widget)
         ei_relief_t relief = ei_relief_none;
         ei_anchor_t anchor = ei_anc_center;
         ((ei_frame_t*)widget) -> text = NULL;
-        ((ei_frame_t*)widget) -> border_width = &sero;
-        ((ei_frame_t*)widget) -> relief = &relief;
-        ((ei_frame_t*)widget) -> color = &default_color;
-        ((ei_frame_t*)widget) -> font = &ei_default_font;
-        ((ei_frame_t*)widget) -> color_text = &text_defaut_color;
-        ((ei_frame_t*)widget) -> anchor_text = &anchor;
+        *(((ei_frame_t*)widget) -> border_width) = sero;
+        *(((ei_frame_t*)widget) -> relief) = relief;
+        *(((ei_frame_t*)widget) -> color) = default_color;
+        *(((ei_frame_t*)widget) -> font) = ei_default_font;
+        *(((ei_frame_t*)widget) -> color_text) = text_defaut_color;
+        *(((ei_frame_t*)widget) -> anchor_text) = anchor;
         ((ei_frame_t*)widget) -> image = NULL;
         ((ei_frame_t*)widget) -> rect = NULL;
-        ((ei_frame_t*)widget) -> anchor_image = &anchor;
+        *(((ei_frame_t*)widget) -> anchor_image) = anchor;
         widget -> requested_size = ei_size_zero();
 }
