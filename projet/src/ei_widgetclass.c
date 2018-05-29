@@ -4,6 +4,7 @@
 
 #include "ei_widgetclass.h"
 #include "ei_frame.h"
+#include "ei_button.h"
 
 ei_widgetclass_t* CLASSES;
 ei_widgetclass_t FRAME;
