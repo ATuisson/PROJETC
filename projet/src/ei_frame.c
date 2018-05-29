@@ -8,6 +8,7 @@
 #include "hw_interface.h"
 #include "ei_application.h"
 #include "ei_utils.h"
+#include "ei_button.h"
 extern ei_font_t ei_default_font;
 
 /**
@@ -162,12 +163,21 @@ void* ei_frame_allocfunc_t()
  }
  ei_linked_point_t* chemin_centre(ei_rect_t rectangle)
  {
+   int plus_court_cote = min(rectangle.size.width,rectangle.size.height);
    ei_linked_point_t* point_du_haut = malloc(sizeof(ei_linked_point_t));
+   ei_linked_point_t* point_centre_haut = malloc(sizeof(ei_linked_point_t));
+   ei_linked_point_t* point_centre_bas = malloc(sizeof(ei_linked_point_t));
    ei_linked_point_t* point_du_bas = malloc(sizeof(ei_linked_point_t));
    ei_linked_point_t* point_bas_droit = malloc(sizeof(ei_linked_point_t));
    (point_du_haut -> point).x = rectangle.top_left.x + rectangle.size.width;
    (point_du_haut -> point).y = rectangle.top_left.y;
-   point_du_haut -> next = point_du_bas;
+   point_du_haut -> next = point_centre_haut;
+   point_centre_haut -> point.x =rectangle.top_left.x + rectangle.size.width -0.5* plus_court_cote;
+   point_centre_haut -> point.y =rectangle.top_left.y + 0.5*plus_court_cote;
+   point_centre_haut -> next = point_centre_bas;
+   point_centre_bas -> point.x =rectangle.top_left.x + 0.5*plus_court_cote;
+   point_centre_bas -> point.y =rectangle.top_left.y + rectangle.size.height - 0.5*plus_court_cote;
+   point_centre_bas -> next = point_du_bas;
    point_du_bas -> point.x = rectangle.top_left.x;
    point_du_bas -> point.y = rectangle.top_left.y + rectangle.size.height;
    point_du_bas -> next = point_bas_droit;
