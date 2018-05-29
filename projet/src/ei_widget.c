@@ -251,6 +251,7 @@ void			ei_button_configure		(ei_widget_t*		widget,
 										widget -> requested_size = surface_minimum;
 						}
 		}
+		//TODO : EVENT HANDLING
 		widget -> content_rect = &(widget -> screen_location);
 		ei_app_invalidate_rect(&(widget -> screen_location));
 }

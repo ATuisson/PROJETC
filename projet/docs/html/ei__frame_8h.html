@@ -93,7 +93,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="ei__widgetclass_8h_source.html">ei_widgetclass.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="ei__widget_8h_source.html">ei_widget.h</a>&quot;</code><br/>
-<code>#include &quot;<a class="el" href="ei__draw_8h_source.html">ei_draw.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="ei__types_8h_source.html">ei_types.h</a>&quot;</code><br/>
 </div>
 <p><a href="ei__frame_8h_source.html">Go to the source code of this file.</a></p>
@@ -121,9 +120,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aafc3f0bf944d32d443a7679b75447aff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__frame_8h.html#aafc3f0bf944d32d443a7679b75447aff">ei_frame_drawfunc_t</a> (struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget, <a class="el" href="hw__interface_8h.html#ad9970ae727c438faaf09c58c5defb796">ei_surface_t</a> surface, <a class="el" href="hw__interface_8h.html#ad9970ae727c438faaf09c58c5defb796">ei_surface_t</a> pick_surface, <a class="el" href="structei__rect__t.html">ei_rect_t</a> *clipper)</td></tr>
 <tr class="memdesc:aafc3f0bf944d32d443a7679b75447aff"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function drawing the frame widgetclass.  <a href="#aafc3f0bf944d32d443a7679b75447aff">More...</a><br/></td></tr>
 <tr class="separator:aafc3f0bf944d32d443a7679b75447aff"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa74467c7a825641957aa59eba0e3f8f5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__frame_8h.html#aa74467c7a825641957aa59eba0e3f8f5">ei_frame_setdefaultsfunc_t</a> (struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget, <a class="el" href="structei__rect__t.html">ei_rect_t</a> rect)</td></tr>
-<tr class="memdesc:aa74467c7a825641957aa59eba0e3f8f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function for default values of a class.  <a href="#aa74467c7a825641957aa59eba0e3f8f5">More...</a><br/></td></tr>
-<tr class="separator:aa74467c7a825641957aa59eba0e3f8f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d2445847c897ac838e711b743cca849"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__frame_8h.html#a2d2445847c897ac838e711b743cca849">ei_frame_setdefaultsfunc_t</a> (struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget)</td></tr>
+<tr class="memdesc:a2d2445847c897ac838e711b743cca849"><td class="mdescLeft">&#160;</td><td class="mdescRight">A function for default values of a class.  <a href="#a2d2445847c897ac838e711b743cca849">More...</a><br/></td></tr>
+<tr class="separator:a2d2445847c897ac838e711b743cca849"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Typedef Documentation</h2>
 <a class="anchor" id="ad3b40b812f363a286b36e8a75d8622a3"></a>
@@ -158,7 +157,7 @@ Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd>A block of memory with all bytes set to 0.</dd></dl>
 <p>memory allocation for frame widgetclass structure </p>
 
-<p>Definition at line <a class="el" href="ei__frame_8c_source.html#l00008">8</a> of file <a class="el" href="ei__frame_8c_source.html">ei_frame.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__frame_8c_source.html#l00072">72</a> of file <a class="el" href="ei__frame_8c_source.html">ei_frame.c</a>.</p>
 
 </div>
 </div>
@@ -215,12 +214,13 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
-<p>&lt; filling the frame with its color</p>
+<p>&lt; filling the surface with the frame colour</p>
+<p>&lt; filling the offscreen surface with the frame colour</p>
 <p>&lt; adressing the top-left corner as a point from its anchor</p>
-<p>&lt; Drawing said text</p>
+<p>&lt; Drawing said text on the surface</p>
 <p>&lt; drawing image if exists </p>
 
-<p>Definition at line <a class="el" href="ei__frame_8c_source.html#l00023">23</a> of file <a class="el" href="ei__frame_8c_source.html">ei_frame.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__frame_8c_source.html#l00098">98</a> of file <a class="el" href="ei__frame_8c_source.html">ei_frame.c</a>.</p>
 
 </div>
 </div>
@@ -253,11 +253,11 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ei__frame_8c_source.html#l00059">59</a> of file <a class="el" href="ei__frame_8c_source.html">ei_frame.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__frame_8c_source.html#l00129">129</a> of file <a class="el" href="ei__frame_8c_source.html">ei_frame.c</a>.</p>
 
 </div>
 </div>
-<a class="anchor" id="aa74467c7a825641957aa59eba0e3f8f5"></a>
+<a class="anchor" id="a2d2445847c897ac838e711b743cca849"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -265,18 +265,8 @@ Functions</h2></td></tr>
           <td class="memname">void ei_frame_setdefaultsfunc_t </td>
           <td>(</td>
           <td class="paramtype">struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *&#160;</td>
-          <td class="paramname"><em>widget</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>widget</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="structei__rect__t.html">ei_rect_t</a>&#160;</td>
-          <td class="paramname"><em>rect</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -289,12 +279,14 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="ei__frame_8c_source.html#l00143">143</a> of file <a class="el" href="ei__frame_8c_source.html">ei_frame.c</a>.</p>
+
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 19 2018 20:16:42 for Projet C - Interaction Graphique by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 29 2018 00:20:27 for Projet C - Interaction Graphique by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

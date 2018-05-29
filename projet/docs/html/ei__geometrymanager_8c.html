@@ -84,12 +84,20 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">ei_geometrymanager.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="ei__geometrymanager_8h_source.html">ei_geometrymanager.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br/>
+<code>#include &lt;stdio.h&gt;</code><br/>
+<code>#include &lt;string.h&gt;</code><br/>
+<code>#include &quot;<a class="el" href="ei__geometrymanager_8h_source.html">ei_geometrymanager.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="ei__placer_8c_source.html">ei_placer.c</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="ei__types_8h_source.html">ei_types.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="ei__utils_8h_source.html">ei_utils.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="ei__application_8h_source.html">ei_application.h</a>&quot;</code><br/>
 </div>
 <p><a href="ei__geometrymanager_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -110,6 +118,13 @@ Functions</h2></td></tr>
 <tr class="memitem:ad07d3ef9bc1f0efe5b45b23f8c3b9081"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__geometrymanager_8c.html#ad07d3ef9bc1f0efe5b45b23f8c3b9081">ei_place</a> (<a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget, <a class="el" href="ei__types_8h.html#a3852c963af609d31d7cfcff79c4c8450">ei_anchor_t</a> *anchor, int *x, int *y, int *width, int *height, float *rel_x, float *rel_y, float *rel_width, float *rel_height)</td></tr>
 <tr class="memdesc:ad07d3ef9bc1f0efe5b45b23f8c3b9081"><td class="mdescLeft">&#160;</td><td class="mdescRight">Configures the geometry of a widget using the "placer" geometry manager. If the widget was already managed by another geometry manager, then it is first removed from the previous geometry manager. If the widget was already managed by the "placer", then this calls simply updates the placer parameters: arguments that are not NULL replace previous values. When the arguments are passed as NULL, the placer uses default values (detailed in the argument descriptions below). If no size is provided (either absolute or relative), then the requested size of the widget is used, i.e. the minimal size required to display its content.  <a href="#ad07d3ef9bc1f0efe5b45b23f8c3b9081">More...</a><br/></td></tr>
 <tr class="separator:ad07d3ef9bc1f0efe5b45b23f8c3b9081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a80efb407f8ac7efc4a0b0cd8d3365b13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structei__geometrymanager__t.html">ei_geometrymanager_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__geometrymanager_8c.html#a80efb407f8ac7efc4a0b0cd8d3365b13">MANAGERS</a></td></tr>
+<tr class="separator:a80efb407f8ac7efc4a0b0cd8d3365b13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12da2b800c6cf0157bcc30516e3a6eef"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structei__geometrymanager__t.html">ei_geometrymanager_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__geometrymanager_8c.html#a12da2b800c6cf0157bcc30516e3a6eef">PLACER</a></td></tr>
+<tr class="separator:a12da2b800c6cf0157bcc30516e3a6eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a6c505d9519b6dfb509346ca0a32d0623"></a>
@@ -135,7 +150,7 @@ Functions</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The structure describing the geometry manager. </dd></dl>
 
-<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00023">23</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00029">29</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
 
 </div>
 </div>
@@ -161,7 +176,7 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00018">18</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00014">14</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
 
 </div>
 </div>
@@ -197,7 +212,7 @@ the screen_location of the widget is reset to 0.  </li>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00028">28</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00062">62</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
 
 </div>
 </div>
@@ -289,8 +304,11 @@ the screen_location of the widget is reset to 0.  </li>
   </table>
   </dd>
 </dl>
+<p>&lt; on associe le placeur au widget.</p>
+<p>&lt; on retire l'ancien geometrymanager</p>
+<p>&lt; on associe le placeur_params au widget. </p>
 
-<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00038">38</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00113">113</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
 
 </div>
 </div>
@@ -309,14 +327,43 @@ the screen_location of the widget is reset to 0.  </li>
 
 <p>Registers the "placer" geometry manager in the program. This must be called only once before the <a class="el" href="ei__geometrymanager_8c.html#ad07d3ef9bc1f0efe5b45b23f8c3b9081">ei_place</a> function can be called. </p>
 
-<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00033">33</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00074">74</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a class="anchor" id="a80efb407f8ac7efc4a0b0cd8d3365b13"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structei__geometrymanager__t.html">ei_geometrymanager_t</a>* MANAGERS</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00011">11</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a12da2b800c6cf0157bcc30516e3a6eef"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structei__geometrymanager__t.html">ei_geometrymanager_t</a> PLACER</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Definition at line <a class="el" href="ei__geometrymanager_8c_source.html#l00012">12</a> of file <a class="el" href="ei__geometrymanager_8c_source.html">ei_geometrymanager.c</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 19 2018 20:16:42 for Projet C - Interaction Graphique by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 29 2018 00:20:27 for Projet C - Interaction Graphique by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>

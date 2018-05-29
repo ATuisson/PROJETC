@@ -75,12 +75,9 @@ void* ei_frame_allocfunc_t()
         widframe -> color = calloc(1, sizeof(ei_color_t));
         widframe -> border_width = calloc(1, sizeof(int));
         widframe -> relief = calloc(1, sizeof(ei_relief_t));
-        widframe -> text = calloc(1, sizeof(char*));  // Surement à Modifier
         widframe -> font = calloc(1, sizeof(ei_font_t));
         widframe -> color_text = calloc(1, sizeof(ei_color_t));
         widframe -> anchor_text = calloc(1, sizeof(ei_anchor_t));
-        widframe -> image = calloc(1, sizeof(ei_surface_t));
-        widframe -> rect = calloc(1, sizeof(ei_rect_t*));
         widframe -> anchor_image = calloc(1, sizeof(ei_anchor_t));
         return widframe;
 }
