@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['height',['height',['../structei__size__t.html#a2f152e26c90d01cac2b337ebc118a5f1',1,'ei_size_t']]],
+  ['height',['height',['../structei__placer__param__t.html#aa4d9368db4e54a58177ef9f5dc85312e',1,'ei_placer_param_t::height()'],['../structei__size__t.html#a2f152e26c90d01cac2b337ebc118a5f1',1,'ei_size_t::height()']]],
   ['hw_5fcreate_5fwindow',['hw_create_window',['../hw__interface_8h.html#a91dcf1275fecec719a60dd6dfeca40c6',1,'hw_interface.h']]],
   ['hw_5fevent_5fpost_5fapp',['hw_event_post_app',['../hw__interface_8h.html#a5229a2fd0d772c02890084e3cfd405ee',1,'hw_interface.h']]],
   ['hw_5fevent_5fschedule_5fapp',['hw_event_schedule_app',['../hw__interface_8h.html#a905a7cf30db98048223f17f253e27613',1,'hw_interface.h']]],

@@ -135,7 +135,7 @@ The structure describing the geometry manager.
 \end{DoxyReturn}
 
 
-Definition at line 23 of file ei\-\_\-geometrymanager.\-c.
+Definition at line 29 of file ei\-\_\-geometrymanager.\-c.
 
 \hypertarget{ei__geometrymanager_8h_a2928bbcaa255d39507ef43f7c27ce33b}{\index{ei\-\_\-geometrymanager.\-h@{ei\-\_\-geometrymanager.\-h}!ei\-\_\-geometrymanager\-\_\-register@{ei\-\_\-geometrymanager\-\_\-register}}
 \index{ei\-\_\-geometrymanager\-\_\-register@{ei\-\_\-geometrymanager\-\_\-register}!ei_geometrymanager.h@{ei\-\_\-geometrymanager.\-h}}
@@ -155,7 +155,7 @@ Registers a geometry manager to the program so that it can be called to manager 
 \end{DoxyParams}
 
 
-Definition at line 18 of file ei\-\_\-geometrymanager.\-c.
+Definition at line 14 of file ei\-\_\-geometrymanager.\-c.
 
 \hypertarget{ei__geometrymanager_8h_a4d7abf47408b59fc6d7aabb362ef817d}{\index{ei\-\_\-geometrymanager.\-h@{ei\-\_\-geometrymanager.\-h}!ei\-\_\-geometrymanager\-\_\-unmap@{ei\-\_\-geometrymanager\-\_\-unmap}}
 \index{ei\-\_\-geometrymanager\-\_\-unmap@{ei\-\_\-geometrymanager\-\_\-unmap}!ei_geometrymanager.h@{ei\-\_\-geometrymanager.\-h}}
@@ -183,7 +183,7 @@ Tell the geometry manager in charge of a widget to forget it. This removes the w
 \end{DoxyParams}
 
 
-Definition at line 28 of file ei\-\_\-geometrymanager.\-c.
+Definition at line 62 of file ei\-\_\-geometrymanager.\-c.
 
 \hypertarget{ei__geometrymanager_8h_ad07d3ef9bc1f0efe5b45b23f8c3b9081}{\index{ei\-\_\-geometrymanager.\-h@{ei\-\_\-geometrymanager.\-h}!ei\-\_\-place@{ei\-\_\-place}}
 \index{ei\-\_\-place@{ei\-\_\-place}!ei_geometrymanager.h@{ei\-\_\-geometrymanager.\-h}}
@@ -228,9 +228,13 @@ Configures the geometry of a widget using the \char`\"{}placer\char`\"{} geometr
 {\em rel\-\_\-height} & The relative height of the widget\-: 0.\-0 corresponds to a height of 0, 1.\-0 to the height of the parent (defaults to 0.\-0). \\
 \hline
 \end{DoxyParams}
+$<$ on associe le placeur au widget.
 
+$<$ on retire l'ancien geometrymanager
 
-Definition at line 38 of file ei\-\_\-geometrymanager.\-c.
+$<$ on associe le placeur\-\_\-params au widget. 
+
+Definition at line 113 of file ei\-\_\-geometrymanager.\-c.
 
 \hypertarget{ei__geometrymanager_8h_a90e44cafe03fc57166584123bb0ca6ca}{\index{ei\-\_\-geometrymanager.\-h@{ei\-\_\-geometrymanager.\-h}!ei\-\_\-register\-\_\-placer\-\_\-manager@{ei\-\_\-register\-\_\-placer\-\_\-manager}}
 \index{ei\-\_\-register\-\_\-placer\-\_\-manager@{ei\-\_\-register\-\_\-placer\-\_\-manager}!ei_geometrymanager.h@{ei\-\_\-geometrymanager.\-h}}
@@ -245,5 +249,5 @@ Registers the \char`\"{}placer\char`\"{} geometry manager in the program. This m
 
 
 
-Definition at line 33 of file ei\-\_\-geometrymanager.\-c.
+Definition at line 74 of file ei\-\_\-geometrymanager.\-c.
 

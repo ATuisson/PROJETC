@@ -6,14 +6,16 @@
 Graphical primitives to text, and operation of drawing surface.  
 
 
+{\ttfamily \#include $<$stdlib.\-h$>$}\\*
 {\ttfamily \#include \char`\"{}ei\-\_\-draw.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}hw\-\_\-interface.\-h\char`\"{}}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
 void \hyperlink{ei__draw_8c_a2f618c775493a12576260957dd7f73af}{ei\-\_\-draw\-\_\-text} (\hyperlink{hw__interface_8h_ad9970ae727c438faaf09c58c5defb796}{ei\-\_\-surface\-\_\-t} surface, const \hyperlink{structei__point__t}{ei\-\_\-point\-\_\-t} $\ast$where, const char $\ast$text, const \hyperlink{ei__types_8h_a22c8198e4d641e4bc67bb17f9c6bcda7}{ei\-\_\-font\-\_\-t} font, const \hyperlink{structei__color__t}{ei\-\_\-color\-\_\-t} color, const \hyperlink{structei__rect__t}{ei\-\_\-rect\-\_\-t} $\ast$clipper)
 \begin{DoxyCompactList}\small\item\em Draws text by calling \hyperlink{hw__interface_8h_abd2548f0013a04c7fd182bfd0cf38a58}{hw\-\_\-text\-\_\-create\-\_\-surface}. \end{DoxyCompactList}\item 
-\hyperlink{structei__point__t}{ei\-\_\-point\-\_\-t} $\ast$ \hyperlink{ei__draw_8c_a9674b368f80a9e65622f5a75067e9a61}{associate\-\_\-point\-\_\-anchor} (enum \hyperlink{ei__types_8h_a3852c963af609d31d7cfcff79c4c8450}{ei\-\_\-anchor\-\_\-t} anchor, \hyperlink{hw__interface_8h_ad9970ae727c438faaf09c58c5defb796}{ei\-\_\-surface\-\_\-t} surface)
-\end{DoxyCompactItemize}
+uint32\-\_\-t \hyperlink{ei__draw_8c_a045556ef7934c8fc9dc9eb5d8836f8f5}{ei\-\_\-map\-\_\-rgba} (\hyperlink{hw__interface_8h_ad9970ae727c438faaf09c58c5defb796}{ei\-\_\-surface\-\_\-t} surface, const \hyperlink{structei__color__t}{ei\-\_\-color\-\_\-t} $\ast$color)
+\begin{DoxyCompactList}\small\item\em Converts the three red, green and blue component of a color in a 32 bits integer using the order of the channels of the surface. This integer can be stored directly in the pixels memory of the surface (ie. \hyperlink{hw__interface_8h_a8942e332c58a06edd0e639e6743532d1}{hw\-\_\-surface\-\_\-get\-\_\-buffer}). \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -27,18 +29,6 @@ Definition in file \hyperlink{ei__draw_8c_source}{ei\-\_\-draw.\-c}.
 
 
 \subsection{Function Documentation}
-\hypertarget{ei__draw_8c_a9674b368f80a9e65622f5a75067e9a61}{\index{ei\-\_\-draw.\-c@{ei\-\_\-draw.\-c}!associate\-\_\-point\-\_\-anchor@{associate\-\_\-point\-\_\-anchor}}
-\index{associate\-\_\-point\-\_\-anchor@{associate\-\_\-point\-\_\-anchor}!ei_draw.c@{ei\-\_\-draw.\-c}}
-\subsubsection[{associate\-\_\-point\-\_\-anchor}]{\setlength{\rightskip}{0pt plus 5cm}{\bf ei\-\_\-point\-\_\-t}$\ast$ associate\-\_\-point\-\_\-anchor (
-\begin{DoxyParamCaption}
-\item[{enum {\bf ei\-\_\-anchor\-\_\-t}}]{anchor, }
-\item[{{\bf ei\-\_\-surface\-\_\-t}}]{surface}
-\end{DoxyParamCaption}
-)}}\label{ei__draw_8c_a9674b368f80a9e65622f5a75067e9a61}
-
-
-Definition at line 35 of file ei\-\_\-draw.\-c.
-
 \hypertarget{ei__draw_8c_a2f618c775493a12576260957dd7f73af}{\index{ei\-\_\-draw.\-c@{ei\-\_\-draw.\-c}!ei\-\_\-draw\-\_\-text@{ei\-\_\-draw\-\_\-text}}
 \index{ei\-\_\-draw\-\_\-text@{ei\-\_\-draw\-\_\-text}!ei_draw.c@{ei\-\_\-draw.\-c}}
 \subsubsection[{ei\-\_\-draw\-\_\-text}]{\setlength{\rightskip}{0pt plus 5cm}void ei\-\_\-draw\-\_\-text (
@@ -72,5 +62,31 @@ Draws text by calling \hyperlink{hw__interface_8h_abd2548f0013a04c7fd182bfd0cf38
 \end{DoxyParams}
 
 
-Definition at line 25 of file ei\-\_\-draw.\-c.
+Definition at line 26 of file ei\-\_\-draw.\-c.
+
+\hypertarget{ei__draw_8c_a045556ef7934c8fc9dc9eb5d8836f8f5}{\index{ei\-\_\-draw.\-c@{ei\-\_\-draw.\-c}!ei\-\_\-map\-\_\-rgba@{ei\-\_\-map\-\_\-rgba}}
+\index{ei\-\_\-map\-\_\-rgba@{ei\-\_\-map\-\_\-rgba}!ei_draw.c@{ei\-\_\-draw.\-c}}
+\subsubsection[{ei\-\_\-map\-\_\-rgba}]{\setlength{\rightskip}{0pt plus 5cm}uint32\-\_\-t ei\-\_\-map\-\_\-rgba (
+\begin{DoxyParamCaption}
+\item[{{\bf ei\-\_\-surface\-\_\-t}}]{surface, }
+\item[{const {\bf ei\-\_\-color\-\_\-t} $\ast$}]{color}
+\end{DoxyParamCaption}
+)}}\label{ei__draw_8c_a045556ef7934c8fc9dc9eb5d8836f8f5}
+
+
+Converts the three red, green and blue component of a color in a 32 bits integer using the order of the channels of the surface. This integer can be stored directly in the pixels memory of the surface (ie. \hyperlink{hw__interface_8h_a8942e332c58a06edd0e639e6743532d1}{hw\-\_\-surface\-\_\-get\-\_\-buffer}). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em surface} & The surface where to store this pixel. \\
+\hline
+{\em color} & The color to convert, can't be N\-U\-L\-L.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The 32 bit integer corresponding to the color. The alpha component of the color is ignored in the case of surfaces that don't have an alpha channel. 
+\end{DoxyReturn}
+
+
+Definition at line 36 of file ei\-\_\-draw.\-c.
 

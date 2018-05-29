@@ -1,21 +1,56 @@
 \hypertarget{ei__frame_8c}{\section{ei\-\_\-frame.\-c File Reference}
 \label{ei__frame_8c}\index{ei\-\_\-frame.\-c@{ei\-\_\-frame.\-c}}
 }
-{\ttfamily \#include \char`\"{}ei\-\_\-frame.\-h\char`\"{}}\\*
-{\ttfamily \#include $<$stdio.\-h$>$}\\*
 {\ttfamily \#include $<$stdlib.\-h$>$}\\*
+{\ttfamily \#include \char`\"{}ei\-\_\-draw.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ei\-\_\-frame.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ei\-\_\-types.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ei\-\_\-utils.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ei\-\_\-widgetclass.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}hw\-\_\-interface.\-h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}ei\-\_\-application.\-h\char`\"{}}\\*
 \subsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
+void \hyperlink{ei__frame_8c_abecb628467dd26be86b84ff8cc536560}{associate\-\_\-point\-\_\-anchor} (\hyperlink{ei__types_8h_a3852c963af609d31d7cfcff79c4c8450}{ei\-\_\-anchor\-\_\-t} $\ast$anchor, \hyperlink{hw__interface_8h_ad9970ae727c438faaf09c58c5defb796}{ei\-\_\-surface\-\_\-t} surface, \hyperlink{structei__point__t}{ei\-\_\-point\-\_\-t} $\ast$point)
+\begin{DoxyCompactList}\small\item\em Fonction utilitaire pour ei\-\_\-frame\-\_\-drawfunc\-\_\-t \-: \end{DoxyCompactList}\item 
 void $\ast$ \hyperlink{ei__frame_8c_aab82369e73c1be298d61dda4dabc8cd5}{ei\-\_\-frame\-\_\-allocfunc\-\_\-t} ()
 \begin{DoxyCompactList}\small\item\em allocate the memory for frame \end{DoxyCompactList}\item 
 void \hyperlink{ei__frame_8c_aafc3f0bf944d32d443a7679b75447aff}{ei\-\_\-frame\-\_\-drawfunc\-\_\-t} (struct \hyperlink{structei__widget__t}{ei\-\_\-widget\-\_\-t} $\ast$widget, \hyperlink{hw__interface_8h_ad9970ae727c438faaf09c58c5defb796}{ei\-\_\-surface\-\_\-t} surface, \hyperlink{hw__interface_8h_ad9970ae727c438faaf09c58c5defb796}{ei\-\_\-surface\-\_\-t} pick\-\_\-surface, \hyperlink{structei__rect__t}{ei\-\_\-rect\-\_\-t} $\ast$clipper)
 \begin{DoxyCompactList}\small\item\em A function that draws widgets of a class. \end{DoxyCompactList}\item 
 void \hyperlink{ei__frame_8c_a2453f0cf4424b70fd838383e03a8a583}{ei\-\_\-frame\-\_\-releasefunc\-\_\-t} (struct \hyperlink{structei__widget__t}{ei\-\_\-widget\-\_\-t} $\ast$widget)
-\begin{DoxyCompactList}\small\item\em A function that releases the memory used by a F\-R\-A\-M\-E widget before it is destroyed. The \hyperlink{structei__widget__t}{ei\-\_\-widget\-\_\-t} structure itself, passed as parameter, must {\itshape not} by freed by these functions. Can be set to N\-U\-L\-L in \hyperlink{structei__widgetclass__t}{ei\-\_\-widgetclass\-\_\-t} if no memory is used by a class of widget. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em A function that releases the memory used by a F\-R\-A\-M\-E widget before it is destroyed. The \hyperlink{structei__widget__t}{ei\-\_\-widget\-\_\-t} structure itself, passed as parameter, must {\itshape not} by freed by these functions. Can be set to N\-U\-L\-L in \hyperlink{structei__widgetclass__t}{ei\-\_\-widgetclass\-\_\-t} if no memory is used by a class of widget. \end{DoxyCompactList}\item 
+void \hyperlink{ei__frame_8c_a2d2445847c897ac838e711b743cca849}{ei\-\_\-frame\-\_\-setdefaultsfunc\-\_\-t} (struct \hyperlink{structei__widget__t}{ei\-\_\-widget\-\_\-t} $\ast$widget)
+\begin{DoxyCompactList}\small\item\em A function for default values of a class. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Function Documentation}
+\hypertarget{ei__frame_8c_abecb628467dd26be86b84ff8cc536560}{\index{ei\-\_\-frame.\-c@{ei\-\_\-frame.\-c}!associate\-\_\-point\-\_\-anchor@{associate\-\_\-point\-\_\-anchor}}
+\index{associate\-\_\-point\-\_\-anchor@{associate\-\_\-point\-\_\-anchor}!ei_frame.c@{ei\-\_\-frame.\-c}}
+\subsubsection[{associate\-\_\-point\-\_\-anchor}]{\setlength{\rightskip}{0pt plus 5cm}void associate\-\_\-point\-\_\-anchor (
+\begin{DoxyParamCaption}
+\item[{{\bf ei\-\_\-anchor\-\_\-t} $\ast$}]{anchor, }
+\item[{{\bf ei\-\_\-surface\-\_\-t}}]{surface, }
+\item[{{\bf ei\-\_\-point\-\_\-t} $\ast$}]{point}
+\end{DoxyParamCaption}
+)}}\label{ei__frame_8c_abecb628467dd26be86b84ff8cc536560}
+
+
+Fonction utilitaire pour ei\-\_\-frame\-\_\-drawfunc\-\_\-t \-: 
+
+
+\begin{DoxyParams}{Parameters}
+{\em anchor} & the anchor point of the text (north north\-\_\-west) \\
+\hline
+{\em surface} & the surface on which the text is to be drawn \\
+\hline
+{\em point} & the point that is to be returned \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 20 of file ei\-\_\-frame.\-c.
+
 \hypertarget{ei__frame_8c_aab82369e73c1be298d61dda4dabc8cd5}{\index{ei\-\_\-frame.\-c@{ei\-\_\-frame.\-c}!ei\-\_\-frame\-\_\-allocfunc\-\_\-t@{ei\-\_\-frame\-\_\-allocfunc\-\_\-t}}
 \index{ei\-\_\-frame\-\_\-allocfunc\-\_\-t@{ei\-\_\-frame\-\_\-allocfunc\-\_\-t}!ei_frame.c@{ei\-\_\-frame.\-c}}
 \subsubsection[{ei\-\_\-frame\-\_\-allocfunc\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}void$\ast$ ei\-\_\-frame\-\_\-allocfunc\-\_\-t (
@@ -29,7 +64,7 @@ allocate the memory for frame
 
 memory allocation for frame widgetclass structure 
 
-Definition at line 8 of file ei\-\_\-frame.\-c.
+Definition at line 72 of file ei\-\_\-frame.\-c.
 
 \hypertarget{ei__frame_8c_aafc3f0bf944d32d443a7679b75447aff}{\index{ei\-\_\-frame.\-c@{ei\-\_\-frame.\-c}!ei\-\_\-frame\-\_\-drawfunc\-\_\-t@{ei\-\_\-frame\-\_\-drawfunc\-\_\-t}}
 \index{ei\-\_\-frame\-\_\-drawfunc\-\_\-t@{ei\-\_\-frame\-\_\-drawfunc\-\_\-t}!ei_frame.c@{ei\-\_\-frame.\-c}}
@@ -58,15 +93,17 @@ A function drawing the frame widgetclass.
 {\em clipper} & If not N\-U\-L\-L, the drawing is restricted within this rectangle (expressed in the surface reference frame). \\
 \hline
 \end{DoxyParams}
-$<$ filling the frame with its color
+$<$ filling the surface with the frame colour
+
+$<$ filling the offscreen surface with the frame colour
 
 $<$ adressing the top-\/left corner as a point from its anchor
 
-$<$ Drawing said text
+$<$ Drawing said text on the surface
 
 $<$ drawing image if exists 
 
-Definition at line 23 of file ei\-\_\-frame.\-c.
+Definition at line 98 of file ei\-\_\-frame.\-c.
 
 \hypertarget{ei__frame_8c_a2453f0cf4424b70fd838383e03a8a583}{\index{ei\-\_\-frame.\-c@{ei\-\_\-frame.\-c}!ei\-\_\-frame\-\_\-releasefunc\-\_\-t@{ei\-\_\-frame\-\_\-releasefunc\-\_\-t}}
 \index{ei\-\_\-frame\-\_\-releasefunc\-\_\-t@{ei\-\_\-frame\-\_\-releasefunc\-\_\-t}!ei_frame.c@{ei\-\_\-frame.\-c}}
@@ -88,5 +125,25 @@ memory liberation for frame widgetclass structure
 \end{DoxyParams}
 
 
-Definition at line 59 of file ei\-\_\-frame.\-c.
+Definition at line 129 of file ei\-\_\-frame.\-c.
+
+\hypertarget{ei__frame_8c_a2d2445847c897ac838e711b743cca849}{\index{ei\-\_\-frame.\-c@{ei\-\_\-frame.\-c}!ei\-\_\-frame\-\_\-setdefaultsfunc\-\_\-t@{ei\-\_\-frame\-\_\-setdefaultsfunc\-\_\-t}}
+\index{ei\-\_\-frame\-\_\-setdefaultsfunc\-\_\-t@{ei\-\_\-frame\-\_\-setdefaultsfunc\-\_\-t}!ei_frame.c@{ei\-\_\-frame.\-c}}
+\subsubsection[{ei\-\_\-frame\-\_\-setdefaultsfunc\-\_\-t}]{\setlength{\rightskip}{0pt plus 5cm}void ei\-\_\-frame\-\_\-setdefaultsfunc\-\_\-t (
+\begin{DoxyParamCaption}
+\item[{struct {\bf ei\-\_\-widget\-\_\-t} $\ast$}]{widget}
+\end{DoxyParamCaption}
+)}}\label{ei__frame_8c_a2d2445847c897ac838e711b743cca849}
+
+
+A function for default values of a class. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em as} & the widgetclass\-\_\-setdefautlsfunc\-\_\-t parameters \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 143 of file ei\-\_\-frame.\-c.
 

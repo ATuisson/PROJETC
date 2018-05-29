@@ -90,14 +90,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">ei_widgetclass.c File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="ei__widgetclass_8h_source.html">ei_widgetclass.h</a>&quot;</code><br/>
+<div class="textblock"><code>#include &lt;stdlib.h&gt;</code><br/>
+<code>#include &lt;stdio.h&gt;</code><br/>
+<code>#include &lt;string.h&gt;</code><br/>
+<code>#include &quot;<a class="el" href="ei__widgetclass_8h_source.html">ei_widgetclass.h</a>&quot;</code><br/>
+<code>#include &quot;<a class="el" href="ei__frame_8h_source.html">ei_frame.h</a>&quot;</code><br/>
 </div>
 <p><a href="ei__widgetclass_8c_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acc47bb0762815c5b3d47a5e795f3037a"><td class="memItemLeft" align="right" valign="top">static char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#acc47bb0762815c5b3d47a5e795f3037a">ei_widgetclass_stringname</a> (<a class="el" href="ei__widgetclass_8h.html#acfa18ebbfac8cbbc11345a01c2099aed">ei_widgetclass_name_t</a> name)</td></tr>
-<tr class="separator:acc47bb0762815c5b3d47a5e795f3037a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af742f16921cbf9c4a1a662ade31d91cc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#af742f16921cbf9c4a1a662ade31d91cc">ei_widgetclass_register</a> (<a class="el" href="structei__widgetclass__t.html">ei_widgetclass_t</a> *widgetclass)</td></tr>
 <tr class="memdesc:af742f16921cbf9c4a1a662ade31d91cc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers a class to the program so that widgets of this class can be created. This must be done only once per widged class in the application.  <a href="#af742f16921cbf9c4a1a662ade31d91cc">More...</a><br/></td></tr>
 <tr class="separator:af742f16921cbf9c4a1a662ade31d91cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -108,7 +110,7 @@ Functions</h2></td></tr>
 <tr class="memdesc:acdfaf4883aa16509c0d51e35177eb6b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the "frame" widget class in the program. This must be called only once before widgets of the class "frame" can be created and configured with <a class="el" href="ei__widget_8c.html#aaaeb8447f509b20478940b514b542106">ei_frame_configure</a>.  <a href="#acdfaf4883aa16509c0d51e35177eb6b9">More...</a><br/></td></tr>
 <tr class="separator:acdfaf4883aa16509c0d51e35177eb6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a838fccb1cd368bdb5dd486f5fcb07ac3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#a838fccb1cd368bdb5dd486f5fcb07ac3">ei_button_register_class</a> ()</td></tr>
-<tr class="memdesc:a838fccb1cd368bdb5dd486f5fcb07ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the "button" widget class in the program. This must be called only once before widgets of the class "button" can be created and configured with <a class="el" href="ei__widget_8c.html#a6aef3afd6aa8e6bab563735a0c54a76b">ei_button_configure</a>.  <a href="#a838fccb1cd368bdb5dd486f5fcb07ac3">More...</a><br/></td></tr>
+<tr class="memdesc:a838fccb1cd368bdb5dd486f5fcb07ac3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the "button" widget class in the program. This must be called only once before widgets of the class "button" can be created and configured with <a class="el" href="structei__button__configure.html">ei_button_configure</a>.  <a href="#a838fccb1cd368bdb5dd486f5fcb07ac3">More...</a><br/></td></tr>
 <tr class="separator:a838fccb1cd368bdb5dd486f5fcb07ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a856904bc16ac897b9a2385e67402d570"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#a856904bc16ac897b9a2385e67402d570">ei_toplevel_register_class</a> ()</td></tr>
 <tr class="memdesc:a856904bc16ac897b9a2385e67402d570"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the "toplevel" widget class in the program. This must be called only once before widgets of the class "toplevel" can be created and configured with <a class="el" href="ei__widget_8c.html#a853349fd4f65ae575a1989a9713059b4">ei_toplevel_configure</a>.  <a href="#a856904bc16ac897b9a2385e67402d570">More...</a><br/></td></tr>
@@ -116,16 +118,10 @@ Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:aae1a8dd73c838085124bac498c083fbf"><td class="memItemLeft" align="right" valign="top">void *(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#aae1a8dd73c838085124bac498c083fbf">ei_widgetclass_allocfunc_t</a> )(void)</td></tr>
-<tr class="separator:aae1a8dd73c838085124bac498c083fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2da6cdc23167812c0e1bdf4026f1daa8"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#a2da6cdc23167812c0e1bdf4026f1daa8">ei_widgetclass_releasefunc_t</a> )(struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget)</td></tr>
-<tr class="separator:a2da6cdc23167812c0e1bdf4026f1daa8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8884e2761aabe4f85de5b0b01375b067"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#a8884e2761aabe4f85de5b0b01375b067">ei_widgetclass_drawfunc_t</a> )(struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget, <a class="el" href="hw__interface_8h.html#ad9970ae727c438faaf09c58c5defb796">ei_surface_t</a> surface, <a class="el" href="hw__interface_8h.html#ad9970ae727c438faaf09c58c5defb796">ei_surface_t</a> pick_surface, <a class="el" href="structei__rect__t.html">ei_rect_t</a> *clipper)</td></tr>
-<tr class="separator:a8884e2761aabe4f85de5b0b01375b067"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3b190e940c48f6c04c4974b9a3fbfe3f"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#a3b190e940c48f6c04c4974b9a3fbfe3f">ei_widgetclass_setdefaultsfunc_t</a> )(struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget)</td></tr>
-<tr class="separator:a3b190e940c48f6c04c4974b9a3fbfe3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac236b1cd658bd8df18a027872fc850eb"><td class="memItemLeft" align="right" valign="top">void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#ac236b1cd658bd8df18a027872fc850eb">ei_widgetclass_geomnotifyfunc_t</a> )(struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget, <a class="el" href="structei__rect__t.html">ei_rect_t</a> rect)</td></tr>
-<tr class="separator:ac236b1cd658bd8df18a027872fc850eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e7e9c6591666141e50c4dad16c66044"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structei__widgetclass__t.html">ei_widgetclass_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#a2e7e9c6591666141e50c4dad16c66044">CLASSES</a></td></tr>
+<tr class="separator:a2e7e9c6591666141e50c4dad16c66044"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1eb8768092c8569c694ab8362854260"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structei__widgetclass__t.html">ei_widgetclass_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ei__widgetclass_8c.html#ac1eb8768092c8569c694ab8362854260">FRAME</a></td></tr>
+<tr class="separator:ac1eb8768092c8569c694ab8362854260"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a class="anchor" id="a838fccb1cd368bdb5dd486f5fcb07ac3"></a>
@@ -141,9 +137,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Registers the "button" widget class in the program. This must be called only once before widgets of the class "button" can be created and configured with <a class="el" href="ei__widget_8c.html#a6aef3afd6aa8e6bab563735a0c54a76b">ei_button_configure</a>. </p>
+<p>Registers the "button" widget class in the program. This must be called only once before widgets of the class "button" can be created and configured with <a class="el" href="structei__button__configure.html">ei_button_configure</a>. </p>
 
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00052">52</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00053">53</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
 
 </div>
 </div>
@@ -162,7 +158,7 @@ Variables</h2></td></tr>
 
 <p>Registers the "frame" widget class in the program. This must be called only once before widgets of the class "frame" can be created and configured with <a class="el" href="ei__widget_8c.html#aaaeb8447f509b20478940b514b542106">ei_frame_configure</a>. </p>
 
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00047">47</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00043">43</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
 
 </div>
 </div>
@@ -181,7 +177,7 @@ Variables</h2></td></tr>
 
 <p>Registers the "toplevel" widget class in the program. This must be called only once before widgets of the class "toplevel" can be created and configured with <a class="el" href="ei__widget_8c.html#a853349fd4f65ae575a1989a9713059b4">ei_toplevel_configure</a>. </p>
 
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00057">57</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00058">58</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
 
 </div>
 </div>
@@ -208,7 +204,7 @@ Variables</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The structure describing the class. </dd></dl>
 
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00042">42</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00026">26</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
 
 </div>
 </div>
@@ -234,85 +230,17 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00037">37</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="acc47bb0762815c5b3d47a5e795f3037a"></a>
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static char * ei_widgetclass_stringname </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="ei__widgetclass_8h.html#acfa18ebbfac8cbbc11345a01c2099aed">ei_widgetclass_name_t</a>&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00032">32</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00011">11</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Variable Documentation</h2>
-<a class="anchor" id="aae1a8dd73c838085124bac498c083fbf"></a>
+<a class="anchor" id="a2e7e9c6591666141e50c4dad16c66044"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void*(* ei_widgetclass_allocfunc_t)(void)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00003">3</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a8884e2761aabe4f85de5b0b01375b067"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void(* ei_widgetclass_drawfunc_t)(struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget, <a class="el" href="hw__interface_8h.html#ad9970ae727c438faaf09c58c5defb796">ei_surface_t</a> surface, <a class="el" href="hw__interface_8h.html#ad9970ae727c438faaf09c58c5defb796">ei_surface_t</a> pick_surface, <a class="el" href="structei__rect__t.html">ei_rect_t</a> *clipper)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00013">13</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="ac236b1cd658bd8df18a027872fc850eb"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void(* ei_widgetclass_geomnotifyfunc_t)(struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget, <a class="el" href="structei__rect__t.html">ei_rect_t</a> rect)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00026">26</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
-
-</div>
-</div>
-<a class="anchor" id="a2da6cdc23167812c0e1bdf4026f1daa8"></a>
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void(* ei_widgetclass_releasefunc_t)(struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget)</td>
+          <td class="memname"><a class="el" href="structei__widgetclass__t.html">ei_widgetclass_t</a>* CLASSES</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -321,24 +249,24 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a3b190e940c48f6c04c4974b9a3fbfe3f"></a>
+<a class="anchor" id="ac1eb8768092c8569c694ab8362854260"></a>
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void(* ei_widgetclass_setdefaultsfunc_t)(struct <a class="el" href="structei__widget__t.html">ei_widget_t</a> *widget)</td>
+          <td class="memname"><a class="el" href="structei__widgetclass__t.html">ei_widgetclass_t</a> FRAME</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00021">21</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
+<p>Definition at line <a class="el" href="ei__widgetclass_8c_source.html#l00009">9</a> of file <a class="el" href="ei__widgetclass_8c_source.html">ei_widgetclass.c</a>.</p>
 
 </div>
 </div>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat May 19 2018 20:16:42 for Projet C - Interaction Graphique by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue May 29 2018 00:20:27 for Projet C - Interaction Graphique by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.5
 </small></address>
