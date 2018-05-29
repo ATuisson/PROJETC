@@ -6,6 +6,7 @@
 #include "ei_frame.h"
 #include "ei_widgetclass.h"
 #include "ei_application.h"
+#include "ei_button.h"
 
 extern ei_widgetclass_t* CLASSES;
 
@@ -213,27 +214,27 @@ void			ei_button_configure		(ei_widget_t*		widget,
 				button -> text_anchor = &anchor_ref_text;
 		}
 		if (img != NULL)	{
-				button -> image = img;
+				button -> img = img;
 				button -> text = NULL;
 		}
 		if (img_rect != NULL)	{
-				button -> rect = img_rect;
+				button -> img_rect = img_rect;
 		}
 		if (img_anchor != NULL)	{
-						button -> anchor_image = img_anchor;
+						button -> img_anchor = img_anchor;
 		}
-		else if (button -> anchor_image == NULL) {
+		else if (button -> img_anchor == NULL) {
 						ei_anchor_t anchor_ref_img = ei_anc_center;
-						button -> anchor_text = &anchor_ref_img;
+						button -> img_anchor = &anchor_ref_img;
 					}
 		if (requested_size != NULL) {
 						widget -> requested_size = *requested_size;
 		}
 		else{
-						if (button -> image != NULL){
+						if (button -> img != NULL){
 										// SEGMENTATION FAULT
 										// getchar();
-										ei_size_t surface_minimum = hw_surface_get_size(*(button->image));
+										ei_size_t surface_minimum = hw_surface_get_size(*(button->img));
 										// getchar();// C'EST LA
 										surface_minimum.width += 2* (*border_width);
 										surface_minimum.height += 2* (*border_width);
@@ -241,7 +242,7 @@ void			ei_button_configure		(ei_widget_t*		widget,
 						}
 						if (button -> text != NULL){
 										ei_surface_t surface_text;
-										surface_text = hw_text_create_surface(*(button -> text), button -> font , *(button -> color_text));
+										surface_text = hw_text_create_surface(*(button -> text), button -> text_font , *(button -> text_color));
 										ei_size_t surface_minimum = hw_surface_get_size(surface_text);
 										surface_minimum.width += 2* (*border_width);
 										surface_minimum.height += 2* (*border_width);
