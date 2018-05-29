@@ -159,6 +159,13 @@ dessin_bouton : ${OBJDIR}/dessin_bouton.o ${LIBEIBASE} ${LIBEI}
 
 ${OBJDIR}/dessin_bouton.o : ${TESTS}/dessin_bouton.c
 	${CC} ${CCFLAGS} ${INCFLAGS} ${TESTS}/dessin_bouton.c -o ${OBJDIR}/dessin_bouton.o
+
+	#frame_img
+frame_img : ${OBJDIR}/frame_img.o ${LIBEIBASE} ${LIBEI}
+	${LINK} -o frame_img ${OBJDIR}/frame_img.o ${LIBEI} ${LIBS}
+
+${OBJDIR}/frame_img.o : ${TESTS}/frame_img.c
+	${CC} ${CCFLAGS} ${INCFLAGS} ${TESTS}/frame_img.c -o ${OBJDIR}/frame_img.o
 # Building of the library libei
 
 ${LIBEI} : ${LIBEIOBJS}
