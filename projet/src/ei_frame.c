@@ -136,16 +136,33 @@ void* ei_frame_allocfunc_t()
          point_du_rectangle_sans_border.y = point_du_rectangle.y + *(((ei_frame_t*)widget)->border_width);
          ei_size_t taille_rectangle_sans_border = {taille_rectangle.width -2* (*(((ei_frame_t*)widget)->border_width)), taille_rectangle.height - 2*(*(((ei_frame_t*)widget)->border_width))};
          ei_rect_t  rectangle_sans_border = {point_du_rectangle_sans_border, taille_rectangle_sans_border};
-         ///<instanciation du rectangle de taille rectangle - border
-         ei_fill(surface,&couleur_top,&rectangle);
-         ///< on dessine d'abord un cadre clair
-         ei_linked_point_t* triangle_bot=chemin_centre(rectangle);
-         ei_draw_polygon(surface,triangle_bot,couleur_bot,&rectangle);
-         /// < triangle du bas
-         ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle_sans_border);
-         ///< filling the surface with the frame colour
-         ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);
-         ///< filling the offscreen surface with the frame colour
+         if ((*((ei_frame_t*)widget) -> relief) == ei_relief_raised){
+                 ///<instanciation du rectangle de taille rectangle - border
+                 ei_fill(surface,&couleur_top,&rectangle);
+                 ///< on dessine d'abord un cadre clair
+                 ei_linked_point_t* triangle_bot=chemin_centre(rectangle);
+                 ei_draw_polygon(surface,triangle_bot,couleur_bot,&rectangle);
+                 /// < triangle du bas
+                 ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle_sans_border);
+                 ///< filling the surface with the frame colour
+                 ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);
+                 ///< filling the offscreen surface with the frame colour
+         }
+         if ((*((ei_frame_t*)widget) -> relief) == ei_relief_sunken){
+                 ///<instanciation du rectangle de taille rectangle - border
+                 ei_fill(surface,&couleur_bot,&rectangle);
+                 ///< on dessine d'abord un cadre clair
+                 ei_linked_point_t* triangle_bot=chemin_centre(rectangle);
+                 ei_draw_polygon(surface,triangle_bot,couleur_top,&rectangle);
+                 /// < triangle du bas
+                 ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle_sans_border);
+                 ///< filling the surface with the frame colour
+                 ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);
+                 ///< filling the offscreen surface with the frame colour
+         }
+         if ((*((ei_frame_t*)widget) -> relief)== ei_relief_none){
+                ei_fill(surface,((ei_frame_t*)widget) -> color, &rectangle);
+         }
          if (((ei_frame_t*)widget) -> text != NULL ){
                 ei_point_t point = ei_point_zero();
                 associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, rectangle, &point);
