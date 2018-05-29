@@ -8,3 +8,13 @@
  */
  #include "ei_types.h"
  #include "ei_widget.h"
+ #include "ei_event.h"
+
+ typedef struct bind_structure_t {
+        ei_eventtype_t eventtype;
+        ei_widget_t* widget;
+        ei_tag_t tag;
+        ei_callback_t callback;
+        void* user_param;
+        struct bind_structure_t* next;
+ } bind_structure_t;
