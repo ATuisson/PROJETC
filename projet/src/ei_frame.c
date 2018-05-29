@@ -7,7 +7,6 @@
 #include "ei_widgetclass.h"
 #include "hw_interface.h"
 #include "ei_application.h"
-#include "ei_utils.h"
 #include "ei_button.h"
 extern ei_font_t ei_default_font;
 
@@ -179,16 +178,22 @@ void* ei_frame_allocfunc_t()
          if (((ei_frame_t*)widget) -> image != NULL){
            // quand tu modifiera cela TNL, modifie l'équivalent dans ei_button_drawfunc TODO
                 ei_size_t taille_surface = hw_surface_get_size(surface);
+                ei_bool_t vrai = EI_TRUE;
+                ei_bool_t faux = EI_FALSE;
                 ei_surface_t surface_temp = hw_surface_create(surface, &taille_surface, vrai);
                 // on copie l'ecran vers la surface temporaire
                 int i = ei_copy_surface(surface_temp, NULL, surface, NULL, faux);
-                // on colle l'image sur cette surface, au bon endroit
-
-
-
-                ei_copy_surface (surface, &rectangle, ((ei_frame_t*)widget) -> image, \
-                         *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
-                         ///< drawing image if exists
+                // on colle l'image sur cette surface, au bon endroit (cible de l'anchor + size)
+                ei_size_t img_size = hw_surface_get_size(*((ei_frame_t*)widget) -> image);
+                ei_rect_t rect_cible = ei_rect(rectangle.top_left, img_size);
+                ei_rect_t rect_image = hw_surface_get_rect(*((ei_frame_t*)widget) -> image);
+                    // TODO associate point_anchor à factoriser. pour le moment cible = top-left du clipper
+                int j = ei_copy_surface(surface_temp, &rect_cible, *((ei_frame_t*)widget) -> image, &rect_image, hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
+                // on copie le clipper de la surface temporaire, on colle sur le clipper de la surface principale
+                int k = ei_copy_surface (surface, &rectangle, surface_temp, &rectangle, faux);
+                if (i + j + k != 0){
+                    exit(666);
+                }
          }
  }
  ei_linked_point_t* chemin_centre(ei_rect_t rectangle)

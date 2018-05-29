@@ -9,7 +9,7 @@
 #include "ei_button.h"
 #include "ei_utils.h"
 #include "ei_frame.h"
-
+extern ei_font_t ei_default_font;
 
 ei_linked_point_t* arc (ei_point_t centre,
                  int rayon,
@@ -92,7 +92,6 @@ ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
                 while (cellule_cour -> next != NULL){
                         cellule_cour = cellule_cour -> next;
                 }
-                return(rectangle_fait);
         }
         ei_linked_point_t* chemin_du_centre_val = chemin_du_centre(rectangle,largeur,hauteur,plus_court_cote, centre_haut_droit);
         // on peut factoriser ce code... navigation pour while
@@ -121,7 +120,6 @@ ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
                 while (cellule_cour -> next != NULL){
                         cellule_cour = cellule_cour -> next;
                 }
-                return rectangle_fait;
         }
         if (param == ei_bouton_top){
                 arc_haut_gauche = arc(centre_haut_gauche,rayon,180,90);
@@ -144,10 +142,8 @@ ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
                 while (cellule_cour -> next ){
                         cellule_cour = cellule_cour -> next;
                 }
-                return rectangle_fait;
-
         }
-
+        return rectangle_fait;
 }
 
 
@@ -322,19 +318,18 @@ void ei_button_setdefaultsfunc_t(struct ei_widget_t* widget)
         int default_radius = k_default_button_corner_radius;
         ei_color_t default_color = ei_default_background_color;
         ei_color_t text_defaut_color = ei_font_default_color;
-        ei_relief_t relief = ei_relief_raised;
         ei_anchor_t anchor = ei_anc_center;
         ((ei_button_t*)widget) -> text = NULL;
-        ((ei_button_t*)widget) -> border_width = &default_border;
-        ((ei_button_t*)widget) -> corner_radius = &default_radius;
-        ((ei_button_t*)widget) -> relief = &default_relief;
-        ((ei_button_t*)widget) -> color = &default_color;
-        ((ei_button_t*)widget) -> text_font = &ei_default_font;
-        ((ei_button_t*)widget) -> text_color = &text_defaut_color;
-        ((ei_button_t*)widget) -> text_anchor = &anchor;
+        *((ei_button_t*)widget) -> border_width = default_border;
+        *((ei_button_t*)widget) -> corner_radius = default_radius;
+        *((ei_button_t*)widget) -> relief = default_relief;
+        *((ei_button_t*)widget) -> color = default_color;
+        *((ei_button_t*)widget) -> text_font = ei_default_font;
+        *((ei_button_t*)widget) -> text_color = text_defaut_color;
+        *((ei_button_t*)widget) -> text_anchor = anchor;
         ((ei_button_t*)widget) -> img = NULL;
         ((ei_button_t*)widget) -> img_rect = NULL;
-        ((ei_button_t*)widget) -> img_anchor = &anchor;
+        *((ei_button_t*)widget) -> img_anchor = anchor;
         ((ei_button_t*)widget) -> callback = NULL;
         ((ei_button_t*)widget) -> user_param = NULL;
         widget -> requested_size = ei_size_zero();

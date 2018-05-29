@@ -273,7 +273,12 @@ void			ei_button_configure		(ei_widget_t*		widget,
 										widget -> requested_size = surface_minimum;
 						}
 		}
-		//TODO : EVENT HANDLING
+		if (callback != NULL)	{
+				button -> callback = callback;
+		}
+		if (user_param != NULL) {
+				button -> user_param = user_param;
+		}
 		widget -> content_rect = &(widget -> screen_location);
 		ei_app_invalidate_rect(&(widget -> screen_location));
 }

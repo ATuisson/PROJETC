@@ -34,7 +34,7 @@ int min(int a,int b);
 
 
 typedef struct ei_button_t		{ei_widget_t		widget;
-							 const ei_color_t*	color;
+							 ei_color_t*	color;
 							 int*			border_width;
 							 int*			corner_radius;
 							 ei_relief_t*		relief;
