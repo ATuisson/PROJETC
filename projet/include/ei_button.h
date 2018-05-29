@@ -24,6 +24,15 @@ ei_linked_point_t* chemin_du_centre(ei_rect_t rectangle,
                                     ei_point_t centre_haut_droit);
 
 
+void draw_button (struct ei_widget_t*  widget,
+                            ei_surface_t        surface,
+                            ei_surface_t        pick_surface,
+                            ei_rect_t*          clipper);
+
+
+int min(int a,int b);
+
+
 typedef struct ei_button_t		{ei_widget_t		widget;
 							 const ei_color_t*	color;
 							 int*			border_width;
@@ -51,4 +60,6 @@ void ei_button_drawfunc_t (struct ei_widget_t*   widget,
 void ei_button_releasefunc_t (struct ei_widget_t*    widget);
 
 void ei_button_setdefaultsfunc_t (struct ei_widget_t*   widget);
+
+
 #endif

@@ -98,7 +98,7 @@ void ei_app_run(void)
                 while (UPDATES != NULL){
                         // d'apres l'enonce c'est ici que se fait le lock et l'unlock.
                         // TODO : optimisation, pousser plus loin le 3.7
-                        hw_surface_unlock(surface_fenetre_syst);
+                        hw_surface_lock(surface_fenetre_syst);
                         uint8_t* buffer = hw_surface_get_buffer(surface_fenetre_syst);
                         explore(ROOT, &(UPDATES -> rect));
                         UPDATES = UPDATES -> next;
