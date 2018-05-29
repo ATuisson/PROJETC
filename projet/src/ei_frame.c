@@ -172,8 +172,16 @@ void* ei_frame_allocfunc_t()
                         ///< Drawing said text on the surface
          }
          if (((ei_frame_t*)widget) -> image != NULL){
-           // quand tu modifiera cela TNL, modifie l'équivalent dans ei_button_drawfunc
-                 ei_copy_surface (surface, clipper, ((ei_frame_t*)widget) -> image, \
+           // quand tu modifiera cela TNL, modifie l'équivalent dans ei_button_drawfunc TODO
+                ei_size_t taille_surface = hw_surface_get_size(surface);
+                ei_surface_t surface_temp = hw_surface_create(surface, &taille_surface, vrai);
+                // on copie l'ecran vers la surface temporaire
+                int i = ei_copy_surface(surface_temp, NULL, surface, NULL, faux);
+                // on colle l'image sur cette surface, au bon endroit
+
+
+
+                ei_copy_surface (surface, &rectangle, ((ei_frame_t*)widget) -> image, \
                          *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
                          ///< drawing image if exists
          }
