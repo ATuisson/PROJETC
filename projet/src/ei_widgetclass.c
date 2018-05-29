@@ -4,9 +4,11 @@
 
 #include "ei_widgetclass.h"
 #include "ei_frame.h"
+#include "ei_button.h"
 
 ei_widgetclass_t* CLASSES;
 ei_widgetclass_t FRAME;
+ei_widgetclass_t BUTTON;
 
 void			ei_widgetclass_register		(ei_widgetclass_t* widgetclass)
 {
@@ -52,7 +54,12 @@ void			ei_frame_register_class 	()
 
 void			ei_button_register_class 	()
 {
-
+				strcpy(BUTTON.name, "button");
+				BUTTON.allocfunc = &ei_button_allocfunc_t;
+				BUTTON.releasefunc = &ei_button_releasefunc_t;
+				BUTTON.drawfunc = &ei_button_drawfunc_t;
+				BUTTON.setdefaultsfunc = &ei_button_setdefaultsfunc_t;
+				ei_widgetclass_register(&BUTTON);
 }
 
 void			ei_toplevel_register_class 	()

@@ -8,6 +8,7 @@
 #include "hw_interface.h"
 #include "ei_application.h"
 #include "ei_utils.h"
+#include "ei_button.h"
 extern ei_font_t ei_default_font;
 
 /**
@@ -140,16 +141,33 @@ void* ei_frame_allocfunc_t()
          point_du_rectangle_sans_border.y = point_du_rectangle.y + *(((ei_frame_t*)widget)->border_width);
          ei_size_t taille_rectangle_sans_border = {taille_rectangle.width -2* (*(((ei_frame_t*)widget)->border_width)), taille_rectangle.height - 2*(*(((ei_frame_t*)widget)->border_width))};
          ei_rect_t  rectangle_sans_border = {point_du_rectangle_sans_border, taille_rectangle_sans_border};
-         ///<instanciation du rectangle de taille rectangle - border
-         ei_fill(surface,&couleur_top,&rectangle);
-         ///< on dessine d'abord un cadre clair
-         ei_linked_point_t* triangle_bot=chemin_centre(rectangle);
-         ei_draw_polygon(surface,triangle_bot,couleur_bot,&rectangle);
-         /// < triangle du bas
-         ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle_sans_border);
-         ///< filling the surface with the frame colour
-         ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);
-         ///< filling the offscreen surface with the frame colour
+         if ((*((ei_frame_t*)widget) -> relief) == ei_relief_raised){
+                 ///<instanciation du rectangle de taille rectangle - border
+                 ei_fill(surface,&couleur_top,&rectangle);
+                 ///< on dessine d'abord un cadre clair
+                 ei_linked_point_t* triangle_bot=chemin_centre(rectangle);
+                 ei_draw_polygon(surface,triangle_bot,couleur_bot,&rectangle);
+                 /// < triangle du bas
+                 ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle_sans_border);
+                 ///< filling the surface with the frame colour
+                 ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);
+                 ///< filling the offscreen surface with the frame colour
+         }
+         if ((*((ei_frame_t*)widget) -> relief) == ei_relief_sunken){
+                 ///<instanciation du rectangle de taille rectangle - border
+                 ei_fill(surface,&couleur_bot,&rectangle);
+                 ///< on dessine d'abord un cadre clair
+                 ei_linked_point_t* triangle_bot=chemin_centre(rectangle);
+                 ei_draw_polygon(surface,triangle_bot,couleur_top,&rectangle);
+                 /// < triangle du bas
+                 ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle_sans_border);
+                 ///< filling the surface with the frame colour
+                 ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);
+                 ///< filling the offscreen surface with the frame colour
+         }
+         if ((*((ei_frame_t*)widget) -> relief)== ei_relief_none){
+                ei_fill(surface,((ei_frame_t*)widget) -> color, &rectangle);
+         }
          if (((ei_frame_t*)widget) -> text != NULL ){
                 ei_point_t point = ei_point_zero();
                 associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, rectangle, *(((ei_frame_t*)widget) -> text), *(((ei_frame_t*)widget) -> font), &point);
@@ -167,12 +185,21 @@ void* ei_frame_allocfunc_t()
  }
  ei_linked_point_t* chemin_centre(ei_rect_t rectangle)
  {
+   int plus_court_cote = min(rectangle.size.width,rectangle.size.height);
    ei_linked_point_t* point_du_haut = malloc(sizeof(ei_linked_point_t));
+   ei_linked_point_t* point_centre_haut = malloc(sizeof(ei_linked_point_t));
+   ei_linked_point_t* point_centre_bas = malloc(sizeof(ei_linked_point_t));
    ei_linked_point_t* point_du_bas = malloc(sizeof(ei_linked_point_t));
    ei_linked_point_t* point_bas_droit = malloc(sizeof(ei_linked_point_t));
    (point_du_haut -> point).x = rectangle.top_left.x + rectangle.size.width;
    (point_du_haut -> point).y = rectangle.top_left.y;
-   point_du_haut -> next = point_du_bas;
+   point_du_haut -> next = point_centre_haut;
+   point_centre_haut -> point.x =rectangle.top_left.x + rectangle.size.width -0.5* plus_court_cote;
+   point_centre_haut -> point.y =rectangle.top_left.y + 0.5*plus_court_cote;
+   point_centre_haut -> next = point_centre_bas;
+   point_centre_bas -> point.x =rectangle.top_left.x + 0.5*plus_court_cote;
+   point_centre_bas -> point.y =rectangle.top_left.y + rectangle.size.height - 0.5*plus_court_cote;
+   point_centre_bas -> next = point_du_bas;
    point_du_bas -> point.x = rectangle.top_left.x;
    point_du_bas -> point.y = rectangle.top_left.y + rectangle.size.height;
    point_du_bas -> next = point_bas_droit;
