@@ -14,6 +14,10 @@
 #include "ei_widget.h"
 #include "ei_types.h"
 
+void associate_point_anchor     (ei_anchor_t*    anchor,
+                                ei_surface_t    surface,
+                                ei_point_t* point);
+
 /**
  * \brief A structure that stores specific information about a frame widget class
  */
