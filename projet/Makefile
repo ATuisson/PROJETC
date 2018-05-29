@@ -21,7 +21,8 @@ LIBEIOBJS	:= 	${OBJDIR}/ei_application.o \
 							${OBJDIR}/ei_draw.o \
 							${OBJDIR}/ei_button.o \
 							${OBJDIR}/ei_placer.o \
-							${OBJDIR}/ei_button.o
+							${OBJDIR}/ei_button.o \
+							${OBJDIR}/ei_event.o \
 
 
 
