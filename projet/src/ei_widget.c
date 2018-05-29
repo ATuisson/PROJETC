@@ -7,6 +7,7 @@
 #include "ei_widgetclass.h"
 #include "ei_application.h"
 #include "ei_button.h"
+#include "ei_utils.h"
 
 extern ei_widgetclass_t* CLASSES;
 
@@ -188,7 +189,8 @@ void			ei_button_configure		(ei_widget_t*		widget,
 				button -> relief = relief;
 		}
 		else if (button -> relief == NULL){
-				button -> relief = ei_relief_raised;
+				ei_relief_t def_relief = ei_relief_raised;
+				button -> relief = &def_relief;
 		}
 		if (text != NULL)	{
 				button -> text = text;

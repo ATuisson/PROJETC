@@ -7,6 +7,7 @@
 #include "ei_widgetclass.h"
 #include "hw_interface.h"
 #include "ei_button.h"
+#include "ei_utils.h"
 
 int min(int a,int b);
 
@@ -181,7 +182,7 @@ void button_drawfunc (struct ei_widget_t* widget,
                       ei_rect_t*          clipper)
 {
         ei_rect_t rectangle = widget -> screen_location;
-        ei_fill(surface, ((ei_bouton)));
+        //ei_fill(surface, ((ei_bouton)));
 }
 
 void* ei_button_allocfunc_t()
@@ -209,7 +210,7 @@ void ei_button_drawfunc_t (struct ei_widget_t*  widget,
                             ei_rect_t*          clipper)
 {
         ei_rect_t rectangle = widget -> screen_location;
-        ei_fill(surface, ((ei_button_t*)widget -> color), &rectangle);
+        ei_fill(surface, ((ei_button_t*)widget) -> color, &rectangle);
         //TODO : c'est pas le bon draw
 }
 
@@ -232,14 +233,16 @@ void ei_button_releasefunc_t(struct ei_widget_t* widget)
 
 void ei_button_setdefaultsfunc_t(struct ei_widget_t* widget)
 {
-        ei_relief_t default_relief = k_default_button_border_width;
+        ei_relief_t default_relief = ei_relief_raised;
+        int default_border = k_default_button_border_width;
         int default_radius = k_default_button_corner_radius;
         ei_color_t default_color = ei_default_background_color;
         ei_color_t text_defaut_color = ei_font_default_color;
         ei_relief_t relief = ei_relief_raised;
         ei_anchor_t anchor = ei_anc_center;
         ((ei_button_t*)widget) -> text = NULL;
-        ((ei_button_t*)widget) -> border_width = &k;
+        ((ei_button_t*)widget) -> border_width = &default_border;
+        ((ei_button_t*)widget) -> corner_radius = &default_radius;
         ((ei_button_t*)widget) -> relief = &default_relief;
         ((ei_button_t*)widget) -> color = &default_color;
         ((ei_button_t*)widget) -> text_font = &ei_default_font;
