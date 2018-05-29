@@ -31,7 +31,7 @@ ei_bool_t process_key(ei_widget_t* widget, ei_event_t* event, void* user_param)
 		ei_app_quit_request();
 		return EI_TRUE;
 	}
-	
+
 	return EI_FALSE;
 }
 

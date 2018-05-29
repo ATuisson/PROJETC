@@ -7,8 +7,10 @@
 #include "ei_widgetclass.h"
 #include "hw_interface.h"
 #include "ei_application.h"
-
+#include "ei_utils.h"
+#include "ei_button.h"
 extern ei_font_t ei_default_font;
+
 /**
  *\brief    Fonction utilitaire pour ei_frame_drawfunc_t :
  *
@@ -18,11 +20,10 @@ extern ei_font_t ei_default_font;
  *
  */
 void associate_point_anchor     (ei_anchor_t*    anchor,
-                                ei_surface_t    surface,
+                                ei_rect_t    rect,
                                 ei_point_t* point)
 {
     // association ancrage-surface avec coordonnées
-    ei_rect_t rect = hw_surface_get_rect(surface);
     switch (*anchor) {
             case 1:
                     point->x = rect.top_left.x + rect.size.width / 2;
@@ -92,29 +93,103 @@ void* ei_frame_allocfunc_t()
  * @param	clipper		If not NULL, the drawing is restricted within this rectangle
  *				(expressed in the surface reference frame).
  */
-void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
-    							ei_surface_t	surface,
-    					        ei_surface_t	pick_surface,
-    							ei_rect_t*		clipper)
-{
-        ei_rect_t rectangle = widget -> screen_location;
-        ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle);  ///< filling the surface with the frame colour
-        ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);  ///< filling the offscreen surface with the frame colour
-        if (((ei_frame_t*)widget) -> text != NULL ){
-                ei_point_t* point = NULL;
-                associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, surface, point);
+ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
+     							ei_surface_t	surface,
+     					        ei_surface_t	pick_surface,
+     							ei_rect_t*		clipper)
+ {
+         ei_color_t couleur_fond = *(((ei_frame_t*)widget) -> color);
+         ei_color_t couleur_top;//on augmente
+         ei_color_t couleur_bot;//on baisse
+         if (couleur_fond.red >= 5)
+                 couleur_bot.red = couleur_fond.red -5;
+         else
+                 couleur_bot.red = couleur_fond.red;
+         if (couleur_fond.green >= 5)
+                 couleur_bot.green = couleur_fond.green -5;
+         else
+                couleur_bot.green = couleur_fond.green;
+         if (couleur_fond.blue >= 5)
+                 couleur_bot.blue = couleur_fond.blue -5;
+         else
+                couleur_bot.blue = couleur_fond.blue;
+         if (couleur_fond.red <= 251)
+                 couleur_top.red = couleur_fond.red +5;
+         else
+                 couleur_top.red = couleur_fond.red;
+         if (couleur_fond.green <= 251)
+                 couleur_top.green = couleur_fond.green +5;
+         else
+                 couleur_top.green = couleur_fond.green +5;
+         if (couleur_fond.blue <= 251)
+                 couleur_top.blue = couleur_fond.blue +5;
+         else
+                 couleur_top.blue = couleur_fond.blue;
+         couleur_top.alpha = couleur_fond.alpha;
+         couleur_bot.alpha = couleur_fond.alpha;
+         ei_rect_t rectangle = widget -> screen_location;
+         ei_size_t taille_rectangle = (widget->screen_location).size;
+         ei_point_t point_du_rectangle = (widget->screen_location).top_left;
+         ///<instanciation du rectangle de taille totale du frame
+         ei_point_t point_du_rectangle_sans_border;
+         point_du_rectangle_sans_border.x = point_du_rectangle.x + *(((ei_frame_t*)widget) -> border_width);
+         point_du_rectangle_sans_border.y = point_du_rectangle.y + *(((ei_frame_t*)widget)->border_width);
+         ei_size_t taille_rectangle_sans_border = {taille_rectangle.width -2* (*(((ei_frame_t*)widget)->border_width)), taille_rectangle.height - 2*(*(((ei_frame_t*)widget)->border_width))};
+         ei_rect_t  rectangle_sans_border = {point_du_rectangle_sans_border, taille_rectangle_sans_border};
+         ///<instanciation du rectangle de taille rectangle - border
+         ei_fill(surface,&couleur_top,&rectangle);
+         ///< on dessine d'abord un cadre clair
+         ei_linked_point_t* triangle_bot=chemin_centre(rectangle);
+         ei_draw_polygon(surface,triangle_bot,couleur_bot,&rectangle);
+         /// < triangle du bas
+         ei_fill(surface, ((ei_frame_t*)widget) -> color, &rectangle_sans_border);
+         ///< filling the surface with the frame colour
+         ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);
+         ///< filling the offscreen surface with the frame colour
+         if (((ei_frame_t*)widget) -> text != NULL ){
+                ei_point_t point = ei_point_zero();
+                associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, rectangle, &point);
                 ///< adressing the top-left corner as a point from its anchor
+<<<<<<< HEAD
                 ei_draw_text(surface, point, *(((ei_frame_t*)widget) -> text), \
+=======
+                ei_draw_text(surface, &point, *(((ei_frame_t*)widget) -> text), \
+>>>>>>> b2908aa973ed047eef1cca28613113a4c78ad043
                         *(((ei_frame_t*)widget) -> font), *(((ei_frame_t*)widget) -> color_text), clipper);
                         ///< Drawing said text on the surface
-        }
-        if (((ei_frame_t*)widget) -> image != NULL){
-                ei_copy_surface (surface, clipper, ((ei_frame_t*)widget) -> image, \
-                        *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
-                        ///< drawing image if exists
-        }
-}
-
+         }
+         if (((ei_frame_t*)widget) -> image != NULL){
+           // quand tu modifiera cela TNL, modifie l'équivalent dans ei_button_drawfunc
+                 ei_copy_surface (surface, clipper, ((ei_frame_t*)widget) -> image, \
+                         *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
+                         ///< drawing image if exists
+         }
+ }
+ ei_linked_point_t* chemin_centre(ei_rect_t rectangle)
+ {
+   int plus_court_cote = min(rectangle.size.width,rectangle.size.height);
+   ei_linked_point_t* point_du_haut = malloc(sizeof(ei_linked_point_t));
+   ei_linked_point_t* point_centre_haut = malloc(sizeof(ei_linked_point_t));
+   ei_linked_point_t* point_centre_bas = malloc(sizeof(ei_linked_point_t));
+   ei_linked_point_t* point_du_bas = malloc(sizeof(ei_linked_point_t));
+   ei_linked_point_t* point_bas_droit = malloc(sizeof(ei_linked_point_t));
+   (point_du_haut -> point).x = rectangle.top_left.x + rectangle.size.width;
+   (point_du_haut -> point).y = rectangle.top_left.y;
+   point_du_haut -> next = point_centre_haut;
+   point_centre_haut -> point.x =rectangle.top_left.x + rectangle.size.width -0.5* plus_court_cote;
+   point_centre_haut -> point.y =rectangle.top_left.y + 0.5*plus_court_cote;
+   point_centre_haut -> next = point_centre_bas;
+   point_centre_bas -> point.x =rectangle.top_left.x + 0.5*plus_court_cote;
+   point_centre_bas -> point.y =rectangle.top_left.y + rectangle.size.height - 0.5*plus_court_cote;
+   point_centre_bas -> next = point_du_bas;
+   point_du_bas -> point.x = rectangle.top_left.x;
+   point_du_bas -> point.y = rectangle.top_left.y + rectangle.size.height;
+   point_du_bas -> next = point_bas_droit;
+   point_bas_droit -> point.x = rectangle.top_left.x + rectangle.size.width;
+   point_bas_droit -> point.y = rectangle.top_left.y + rectangle.size.height;
+   point_bas_droit -> next = NULL;
+   return point_du_haut;
+ }
 /**
  * \brief	A function that releases the memory used by a FRAME widget before it is destroyed.
  *		The \ref ei_widget_t structure itself, passed as parameter, must *not* by freed by

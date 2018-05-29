@@ -202,9 +202,9 @@ void ei_button_drawfunc_t(struct ei_widget_t*  widget,
         ei_button_t* bouton = (ei_button_t*)widget;
         draw_button(widget,surface,pick_surface,clipper);
         if (bouton -> text != NULL ){
-                ei_point_t* point = NULL;
-                associate_point_anchor(bouton -> text_anchor, surface,point);
-                ei_draw_text(surface, point, *(bouton->text), bouton -> text_font, *(bouton -> text_color),clipper);
+                ei_point_t point = ei_point_zero();
+                associate_point_anchor(bouton -> text_anchor, rectangle, &point);
+                ei_draw_text(surface, &point, *(bouton->text), bouton -> text_font, *(bouton -> text_color),clipper);
         }
         if (bouton -> img != NULL){
                 //problème de anchor similaire a frame
@@ -255,30 +255,58 @@ void draw_button (struct ei_widget_t*  widget,
           if(*(bouton->relief) == ei_relief_raised){
                   if (couleur_fond.red >= 5)
                           couleur_bot.red = couleur_fond.red -5;
+                  else
+                          couleur_bot.red = couleur_fond.red;
                   if (couleur_fond.green >= 5)
                           couleur_bot.green = couleur_fond.green -5;
+                  else
+                         couleur_bot.green = couleur_fond.green;
                   if (couleur_fond.blue >= 5)
                           couleur_bot.blue = couleur_fond.blue -5;
+                  else
+                         couleur_bot.blue = couleur_fond.blue;
                   if (couleur_fond.red <= 251)
                           couleur_top.red = couleur_fond.red +5;
+                  else
+                          couleur_top.red = couleur_fond.red;
                   if (couleur_fond.green <= 251)
+                          couleur_top.green = couleur_fond.green +5;
+                  else
                           couleur_top.green = couleur_fond.green +5;
                   if (couleur_fond.blue <= 251)
                           couleur_top.blue = couleur_fond.blue +5;
+                  else
+                          couleur_top.blue = couleur_fond.blue;
+                  couleur_top.alpha = couleur_fond.alpha;
+                  couleur_bot.alpha = couleur_fond.alpha;
         }
         if (*(bouton->relief) == ei_relief_sunken){
-                  if (couleur_fond.red >= 5)
-                          couleur_top.red = couleur_fond.red -5;
-                  if (couleur_fond.green >= 5)
-                          couleur_top.green = couleur_fond.green -5;
-                  if (couleur_fond.blue >= 5)
-                          couleur_top.blue = couleur_fond.blue -5;
-                  if (couleur_fond.red <= 251)
-                          couleur_bot.red = couleur_fond.red +5;
-                  if (couleur_fond.green <= 251)
-                          couleur_bot.green = couleur_fond.green +5;
-                  if (couleur_fond.blue <= 251)
-                          couleur_bot.blue = couleur_fond.blue +5;
+                if (couleur_fond.red >= 5)
+                        couleur_top.red = couleur_fond.red -5;
+                else
+                        couleur_top.red = couleur_fond.red;
+                if (couleur_fond.green >= 5)
+                        couleur_top.green = couleur_fond.green -5;
+                else
+                       couleur_top.green = couleur_fond.green;
+                if (couleur_fond.blue >= 5)
+                        couleur_top.blue = couleur_fond.blue -5;
+                else
+                       couleur_top.blue = couleur_fond.blue;
+                if (couleur_fond.red <= 251)
+                        couleur_bot.red = couleur_fond.red +5;
+                else
+                        couleur_bot.red = couleur_fond.red;
+                if (couleur_fond.green <= 251)
+                        couleur_bot.green = couleur_fond.green +5;
+                else
+                        couleur_bot.green = couleur_fond.green +5;
+                if (couleur_fond.blue <= 251)
+                        couleur_bot.blue = couleur_fond.blue +5;
+                else
+                        couleur_bot.blue = couleur_fond.blue;
+                couleur_top.alpha = couleur_fond.alpha;
+                couleur_bot.alpha = couleur_fond.alpha;
         }
         ei_draw_polygon(surface,points_fond,couleur_fond,clipper);
         ei_draw_polygon(surface,points_top,couleur_top,clipper);
