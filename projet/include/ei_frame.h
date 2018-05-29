@@ -55,7 +55,6 @@ void ei_frame_drawfunc_t (struct ei_widget_t*   widget,
                           ei_surface_t  pick_surface,
                           ei_rect_t*    clipper);
 
-
 /**
  * \brief   A function for default values of a class
  *

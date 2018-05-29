@@ -24,7 +24,7 @@ ei_linked_point_t* chemin_du_centre(ei_rect_t rectangle,
                                     ei_point_t centre_haut_droit);
 
 
-typedef struct ei_button_configure		{ei_widget_t		widget,
+typedef struct ei_button_t		{ei_widget_t		widget,
 							 ei_size_t*		requested_size,
 							 const ei_color_t*	color,
 							 int*			border_width,
@@ -39,8 +39,9 @@ typedef struct ei_button_configure		{ei_widget_t		widget,
 							 ei_anchor_t*		img_anchor,
 							 ei_callback_t*		callback,
 							 void**			user_param
-}ei_button_t;
+} ei_button_t;
 
+void* ei_button_allocfunc_t ();
 
 void ei_button_drawfunc_t (struct ei_widget_t*   widget,
                           ei_surface_t  surface,

@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <math.h>
 #include "ei_draw.h"
-#include "ei_frame.h"
+#include "ei_button.h"
 #include "ei_types.h"
 #include "ei_widgetclass.h"
 #include "hw_interface.h"
 #include "ei_button.h"
-int min(int a,int b);
 
+int min(int a,int b);
 
 ei_linked_point_t* arc (ei_point_t centre,
                  int rayon,
@@ -181,5 +181,74 @@ void button_drawfunc (struct ei_widget_t* widget,
                       ei_rect_t*          clipper)
 {
         ei_rect_t rectangle = widget -> screen_location;
-        ei_fill(surface, ((ei_bouton)))
+        ei_fill(surface, ((ei_bouton)));
+}
+
+void* ei_button_allocfunc_t()
+{
+        ei_button_t* widbutton = calloc(1, sizeof(ei_button_t));
+        widbutton -> color = calloc(1, sizeof(ei_color_t));
+        widbutton -> border_width = calloc(1, sizeof(int));
+        widbutton -> corner_radius = calloc(1, sizeof(int));
+        widbutton -> relief = calloc(1, sizeof(ei_relief_t));
+        widbutton -> text = calloc(1, sizeof(char*));
+        widbutton -> text_font = calloc(1, sizeof(ei_font_t));
+        widbutton -> text_color = calloc(1, sizeof(ei_color_t));
+        widbutton -> text_anchor = calloc(1, sizeof(ei_anchor_t));
+        widbutton -> img = calloc(1, sizeof(ei_surface_t));
+        widbutton -> img_rect = calloc(1, sizeof(ei_rect_t*));
+        widbutton -> img_anchor = calloc(1, sizeof(ei_anchor_t));
+        widbutton -> callback = calloc(1, sizeof(ei_callback_t));
+        widbutton -> user_param = calloc(1, sizeof(void*));
+        return widbutton;
+}
+
+void ei_button_drawfunc_t (struct ei_widget_t*  widget,
+                            ei_surface_t        surface,
+                            ei_surface_t        pick_surface,
+                            ei_rect_t*          clipper)
+{
+        ei_rect_t rectangle = widget -> screen_location;
+        ei_fill(surface, ((ei_button_t*)widget -> color), &rectangle);
+        //TODO : c'est pas le bon draw
+}
+
+void ei_button_releasefunc_t(struct ei_widget_t* widget)
+{
+        free(((ei_button_t*)widget) -> color);
+        free(((ei_button_t*)widget) -> border_width);
+        free(((ei_button_t*)widget) -> corner_radius);
+        free(((ei_button_t*)widget) -> relief);
+        free(((ei_button_t*)widget) -> text);
+        free(((ei_button_t*)widget) -> text_font);
+        free(((ei_button_t*)widget) -> text_color);
+        free(((ei_button_t*)widget) -> text_anchor);
+        free(((ei_button_t*)widget) -> img);
+        free(((ei_button_t*)widget) -> img_rect);
+        free(((ei_button_t*)widget) -> img_anchor);
+        free(((ei_button_t*)widget) -> callback);
+        free(((ei_button_t*)widget) -> user_param);
+}
+
+void ei_button_setdefaultsfunc_t(struct ei_widget_t* widget)
+{
+        ei_relief_t default_relief = k_default_button_border_width;
+        int default_radius = k_default_button_corner_radius;
+        ei_color_t default_color = ei_default_background_color;
+        ei_color_t text_defaut_color = ei_font_default_color;
+        ei_relief_t relief = ei_relief_raised;
+        ei_anchor_t anchor = ei_anc_center;
+        ((ei_button_t*)widget) -> text = NULL;
+        ((ei_button_t*)widget) -> border_width = &k;
+        ((ei_button_t*)widget) -> relief = &default_relief;
+        ((ei_button_t*)widget) -> color = &default_color;
+        ((ei_button_t*)widget) -> text_font = &ei_default_font;
+        ((ei_button_t*)widget) -> text_color = &text_defaut_color;
+        ((ei_button_t*)widget) -> text_anchor = &anchor;
+        ((ei_button_t*)widget) -> img = NULL;
+        ((ei_button_t*)widget) -> img_rect = NULL;
+        ((ei_button_t*)widget) -> img_anchor = &anchor;
+        ((ei_button_t*)widget) -> callback = NULL;
+        ((ei_button_t*)widget) -> user_param = NULL;
+        widget -> requested_size = ei_size_zero();
 }

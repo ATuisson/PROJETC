@@ -154,7 +154,102 @@ void			ei_button_configure		(ei_widget_t*		widget,
 							 ei_callback_t*		callback,
 							 void**			user_param)
 {
-
+	 	/* pour les parametres par défauts :
+	 	*		Parameters obey the "default" protocol: if a parameter is "NULL" and it has never
+	 	*		been defined before, then a default value should be used (default values are
+	 	*		specified for each parameter). If the parameter is "NULL" but was defined on a
+	 	*		previous call, then its value must not be changed.
+	 	*/
+ 		ei_button_t* button = (ei_button_t*)widget;
+ 		if ((img != NULL) && (text != NULL)){
+		printf("attention monsieur le programmeur, il ne faut pas une image et un texte");
+			exit(1000);
+		}
+		if (color != NULL)	{
+				button -> color = color;
+		}
+		else if (button -> color == NULL) {
+				button -> color = &ei_default_background_color;
+		}
+		if (border_width != NULL)	{
+						button -> border_width = border_width;
+		}
+		else if (button -> border_width == NULL){
+						button -> border_width = &k_default_button_border_width;
+		}
+		if (corner_radius != NULL)	{
+						button -> corner_radius = corner_radius;
+		}
+		else if (button -> corner_radius == NULL){
+						button -> corner_radius = &k_default_button_corner_radius;
+		}
+		if (relief != NULL)	{
+				button -> relief = relief;
+		}
+		else if (button -> relief == NULL){
+				button -> relief = ei_relief_raised;
+		}
+		if (text != NULL)	{
+				button -> text = text;
+				button -> img = NULL;
+		}
+		if (text_font != NULL)	{
+				button -> text_font = text_font;
+		}
+		else if (button -> text_font == NULL)	{
+				button -> text_font = &ei_default_font;
+		}
+		if (text_color != NULL)	{
+				button -> text_color = text_color;
+		}
+		else if (button -> text_color == NULL) {
+				button -> text_color = &ei_font_default_color;
+		}
+		if (text_anchor != NULL)	{
+				button -> text_anchor = text_anchor;
+		}
+		else if (button -> text_anchor == NULL)	{
+				ei_anchor_t anchor_ref_text = ei_anc_center;
+				button -> text_anchor = &anchor_ref_text;
+		}
+		if (img != NULL)	{
+				button -> image = img;
+				button -> text = NULL;
+		}
+		if (img_rect != NULL)	{
+				button -> rect = img_rect;
+		}
+		if (img_anchor != NULL)	{
+						button -> anchor_image = img_anchor;
+		}
+		else if (button -> anchor_image == NULL) {
+						ei_anchor_t anchor_ref_img = ei_anc_center;
+						button -> anchor_text = &anchor_ref_img;
+					}
+		if (requested_size != NULL) {
+						widget -> requested_size = *requested_size;
+		}
+		else{
+						if (button -> image != NULL){
+										// SEGMENTATION FAULT
+										// getchar();
+										ei_size_t surface_minimum = hw_surface_get_size(*(button->image));
+										// getchar();// C'EST LA
+										surface_minimum.width += 2* (*border_width);
+										surface_minimum.height += 2* (*border_width);
+										widget -> requested_size = surface_minimum;
+						}
+						if (button -> text != NULL){
+										ei_surface_t surface_text;
+										surface_text = hw_text_create_surface(*(button -> text), button -> font , *(button -> color_text));
+										ei_size_t surface_minimum = hw_surface_get_size(surface_text);
+										surface_minimum.width += 2* (*border_width);
+										surface_minimum.height += 2* (*border_width);
+										widget -> requested_size = surface_minimum;
+						}
+		}
+		widget -> content_rect = &(widget -> screen_location);
+		ei_app_invalidate_rect(&(widget -> screen_location));
 }
 
 
