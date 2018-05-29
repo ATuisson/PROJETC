@@ -9,19 +9,41 @@
 #include "ei_button.h"
 #include "ei_utils.h"
 
+uint32_t ID = 0;
 extern ei_widgetclass_t* CLASSES;
 
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
 {
+				//Recherche de la classe et allocation mémoire
 				ei_widgetclass_t* widgetclass = ei_widgetclass_from_name(class_name);
 				ei_widget_t* new_widget = (ei_widget_t*)(widgetclass->allocfunc());
 				widgetclass->setdefaultsfunc(new_widget);
+				//Initialisation de la famille associée
 				new_widget -> parent = parent;
+				new_widget -> children_head = NULL;
+				new_widget -> children_tail = NULL;
+				if (parent != NULL) {
+								if (parent -> children_head == NULL) {
+												parent -> children_head = new_widget;
+												parent -> children_tail = new_widget;
+								}
+								else {
+												parent -> children_tail -> next_sibling = new_widget;
+												parent -> children_tail = new_widget;
+								}
+				}
 				if (parent != NULL) {
 								new_widget -> parent -> children_head = new_widget;
 				}
+				//association de la classe de widget
 				new_widget -> wclass = widgetclass;
+				//Gestion de la couleur du widget dans l'offscreen
+				uint32_t pick_id = ID+1;
+				ei_color_t pick_color = {pick_id, 0, 0, 255};
+				new_widget -> pick_color = calloc(sizeof(ei_color_t));
+				*(new_widget -> pick_color) = pick_color;
+				return new_widget;
 }
 
 void			ei_widget_destroy		(ei_widget_t*		widget)

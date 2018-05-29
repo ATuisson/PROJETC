@@ -9,7 +9,7 @@
 #include "ei_button.h"
 #include "ei_utils.h"
 #include "ei_frame.h"
-int min(int a,int b);
+
 
 ei_linked_point_t* arc (ei_point_t centre,
                  int rayon,
@@ -26,7 +26,6 @@ ei_linked_point_t* arc (ei_point_t centre,
         float pas_sub = (fin_rad - debut_rad)/Nomb_sub;
         //on x croissant y decroissant
         //on initialise le premier point.
-        ei_point_t centre_arc = {centre.x + cos(debut_rad),centre.y -sin(debut_rad)};
         ei_linked_point_t* cellule_cour = malloc(sizeof(ei_linked_point_t));
         (cellule_cour -> point).x = centre.x + rayon*cos((float)(debut_rad));
         (cellule_cour -> point).y = centre.y - rayon*sin(debut_rad);
@@ -52,11 +51,14 @@ ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
         int plus_court_cote;
         int largeur = rectangle.size.width;
         int hauteur = rectangle.size.height;
+        ///<on enregistre la largeur et la hauteur du rectangle.
         plus_court_cote = min(largeur,hauteur);
         int abscisse_d = rectangle.top_left.x + largeur - rayon;
         int abscisse_g = rectangle.top_left.x + rayon;
+        ///< on stocke les différentes valeurs des abscisses necessaires
         int ordonne_b = rectangle.top_left.y + hauteur - rayon;
         int ordonne_h = rectangle.top_left.y + rayon;
+        ///< on stocke les différentes valeurs des ordonnés necessaires
         ei_point_t centre_haut_gauche = {abscisse_g ,ordonne_h};
         ei_point_t centre_haut_droit = {abscisse_d, ordonne_h};
         ei_point_t centre_bas_droit = {abscisse_d,ordonne_b};
@@ -66,6 +68,7 @@ ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
         ei_linked_point_t* arc_bas_droit;
         ei_linked_point_t* arc_bas_gauche;
         ei_linked_point_t* cellule_cour;
+        ///< on initialise tous les arcs et leurs centres
         if (param == ei_bouton_whole ){
                 arc_haut_gauche = arc(centre_haut_gauche,rayon,180,90);
                 arc_haut_droit = arc(centre_haut_droit,rayon,90,0);
@@ -176,15 +179,6 @@ ei_linked_point_t* chemin_du_centre(ei_rect_t rectangle,
         return point_du_haut;
 }
 
-void button_drawfunc (struct ei_widget_t* widget,
-                      ei_surface_t        surface,
-                      ei_surface_t   pick_surface,
-                      ei_rect_t*          clipper)
-{
-        ei_rect_t rectangle = widget -> screen_location;
-        //ei_fill(surface, ((ei_bouton)));
-}
-
 void* ei_button_allocfunc_t()
 {
         ei_button_t* widbutton = calloc(1, sizeof(ei_button_t));
@@ -192,15 +186,10 @@ void* ei_button_allocfunc_t()
         widbutton -> border_width = calloc(1, sizeof(int));
         widbutton -> corner_radius = calloc(1, sizeof(int));
         widbutton -> relief = calloc(1, sizeof(ei_relief_t));
-        widbutton -> text = calloc(1, sizeof(char*));
         widbutton -> text_font = calloc(1, sizeof(ei_font_t));
         widbutton -> text_color = calloc(1, sizeof(ei_color_t));
         widbutton -> text_anchor = calloc(1, sizeof(ei_anchor_t));
-        widbutton -> img = calloc(1, sizeof(ei_surface_t));
-        widbutton -> img_rect = calloc(1, sizeof(ei_rect_t*));
         widbutton -> img_anchor = calloc(1, sizeof(ei_anchor_t));
-        widbutton -> callback = calloc(1, sizeof(ei_callback_t));
-        widbutton -> user_param = calloc(1, sizeof(void*));
         return widbutton;
 }
 
@@ -210,11 +199,16 @@ void ei_button_drawfunc_t(struct ei_widget_t*  widget,
                             ei_rect_t*          clipper)
 {
         ei_rect_t rectangle = widget -> screen_location;
-        ei_button_t* bouton = (ei_button_t*)widget
+        ei_button_t* bouton = (ei_button_t*)widget;
         draw_button(widget,surface,pick_surface,clipper);
         if (bouton -> text != NULL ){
                 ei_point_t* point = NULL;
-                associate_point_anchor(((bouton)))
+                associate_point_anchor(bouton -> text_anchor, surface,point);
+                ei_draw_text(surface, point, *(bouton->text), bouton -> text_font, *(bouton -> text_color),clipper);
+        }
+        if (bouton -> img != NULL){
+                //problème de anchor similaire a frame
+                ei_copy_surface (surface,clipper, bouton -> img, *(bouton -> img_rect), hw_surface_has_alpha(bouton -> img));
         }
 }
 
@@ -250,11 +244,11 @@ void draw_button (struct ei_widget_t*  widget,
           point_du_rectangle_sans_border.x = point_du_rectangle.x + *(bouton->border_width);
           point_du_rectangle_sans_border.y = point_du_rectangle.y + *(bouton->border_width);
           ei_size_t taille_rectangle_sans_border = {taille_rectangle.width -2* (*(bouton->border_width)), taille_rectangle.height - 2*(*(bouton->border_width))};
-          ei_rect_t  rectangle_sans_border  {point_du_rectangle_sans_border, taille_rectangle_sans_border};
-          ei_linked_point_t* points_fond = rounded_frame(rectangle_sans_border, bouton->corner_radius - bouton -> border_width; type_bouton_fond);
-          ei_linked_point_t* points_top  = rounded_frame(rectangle, bouton-> corner_radius, type_bouton_top);
-          ei_linked_point_t* points_bot  = rounded_frame(rectangle, bouton-> corner_radius, type_bouton_bot);
-          ei_linked_point_t* points_offscreen = rounded_frame(rectangle, bouton-> corner_radius, type_bouton_fond);
+          ei_rect_t  rectangle_sans_border = {point_du_rectangle_sans_border, taille_rectangle_sans_border};
+          ei_linked_point_t* points_fond = rounded_frame(rectangle_sans_border, bouton->corner_radius - bouton -> border_width, type_bouton_fond);
+          ei_linked_point_t* points_top  = rounded_frame(rectangle, *(bouton-> corner_radius), type_bouton_top);
+          ei_linked_point_t* points_bot  = rounded_frame(rectangle, *(bouton-> corner_radius), type_bouton_bot);
+          ei_linked_point_t* points_offscreen = rounded_frame(rectangle, *(bouton-> corner_radius), type_bouton_fond);
           ei_color_t couleur_fond = *(bouton -> color);
           ei_color_t couleur_top;
           ei_color_t couleur_bot;
