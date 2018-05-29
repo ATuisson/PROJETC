@@ -22,8 +22,8 @@ void associate_point_anchor     (ei_anchor_t*    anchor,
  * \brief A structure that stores specific information about a frame widget class
  */
 typedef struct ei_frame_t {
-        ei_widget_t          widget; ///< Structure commune entre tous les widgets
-        const ei_color_t*     color; ///< Couleur du cadre
+        ei_widget_t           widget; ///< Structure commune entre tous les widgets
+        ei_color_t*           color; ///< Couleur du cadre
         int*                  border_width; ///< largeur de la bordure du cadre
         ei_relief_t*          relief; ///< Relief du cadre
         char**                text; ///< Chaine de caractère à insérer
