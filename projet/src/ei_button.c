@@ -176,15 +176,6 @@ ei_linked_point_t* chemin_du_centre(ei_rect_t rectangle,
         return point_du_haut;
 }
 
-void button_drawfunc (struct ei_widget_t* widget,
-                      ei_surface_t        surface,
-                      ei_surface_t   pick_surface,
-                      ei_rect_t*          clipper)
-{
-        ei_rect_t rectangle = widget -> screen_location;
-        //ei_fill(surface, ((ei_bouton)));
-}
-
 void* ei_button_allocfunc_t()
 {
         ei_button_t* widbutton = calloc(1, sizeof(ei_button_t));
@@ -214,7 +205,12 @@ void ei_button_drawfunc_t(struct ei_widget_t*  widget,
         draw_button(widget,surface,pick_surface,clipper);
         if (bouton -> text != NULL ){
                 ei_point_t* point = NULL;
-                associate_point_anchor(((bouton)))
+                associate_point_anchor(bouton -> text_anchor, surface,point);
+                ei_draw_text(surface, point, bouton->text, bouton -> text_font, bouton -> text_color,clipper);
+        }
+        if (bouton -> img != NULL){
+                //problème de anchor similaire a frame
+                ei_copy_surface (surface,clipper, bouton -> img, bouton -> img_rect, hw_surface_has_alpha(bouton -> img));
         }
 }
 

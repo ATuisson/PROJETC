@@ -109,6 +109,7 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
                         ///< Drawing said text on the surface
         }
         if (((ei_frame_t*)widget) -> image != NULL){
+          // quand tu modifiera cela TNL, modifie l'équivalent dans ei_button_drawfunc
                 ei_copy_surface (surface, clipper, ((ei_frame_t*)widget) -> image, \
                         *(((ei_frame_t*)widget) -> rect), hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
                         ///< drawing image if exists
