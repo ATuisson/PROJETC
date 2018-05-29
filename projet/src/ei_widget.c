@@ -41,7 +41,7 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 				//Gestion de la couleur du widget dans l'offscreen
 				uint32_t pick_id = ID+1;
 				ei_color_t pick_color = {pick_id, 0, 0, 255};
-				new_widget -> pick_color = calloc(sizeof(ei_color_t));
+				new_widget -> pick_color = calloc(1, sizeof(ei_color_t));
 				*(new_widget -> pick_color) = pick_color;
 				return new_widget;
 }
