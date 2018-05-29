@@ -203,7 +203,7 @@ void ei_button_drawfunc_t(struct ei_widget_t*  widget,
         draw_button(widget,surface,pick_surface,clipper);
         if (bouton -> text != NULL ){
                 ei_point_t point = ei_point_zero();
-                associate_point_anchor(bouton -> text_anchor, rectangle, &point);
+                associate_point_anchor(((ei_button_t*)widget) -> text_anchor, rectangle, *(((ei_button_t*)widget) -> text), *(((ei_button_t*)widget) -> text_font), &point);
                 ei_draw_text(surface, &point, *(bouton->text), bouton -> text_font, *(bouton -> text_color),clipper);
         }
         if (bouton -> img != NULL){

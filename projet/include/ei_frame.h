@@ -22,7 +22,9 @@ void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
 
 void associate_point_anchor     (ei_anchor_t*    anchor,
                                 ei_rect_t       rect,
-                                ei_point_t* point);
+                                char*           text,
+                                ei_font_t       font,
+                                ei_point_t*     point);
 
 /**
  * \brief A structure that stores specific information about a frame widget class
