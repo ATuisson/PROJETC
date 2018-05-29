@@ -20,41 +20,46 @@ extern ei_font_t ei_default_font;
  */
 void associate_point_anchor     (ei_anchor_t*    anchor,
                                 ei_rect_t    rect,
+                                char*       text,
+                                ei_font_t   font,
                                 ei_point_t* point)
 {
     // association ancrage-surface avec coordonnées
+    ei_size_t size_text = ei_size_zero();
+    hw_text_compute_size(text, font, &(size_text.width), &(size_text.height));
     switch (*anchor) {
+            case 0:
             case 1:
-                    point->x = rect.top_left.x + rect.size.width / 2;
-                    point->y = rect.top_left.y + rect.size.height / 2;
+                    point->x = rect.top_left.x + rect.size.width / 2 - size_text.width / 2;
+                    point->y = rect.top_left.y + rect.size.height / 2 - size_text.height / 2;
                     break;
             case 2:
-                    point->x = rect.top_left.x + rect.size.width / 2;
+                    point->x = rect.top_left.x + rect.size.width / 2 - size_text.width / 2;
                     point->y = rect.top_left.y;
                     break;
             case 3:
-                    point->x = rect.top_left.x + rect.size.width;
+                    point->x = rect.top_left.x + rect.size.width - size_text.width;
                     point->y = rect.top_left.y;
                     break;
             case 4:
-                    point->x = rect.top_left.x + rect.size.width;
-                    point->y = rect.top_left.y + rect.size.height / 2;
+                    point->x = rect.top_left.x + rect.size.width - size_text.width;
+                    point->y = rect.top_left.y + rect.size.height / 2 - size_text.height /2;
                     break;
             case 5:
-                    point->x = rect.top_left.x + rect.size.width;
-                    point->y = rect.top_left.y + rect.size.height;
+                    point->x = rect.top_left.x + rect.size.width - size_text.width;
+                    point->y = rect.top_left.y + rect.size.height - size_text.height;
                     break;
             case 6:
-                    point->x = rect.top_left.x + rect.size.width / 2;
-                    point->y = rect.top_left.y + rect.size.height;
+                    point->x = rect.top_left.x + rect.size.width / 2 - size_text.width / 2;
+                    point->y = rect.top_left.y + rect.size.height - size_text.height;
                     break;
             case 7:
                     point->x = rect.top_left.x;
-                    point->y = rect.top_left.y + rect.size.height;
+                    point->y = rect.top_left.y + rect.size.height - size_text.height;
                     break;
             case 8:
                     point->x = rect.top_left.x;
-                    point->y = rect.top_left.y + rect.size.height / 2;
+                    point->y = rect.top_left.y + rect.size.height / 2 - size_text.height / 2;
                     break;
             case 9: //defaut : topleft corner
                     point->x = rect.top_left.x;
@@ -147,7 +152,7 @@ void* ei_frame_allocfunc_t()
          ///< filling the offscreen surface with the frame colour
          if (((ei_frame_t*)widget) -> text != NULL ){
                 ei_point_t point = ei_point_zero();
-                associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, rectangle, &point);
+                associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, rectangle, *(((ei_frame_t*)widget) -> text), *(((ei_frame_t*)widget) -> font), &point);
                 ///< adressing the top-left corner as a point from its anchor
                 ei_draw_text(surface, &point, *(((ei_frame_t*)widget) -> text), \
                         *(((ei_frame_t*)widget) -> font), *(((ei_frame_t*)widget) -> color_text), clipper);
