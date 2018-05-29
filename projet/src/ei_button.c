@@ -255,30 +255,58 @@ void draw_button (struct ei_widget_t*  widget,
           if(*(bouton->relief) == ei_relief_raised){
                   if (couleur_fond.red >= 5)
                           couleur_bot.red = couleur_fond.red -5;
+                  else
+                          couleur_bot.red = couleur_fond.red;
                   if (couleur_fond.green >= 5)
                           couleur_bot.green = couleur_fond.green -5;
+                  else
+                         couleur_bot.green = couleur_fond.green;
                   if (couleur_fond.blue >= 5)
                           couleur_bot.blue = couleur_fond.blue -5;
+                  else
+                         couleur_bot.blue = couleur_fond.blue;
                   if (couleur_fond.red <= 251)
                           couleur_top.red = couleur_fond.red +5;
+                  else
+                          couleur_top.red = couleur_fond.red;
                   if (couleur_fond.green <= 251)
+                          couleur_top.green = couleur_fond.green +5;
+                  else
                           couleur_top.green = couleur_fond.green +5;
                   if (couleur_fond.blue <= 251)
                           couleur_top.blue = couleur_fond.blue +5;
+                  else
+                          couleur_top.blue = couleur_fond.blue;
+                  couleur_top.alpha = couleur_fond.alpha;
+                  couleur_bot.alpha = couleur_fond.alpha;
         }
         if (*(bouton->relief) == ei_relief_sunken){
-                  if (couleur_fond.red >= 5)
-                          couleur_top.red = couleur_fond.red -5;
-                  if (couleur_fond.green >= 5)
-                          couleur_top.green = couleur_fond.green -5;
-                  if (couleur_fond.blue >= 5)
-                          couleur_top.blue = couleur_fond.blue -5;
-                  if (couleur_fond.red <= 251)
-                          couleur_bot.red = couleur_fond.red +5;
-                  if (couleur_fond.green <= 251)
-                          couleur_bot.green = couleur_fond.green +5;
-                  if (couleur_fond.blue <= 251)
-                          couleur_bot.blue = couleur_fond.blue +5;
+                if (couleur_fond.red >= 5)
+                        couleur_top.red = couleur_fond.red -5;
+                else
+                        couleur_top.red = couleur_fond.red;
+                if (couleur_fond.green >= 5)
+                        couleur_top.green = couleur_fond.green -5;
+                else
+                       couleur_top.green = couleur_fond.green;
+                if (couleur_fond.blue >= 5)
+                        couleur_top.blue = couleur_fond.blue -5;
+                else
+                       couleur_top.blue = couleur_fond.blue;
+                if (couleur_fond.red <= 251)
+                        couleur_bot.red = couleur_fond.red +5;
+                else
+                        couleur_bot.red = couleur_fond.red;
+                if (couleur_fond.green <= 251)
+                        couleur_bot.green = couleur_fond.green +5;
+                else
+                        couleur_bot.green = couleur_fond.green +5;
+                if (couleur_fond.blue <= 251)
+                        couleur_bot.blue = couleur_fond.blue +5;
+                else
+                        couleur_bot.blue = couleur_fond.blue;
+                couleur_top.alpha = couleur_fond.alpha;
+                couleur_bot.alpha = couleur_fond.alpha;
         }
         ei_draw_polygon(surface,points_fond,couleur_fond,clipper);
         ei_draw_polygon(surface,points_top,couleur_top,clipper);
