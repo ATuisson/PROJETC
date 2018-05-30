@@ -62,14 +62,13 @@ void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
         ei_bool_t faux = EI_FALSE;
         surface_fenetre_syst = hw_create_window(main_window_size, fullscreen); //
         surface_offscreen = hw_surface_create(surface_fenetre_syst, main_window_size, faux); //
-        ei_frame_register_class(); //
+        ei_frame_register_class();
         ei_button_register_class();
         ei_register_placer_manager();
         ROOT = ei_widget_create("frame", NULL);
         const ei_color_t root_color = {20,20,20,255};
         ei_point_t root_top_left_point = {0, 0};
         ei_rect_t root_screen_location = {root_top_left_point, *main_window_size};
-        uint32_t pick_id = ei_map_rgba(surface_offscreen, &root_color);
         ROOT->wclass = CLASSES;
         ROOT->geom_params = NULL;
         ROOT->screen_location = root_screen_location;
