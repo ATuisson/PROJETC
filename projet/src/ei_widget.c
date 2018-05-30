@@ -13,6 +13,7 @@
 uint32_t ID = 0;
 extern ei_widgetclass_t* CLASSES;
 extern ei_surface_t surface_offscreen;
+extern ei_widget_t* ROOT;
 
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
@@ -57,12 +58,20 @@ void			ei_widget_destroy		(ei_widget_t*		widget)
 ei_widget_t*		ei_widget_pick			(ei_point_t*		where)
 {
 				hw_surface_lock(surface_offscreen);
+				//Récupération de la
 				uint8_t* premier_pixel = hw_surface_get_buffer(surface_offscreen);
 				ei_size_t size_surface = hw_surface_get_size(surface_offscreen);
 				uint32_t* premier_pixel_32b = (uint32_t*)premier_pixel;
-				uint32_t id = *(premier_pixel+(where->y-1)*size_surface.width+where->x);
-				ei_color_t pick_color = id_to_rgba(surface_offscreen, &id);
+				uint32_t id = *(premier_pixel+(where->y)*size_surface.width+where->x);
+				ei_widget_t* widget = recherche_widget(id, ROOT);
 				hw_surface_unlock(surface_offscreen);
+				if (widget == ROOT) {
+								return NULL;
+				}
+				else {
+								return widget;
+				}
+
 }
 
 void			ei_frame_configure		(ei_widget_t*		widget,
