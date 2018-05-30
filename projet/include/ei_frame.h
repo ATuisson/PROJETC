@@ -15,16 +15,20 @@
 #include "ei_types.h"
 ei_linked_point_t* chemin_centre(ei_rect_t rectangle);
 
-void ei_frame_drawfunc_t(struct ei_widget_t*	widget,
+void ei_frame_drawfunc_t    (struct ei_widget_t*	widget,
     							ei_surface_t	surface,
     					        ei_surface_t	pick_surface,
     							ei_rect_t*		clipper);
 
-void associate_point_anchor     (ei_anchor_t*    anchor,
-                                ei_rect_t       rect,
-                                char*           text,
-                                ei_font_t       font,
-                                ei_point_t*     point);
+void retrieve_rect_surface     (ei_anchor_t*   anchor,
+                                    ei_surface_t*   surface,
+                                    ei_rect_t*      rect,
+                                    ei_rect_t*      copy_rect);
+
+void affiche_surface                (ei_surface_t   target_surface,
+                        ei_surface_t*   surface,
+                        ei_rect_t*      cible,
+                        ei_rect_t       rect_a_copier);
 
 /**
  * \brief A structure that stores specific information about a frame widget class
