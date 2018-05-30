@@ -8,9 +8,11 @@
 #include "ei_application.h"
 #include "ei_button.h"
 #include "ei_utils.h"
+#include "bind_structure.h"
 
 uint32_t ID = 0;
 extern ei_widgetclass_t* CLASSES;
+extern ei_surface_t surface_offscreen;
 
 ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 							 ei_widget_t*		parent)
@@ -39,10 +41,11 @@ ei_widget_t*		ei_widget_create		(ei_widgetclass_name_t	class_name,
 				//association de la classe de widget
 				new_widget -> wclass = widgetclass;
 				//Gestion de la couleur du widget dans l'offscreen
-				uint32_t pick_id = ID+1;
-				ei_color_t pick_color = {pick_id, 0, 0, 255};
+				ID++;
+				ei_color_t pick_color = id_to_rgba(surface_offscreen, &ID);
 				new_widget -> pick_color = calloc(1, sizeof(ei_color_t));
 				*(new_widget -> pick_color) = pick_color;
+				new_widget -> pick_id = ID;
 				return new_widget;
 }
 
@@ -53,7 +56,13 @@ void			ei_widget_destroy		(ei_widget_t*		widget)
 
 ei_widget_t*		ei_widget_pick			(ei_point_t*		where)
 {
-
+				hw_surface_lock(surface_offscreen);
+				uint8_t* premier_pixel = hw_surface_get_buffer(surface_offscreen);
+				ei_size_t size_surface = hw_surface_get_size(surface_offscreen);
+				uint32_t* premier_pixel_32b = (uint32_t*)premier_pixel;
+				uint32_t id = *(premier_pixel+(where->y-1)*size_surface.width+where->x);
+				ei_color_t pick_color = id_to_rgba(surface_offscreen, &id);
+				hw_surface_unlock(surface_offscreen);
 }
 
 void			ei_frame_configure		(ei_widget_t*		widget,
