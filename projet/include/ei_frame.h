@@ -13,18 +13,43 @@
 #include "ei_widgetclass.h"
 #include "ei_widget.h"
 #include "ei_types.h"
+/**
+ * \brief returns the central path of the frame for relief purposes
+ *
+ * @param   rectangle   of the frame
+ */
 ei_linked_point_t* chemin_centre(ei_rect_t rectangle);
 
+/**
+ * \brief draws the frame widget
+ *
+ * @params  cf widget.h
+ */
 void ei_frame_drawfunc_t    (struct ei_widget_t*	widget,
     							ei_surface_t	surface,
     					        ei_surface_t	pick_surface,
     							ei_rect_t*		clipper);
 
+/**
+ * \brief retrieves a rectangle from which the surface is to be copied
+ * @param anchor : the way the surface anchors on the widget
+ * @param surface : the surface from wich the pixels are to be copied
+ * @param rect : the rectangle we want to copy the surface on (clipper)
+ * @param copy_rect : returned value as pointer: the right rect to copy surface from
+ */
 void retrieve_rect_surface     (ei_anchor_t*   anchor,
                                     ei_surface_t*   surface,
                                     ei_rect_t*      rect,
                                     ei_rect_t*      copy_rect);
 
+/**
+ *\brief    Fonction utilitaire pour drawfunc :
+ *@param    target_surface the surface on which to copy
+ *@param    surface     the surface to copy
+ *@param    cible        the rectangle on which the surface is to be copied
+ *@param    rect_a_copier     part of the surface to copy
+ *
+ */
 void affiche_surface                (ei_surface_t   target_surface,
                         ei_surface_t*   surface,
                         ei_rect_t*      cible,

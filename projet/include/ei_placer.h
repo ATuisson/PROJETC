@@ -13,6 +13,9 @@
 
 #include "ei_geometrymanager.h"
 
+/**
+ * \brief the structure of the placer manager parameters
+ */
 typedef struct ei_placer_param_t {
         ei_geometry_param_t        param_generic;
         ei_anchor_t*        anchor;

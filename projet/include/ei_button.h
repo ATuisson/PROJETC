@@ -4,16 +4,8 @@
 #include "ei_widget.h"
 
 /**
- * \brief	Converts the three red, green and blue component of a color in a 32 bits integer
- *		using the order of the channels of the surface. This integer can be stored directly
- *		in the pixels memory of the surface (ie. \ref hw_surface_get_buffer).
+ * \brief	enum struct used for different parts of button
  *
- * @param	surface		The surface where to store this pixel.
- * @param	color		The color to convert, can't be NULL.
- *
- * @return 			The 32 bit integer corresponding to the color. The alpha component
- *				of the color is ignored in the case of surfaces that don't have an
- *				alpha channel.
  */
 typedef enum {
   ei_bouton_whole = 0,
@@ -21,23 +13,51 @@ typedef enum {
   ei_bouton_bot
 } ei_bouton_param_t;
 
+/**
+ * \brief   returns a linked list to create an arc, depending on parameters
+ *
+ * @param	centre		the center of the arc
+ * @param	rayon       the radius of the arc
+ * @param	debut_arc   target of the beginning of the arc, in degrees
+ * @param   fin_arc     target of the end of the arc, in degrees
+ */
 ei_linked_point_t* arc(ei_point_t centre,
                        int rayon,
                        float debut_arc,
                        float fin_arc);
 
+/**
+ * \brief	returns       the part of the button depending of the param
+ *
+ * @param	rectangle	  the rectangle corresponding to the button
+ * @param	rayon         the radius of the corners of the button
+ * @param	param		  part of the button to be returned
+ */
 ei_linked_point_t* rounded_frame(ei_rect_t rectangle,
                                 int rayon,
                                 ei_bouton_param_t param);
 
-
+/**
+ * \brief	returns the path between the two opposite corners of the button for
+ *          relief independencies
+ *
+ * @param	rectangle	    rectangle of the button
+ * @param	largeur, hauteur		size of said rectangle
+ * @param	plus_court_cote         the shortest of previous ints
+ * @param   centre_haut_droit       center of top_right corner of button
+ *
+ */
 ei_linked_point_t* chemin_du_centre(ei_rect_t rectangle,
                                     int largeur,
                                     int hauteur,
                                     int plus_court_cote,
                                     ei_point_t centre_haut_droit);
 
-
+/**
+ * \brief	draws the constant parts of button (no text no image)
+ *
+ * @param	cf drawfunc
+ */
 void draw_button (struct ei_widget_t*  widget,
                             ei_surface_t        surface,
                             ei_surface_t        pick_surface,
@@ -46,7 +66,10 @@ void draw_button (struct ei_widget_t*  widget,
 
 int min(int a,int b);
 
-
+/**
+ * \brief	defines the button structure cf widget.h
+ *
+ */
 typedef struct ei_button_t		{ei_widget_t		widget;
 							 ei_color_t*	color;
 							 int*			border_width;
@@ -63,16 +86,27 @@ typedef struct ei_button_t		{ei_widget_t		widget;
 							 void**			user_param;
 } ei_button_t;
 
+/**
+ * \brief	allocates memory for a button widget
+ */
 void* ei_button_allocfunc_t ();
 
+/**
+ * \brief draws a button
+ */
 void ei_button_drawfunc_t (struct ei_widget_t*   widget,
                           ei_surface_t  surface,
                           ei_surface_t  pick_surface,
                           ei_rect_t*    clipper);
 
-
+/**
+ * \brief releases the allocated memory of a button widget
+ */
 void ei_button_releasefunc_t (struct ei_widget_t*    widget);
 
+/**
+ * \brief attributes default vallues for a button
+ */
 void ei_button_setdefaultsfunc_t (struct ei_widget_t*   widget);
 
 
