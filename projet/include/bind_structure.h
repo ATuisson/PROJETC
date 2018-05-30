@@ -34,15 +34,29 @@ typedef struct bind_structure_t {
  *
  * @param	surface		Surface dont on recupère la configuration RGBA.
  *
- * @param id
+ * @param id  Identifiant de la couleur
  *
- * @return			The top-most widget at this location, or NULL if there is no widget
- *				at this location (except for the root widget).
+ * @return			Un type ei_color_tcorrespondant à l'identifaint
  */
 ei_color_t id_to_rgba (ei_surface_t surface, uint32_t* id);
 
+/**
+ * @brief	Recherche le widget ayant l'identifiant donné en paramètre.
+ *
+ * @param	id    Identifiant du widget à rechercher
+ *
+ * @param root  widget racine
+ *
+ * @return			le widget correspondant
+ */
 ei_widget_t* recherche_widget(uint32_t id, ei_widget_t* root);
 
+/**
+ * @brief	Fonction qui parcours les bind_structure associées à l'évènement donné en paramètre
+ *        et appelle leur fonction callback.
+ *
+ * @param	event   Evenement obtenu
+ */
 void traitement(struct ei_event_t event);
 
 #endif
