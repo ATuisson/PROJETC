@@ -6,7 +6,8 @@
  *  Created by Lucas Basile et Thomas on 28.05.18.
  *
  */
- #include "bind_structure.h"
+#include "bind_structure.h"
+#include "ei_event.h"
 
 extern bind_structure_t *EVENTTAB[8];
 
@@ -43,8 +44,12 @@ ei_widget_t* recherche_widget(uint32_t id, ei_widget_t* widget)
 
 void traitement(struct ei_event_t event)
 {
-        bind_structure_t* courant = EVENTTAB[event -> type];
+        bind_structure_t* courant = EVENTTAB[event.type];
+        ei_bool_t cdt_arret;
         while (courant != NULL) {
-                courant -> callback(NULL, &event, courant -> user_param);
+                cdt_arret = courant -> callback(NULL, &event, courant -> user_param);
+                if (cdt_arret) {
+                        break;
+                }
         }
 }

@@ -75,8 +75,8 @@ void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
         ROOT->geom_params = NULL;
         ROOT->screen_location = root_screen_location;
         ROOT->content_rect = &(ROOT->screen_location);
-        ei_bind(ei_ev_mouse_buttondown, NULL, "button", &enfonce_bouton_souris, NULL);
-        ei_bind(ei_ev_mouse_buttonup, NULL, "button", &enfonce_bouton_souris, NULL);
+        ei_bind(ei_ev_mouse_buttondown, NULL, "button", enfonce_bouton_souris, NULL);
+        ei_bind(ei_ev_mouse_buttonup, NULL, "button", relache_bouton_souris, NULL);
 }
 
 
@@ -139,7 +139,7 @@ void ei_app_invalidate_rect(ei_rect_t* rect)
 
 void ei_app_quit_request(void)
 {
-
+        EXIT = EI_TRUE;
 }
 
 ei_widget_t* ei_app_root_widget(void)
