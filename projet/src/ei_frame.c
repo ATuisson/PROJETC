@@ -129,6 +129,7 @@ void* ei_frame_allocfunc_t()
                  couleur_top.blue = couleur_fond.blue +5;
          else
                  couleur_top.blue = couleur_fond.blue;
+          // on aurait pu factoriser cette partie qui est aussi dans draw_button
          couleur_top.alpha = couleur_fond.alpha;
          couleur_bot.alpha = couleur_fond.alpha;
          ei_rect_t rectangle = widget -> screen_location;

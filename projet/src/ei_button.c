@@ -200,7 +200,7 @@ void ei_button_drawfunc_t(struct ei_widget_t*  widget,
         if (bouton -> text != NULL ){
                 ei_point_t point = ei_point_zero();
                 associate_point_anchor(((ei_button_t*)widget) -> text_anchor, rectangle, *(((ei_button_t*)widget) -> text), *(((ei_button_t*)widget) -> text_font), &point);
-                ei_draw_text(surface, &point, *(bouton->text), bouton -> text_font, *(bouton -> text_color),clipper);
+                ei_draw_text(surface, &point, *(bouton->text), *(bouton -> text_font), *(bouton -> text_color),clipper);
         }
         if (bouton -> img != NULL){
                 //problème de anchor similaire a frame
@@ -241,7 +241,7 @@ void draw_button (struct ei_widget_t*  widget,
           point_du_rectangle_sans_border.y = point_du_rectangle.y + *(bouton->border_width);
           ei_size_t taille_rectangle_sans_border = {taille_rectangle.width -2* (*(bouton->border_width)), taille_rectangle.height - 2*(*(bouton->border_width))};
           ei_rect_t  rectangle_sans_border = {point_du_rectangle_sans_border, taille_rectangle_sans_border};
-          ei_linked_point_t* points_fond = rounded_frame(rectangle_sans_border, bouton->corner_radius - bouton -> border_width, type_bouton_fond);
+          ei_linked_point_t* points_fond = rounded_frame(rectangle_sans_border, (*(bouton->corner_radius) - *(bouton -> border_width)), type_bouton_fond);
           ei_linked_point_t* points_top  = rounded_frame(rectangle, *(bouton-> corner_radius), type_bouton_top);
           ei_linked_point_t* points_bot  = rounded_frame(rectangle, *(bouton-> corner_radius), type_bouton_bot);
           ei_linked_point_t* points_offscreen = rounded_frame(rectangle, *(bouton-> corner_radius), type_bouton_fond);
@@ -304,10 +304,10 @@ void draw_button (struct ei_widget_t*  widget,
                 couleur_top.alpha = couleur_fond.alpha;
                 couleur_bot.alpha = couleur_fond.alpha;
         }
-        ei_draw_polygon(surface,points_fond,couleur_fond,clipper);
+        ei_draw_polygon(pick_surface,points_offscreen,couleur_fond,clipper);
         ei_draw_polygon(surface,points_top,couleur_top,clipper);
         ei_draw_polygon(surface,points_bot,couleur_bot,clipper);
-        ei_draw_polygon(pick_surface,points_offscreen,couleur_fond,clipper);
+        ei_draw_polygon(surface,points_fond,couleur_fond,clipper);
 }
 
 
