@@ -32,14 +32,24 @@ void ei_frame_drawfunc_t    (struct ei_widget_t*	widget,
 
 /**
  * \brief retrieves a rectangle from which the surface is to be copied
- * @params anchor : the way the surface anchors on the widget
- * @params 
+ * @param anchor : the way the surface anchors on the widget
+ * @param surface : the surface from wich the pixels are to be copied
+ * @param rect : the rectangle we want to copy the surface on (clipper)
+ * @param copy_rect : returned value as pointer: the right rect to copy surface from
  */
 void retrieve_rect_surface     (ei_anchor_t*   anchor,
                                     ei_surface_t*   surface,
                                     ei_rect_t*      rect,
                                     ei_rect_t*      copy_rect);
 
+/**
+ *\brief    Fonction utilitaire pour drawfunc :
+ *@param    target_surface the surface on which to copy
+ *@param    surface     the surface to copy
+ *@param    cible        the rectangle on which the surface is to be copied
+ *@param    rect_a_copier     part of the surface to copy
+ *
+ */
 void affiche_surface                (ei_surface_t   target_surface,
                         ei_surface_t*   surface,
                         ei_rect_t*      cible,
