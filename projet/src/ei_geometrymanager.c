@@ -152,6 +152,7 @@ void			ei_place			(ei_widget_t*		widget,
 						(placeur_params -> param_generic).manager = &PLACER;
 						widget -> geom_params = (ei_geometry_param_t*)placeur_params;
 		}
+		// on attribue les chans aux parametres du placeur
 		ei_placer_param_t* placer = (ei_placer_param_t*)(widget->geom_params);
 		if (anchor != NULL)	{
 				if (placer->anchor == NULL){

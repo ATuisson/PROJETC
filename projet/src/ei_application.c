@@ -24,7 +24,7 @@ ei_bool_t EXIT = EI_FALSE;
  **/
 void explore(ei_widget_t* widget, ei_rect_t* clipper)
 {
-        // suis teubé faut acceder a surface_offscreen et surface_fenetre_syst avec des pointeurs...
+        // draws the current widget
         if (widget->parent != NULL) {
                 if (clipper == NULL){
                         widget->wclass->drawfunc(widget,surface_fenetre_syst, surface_offscreen,
@@ -45,6 +45,7 @@ void explore(ei_widget_t* widget, ei_rect_t* clipper)
                                                     clipper);
                 }
         }
+        // on parcoure la hierarchie de widget
         if (widget->children_head != NULL){
                 explore(widget->children_head, clipper);
                 ei_widget_t* current = widget->children_head->next_sibling;
@@ -61,12 +62,15 @@ void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
         hw_init(); //
         ei_bool_t faux = EI_FALSE;
         surface_fenetre_syst = hw_create_window(main_window_size, fullscreen); //
-        surface_offscreen = hw_surface_create(surface_fenetre_syst, main_window_size, faux); //
+        surface_offscreen = hw_surface_create(surface_fenetre_syst, main_window_size, faux);
+        // on a cree les surfaces affichees et de picking
         ei_frame_register_class();
         ei_button_register_class();
         ei_toplevel_register_class();
         ei_register_placer_manager();
+        // on enregistre les classes de widget et de geometrymanager
         ROOT = ei_widget_create("frame", NULL);
+        // on initialise et on fixe les paramettres de la ROOT
         const ei_color_t root_color = {20,20,20,255};
         ei_point_t root_top_left_point = {0, 0};
         ei_rect_t root_screen_location = {root_top_left_point, *main_window_size};
@@ -112,9 +116,7 @@ void ei_app_run(void)
 
 /**
  * Rajoute le rectangle à la liste des rectangles à mettre à jour
- * Problème : portée des variables ? # pas sur de moi
- * TODO : PAS SUR DU CODE
- **/
+ */
 void ei_app_invalidate_rect(ei_rect_t* rect)
 {
       ei_linked_rect_t* temp = malloc(sizeof(ei_linked_rect_t));
