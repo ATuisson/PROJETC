@@ -5,10 +5,12 @@
 #include "ei_widgetclass.h"
 #include "ei_frame.h"
 #include "ei_button.h"
+#include "ei_toplevel.h"
 
 ei_widgetclass_t* CLASSES;
 ei_widgetclass_t FRAME;
 ei_widgetclass_t BUTTON;
+ei_widgetclass_t TOPLEVEL;
 
 void			ei_widgetclass_register		(ei_widgetclass_t* widgetclass)
 {
@@ -64,5 +66,10 @@ void			ei_button_register_class 	()
 
 void			ei_toplevel_register_class 	()
 {
-
+				strcpy(TOPLEVEL.name, "toplevel");
+				TOPLEVEL.allocfunc = &ei_toplevel_allocfunc_t;
+				TOPLEVEL.releasefunc = &ei_toplevel_releasefunc_t;
+				TOPLEVEL.drawfunc = &ei_toplevel_drawfunc_t;
+				TOPLEVEL.setdefaultsfunc = &ei_toplevel_setdefaultsfunc_t;
+				ei_widgetclass_register(&TOPLEVEL);
 }
