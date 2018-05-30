@@ -7,6 +7,8 @@
 #include "ei_widgetclass.h"
 #include "ei_types.h"
 #include "ei_geometrymanager.h"
+#include "ei_event.h"
+#include "ei_callback.h"
 
 extern ei_widgetclass_t* CLASSES;
 extern ei_geometrymanager_t* MANAGERS;
@@ -73,6 +75,8 @@ void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
         ROOT->geom_params = NULL;
         ROOT->screen_location = root_screen_location;
         ROOT->content_rect = &(ROOT->screen_location);
+        ei_bind(ei_ev_mouse_buttondown, NULL, "button", &enfonce_bouton_souris, NULL);
+        ei_bind(ei_ev_mouse_buttonup, NULL, "button", &enfonce_bouton_souris, NULL);
 }
 
 
@@ -87,6 +91,7 @@ void ei_app_free(void)
  **/
 void ei_app_run(void)
 {
+        struct ei_event_t event;
         while (EXIT == EI_FALSE){
                 // attente d'un evenement
                 // il rajoutera des elements à updates
@@ -100,11 +105,12 @@ void ei_app_run(void)
                         hw_surface_unlock(surface_fenetre_syst);
                         hw_surface_update_rects(surface_fenetre_syst, UPDATES);
                 }
-                UPDATES = NULL;
-                int sortie = getchar();
-                if (sortie != 0){
-                        EXIT = EI_TRUE;
-                }
+                hw_event_wait_next(&event);
+                traitement(event);
+                // int sortie = getchar();
+                // if (sortie != 0) {
+                //         EXIT = EI_TRUE;
+                // }
         }
 
 }
@@ -138,7 +144,7 @@ void ei_app_quit_request(void)
 
 ei_widget_t* ei_app_root_widget(void)
 {
-      return ROOT;
+        return ROOT;
 }
 
 ei_surface_t ei_app_root_surface(void)

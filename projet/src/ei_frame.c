@@ -8,6 +8,7 @@
 #include "hw_interface.h"
 #include "ei_application.h"
 #include "ei_button.h"
+
 extern ei_font_t ei_default_font;
 
 /**
