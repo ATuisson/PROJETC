@@ -9,7 +9,10 @@
 #include "ei_button.h"
 #include "ei_utils.h"
 #include "ei_button.h"
+#include "ei_frame.h"
+
 extern ei_font_t ei_default_font;
+extern ei_surface_t surface_fenetre_syst;
 
 ei_linked_point_t* arc (ei_point_t centre,
                  int rayon,
@@ -194,8 +197,6 @@ void ei_button_drawfunc_t(struct ei_widget_t*  widget,
                             ei_surface_t        pick_surface,
                             ei_rect_t*          clipper)
 {
-        ei_rect_t rectangle = widget -> screen_location;
-        ei_button_t* bouton = (ei_button_t*)widget;
         draw_button(widget,surface,pick_surface,clipper);
         if (((ei_button_t*)widget) -> text != NULL ){
                ei_anchor_t* ancrage = ((ei_button_t*)widget) -> text_anchor;
@@ -208,7 +209,7 @@ void ei_button_drawfunc_t(struct ei_widget_t*  widget,
                affiche_surface(surface_fenetre_syst, &surface_text, clipper, rect_a_copier);
                // ei_draw_text pas opti.. on l'appelle pas. ILs voulaient qu'on l'utilise, ils passent une anchor.
         }
-        if (((ei_button_t*)widget) -> image != NULL && ((ei_button_t*)widget) -> rect != NULL){
+        if (((ei_button_t*)widget) -> img != NULL && ((ei_button_t*)widget) -> img_rect != NULL){
                ei_anchor_t* ancrage = ((ei_button_t*)widget) -> img_anchor;
                ei_surface_t* surface = ((ei_button_t*)widget) -> img;
                ei_rect_t*  cible = *((ei_button_t*)widget) -> img_rect;
