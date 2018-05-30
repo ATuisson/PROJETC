@@ -168,6 +168,14 @@ frame_img : ${OBJDIR}/frame_img.o ${LIBEIBASE} ${LIBEI}
 
 ${OBJDIR}/frame_img.o : ${TESTS}/frame_img.c
 	${CC} ${CCFLAGS} ${INCFLAGS} ${TESTS}/frame_img.c -o ${OBJDIR}/frame_img.o
+
+	#button_img
+button_img : ${OBJDIR}/button_img.o ${LIBEIBASE} ${LIBEI}
+	${LINK} -o button_img ${OBJDIR}/button_img.o ${LIBEI} ${LIBS}
+
+${OBJDIR}/button_img.o : ${TESTS}/button_img.c
+	${CC} ${CCFLAGS} ${INCFLAGS} ${TESTS}/button_img.c -o ${OBJDIR}/button_img.o
+
 # Building of the library libei
 
 ${LIBEI} : ${LIBEIOBJS}

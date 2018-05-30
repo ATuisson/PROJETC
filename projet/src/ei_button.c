@@ -47,7 +47,7 @@ ei_linked_point_t* arc (ei_point_t centre,
 
 
 
-ei_linked_point_t* rounded_button (ei_rect_t rectangle,
+ei_linked_point_t* rounded_frame (ei_rect_t rectangle,
                                   int rayon,
                                   ei_bouton_param_t param){
         ei_linked_point_t* rectangle_fait;
