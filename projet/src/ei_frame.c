@@ -198,6 +198,8 @@ void* ei_frame_allocfunc_t()
          }
          if ((*((ei_frame_t*)widget) -> relief)== ei_relief_none){
                 ei_fill(surface,((ei_frame_t*)widget) -> color, &rectangle);
+                ei_fill(pick_surface, ((ei_frame_t*)widget) -> color, clipper);
+
          }
          if (((ei_frame_t*)widget) -> text != NULL ){
                 ei_anchor_t* ancrage = ((ei_frame_t*)widget) -> anchor_text;

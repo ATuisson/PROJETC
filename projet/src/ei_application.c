@@ -64,6 +64,7 @@ void ei_app_create(ei_size_t* main_window_size, ei_bool_t fullscreen)
         surface_offscreen = hw_surface_create(surface_fenetre_syst, main_window_size, faux); //
         ei_frame_register_class();
         ei_button_register_class();
+        ei_toplevel_register_class();
         ei_register_placer_manager();
         ROOT = ei_widget_create("frame", NULL);
         const ei_color_t root_color = {20,20,20,255};

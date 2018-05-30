@@ -2,11 +2,25 @@
 #define EI_BUTTON_H
 #include "ei_types.h"
 #include "ei_widget.h"
+
+/**
+ * \brief	Converts the three red, green and blue component of a color in a 32 bits integer
+ *		using the order of the channels of the surface. This integer can be stored directly
+ *		in the pixels memory of the surface (ie. \ref hw_surface_get_buffer).
+ *
+ * @param	surface		The surface where to store this pixel.
+ * @param	color		The color to convert, can't be NULL.
+ *
+ * @return 			The 32 bit integer corresponding to the color. The alpha component
+ *				of the color is ignored in the case of surfaces that don't have an
+ *				alpha channel.
+ */
 typedef enum {
   ei_bouton_whole = 0,
   ei_bouton_top,
   ei_bouton_bot
 } ei_bouton_param_t;
+
 ei_linked_point_t* arc(ei_point_t centre,
                        int rayon,
                        float debut_arc,

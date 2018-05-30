@@ -24,6 +24,7 @@ LIBEIOBJS	:= 	${OBJDIR}/ei_application.o \
 							${OBJDIR}/ei_button.o \
 							${OBJDIR}/ei_event.o \
 							${OBJDIR}/bind_structure.o \
+							${OBJDIR}/ei_toplevel.o
 
 
 
