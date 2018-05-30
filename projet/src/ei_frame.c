@@ -10,65 +10,96 @@
 #include "ei_button.h"
 
 extern ei_font_t ei_default_font;
-
+extern ei_surface_t surface_fenetre_syst;
 /**
- *\brief    Fonction utilitaire pour ei_frame_drawfunc_t :
+ *\brief    Fonction utilitaire pour copy_surfaces :
  *
- *@param    anchor  the anchor point of the text (north north_west)
- *@param    surface the surface on which the text is to be drawn
- *@param    point   the point that is to be returned
+ *@param    anchor      the anchor point of surface to copy
+ *@param    surface     the surface to copy
+ *@param    rect        the rectangle on which the surface is to be copied
+ *@param    copy_rect   the rectangle of the image that is to be copied (returned)
+ *                      the origin may be negative !! (if img is smaller than rectangle)
  *
  */
-void associate_point_anchor     (ei_anchor_t*    anchor,
-                                ei_rect_t    rect,
-                                char*       text,
-                                ei_font_t   font,
-                                ei_point_t* point)
+void retrieve_rect_surface     (ei_anchor_t*   anchor,
+                                    ei_surface_t*   surface,
+                                    ei_rect_t*      rect,
+                                    ei_rect_t*      copy_rect)
 {
-    // association ancrage-surface avec coordonnées
-    ei_size_t size_text = ei_size_zero();
-    hw_text_compute_size(text, font, &(size_text.width), &(size_text.height));
+    // association ancrage-surface avec coordonnées: on renvoie le rectangle de l'image à copier
+    ei_size_t surface_size = hw_surface_get_size(*surface);
+    copy_rect -> size = rect -> size;
     switch (*anchor) {
             case 0:
-            case 1:
-                    point->x = rect.top_left.x + rect.size.width / 2 - size_text.width / 2;
-                    point->y = rect.top_left.y + rect.size.height / 2 - size_text.height / 2;
+            case 1://center
+                    (copy_rect->top_left).x = surface_size.width / 2 - (rect->size).width / 2;
+                    (copy_rect->top_left).y = surface_size.height / 2 - (rect->size).height / 2;
                     break;
-            case 2:
-                    point->x = rect.top_left.x + rect.size.width / 2 - size_text.width / 2;
-                    point->y = rect.top_left.y;
+            case 2://north
+                    (copy_rect->top_left).x = surface_size.width / 2 - (rect->size).width / 2;
                     break;
-            case 3:
-                    point->x = rect.top_left.x + rect.size.width - size_text.width;
-                    point->y = rect.top_left.y;
+            case 3://north_east
+                    (copy_rect->top_left).x = surface_size.width - (rect->size).width;
                     break;
-            case 4:
-                    point->x = rect.top_left.x + rect.size.width - size_text.width;
-                    point->y = rect.top_left.y + rect.size.height / 2 - size_text.height /2;
+            case 4://east
+                    (copy_rect->top_left).x = surface_size.width - (rect->size).width;
+                    (copy_rect->top_left).y = surface_size.height / 2 - (rect->size).height /2;
                     break;
             case 5:
-                    point->x = rect.top_left.x + rect.size.width - size_text.width;
-                    point->y = rect.top_left.y + rect.size.height - size_text.height;
+                    (copy_rect->top_left).x = surface_size.width - (rect->size).width;
+                    (copy_rect->top_left).y = surface_size.height - (rect->size).height;
                     break;
-            case 6:
-                    point->x = rect.top_left.x + rect.size.width / 2 - size_text.width / 2;
-                    point->y = rect.top_left.y + rect.size.height - size_text.height;
+            case 6://south
+                    (copy_rect->top_left).x = surface_size.width / 2 - (rect->size).width / 2;
+                    (copy_rect->top_left).y = surface_size.height - (rect->size).height;
                     break;
             case 7:
-                    point->x = rect.top_left.x;
-                    point->y = rect.top_left.y + rect.size.height - size_text.height;
+                    (copy_rect->top_left).y = surface_size.height - (rect->size).height;
                     break;
-            case 8:
-                    point->x = rect.top_left.x;
-                    point->y = rect.top_left.y + rect.size.height / 2 - size_text.height / 2;
+            case 8://west
+                    (copy_rect->top_left).y = surface_size.height / 2 - (rect->size).height / 2;
                     break;
-            case 9: //defaut : topleft corner
-                    point->x = rect.top_left.x;
-                    point->y = rect.top_left.y;
-                    break;
+            case 9: //north_west
             default:
-                    point->x = rect.top_left.x;
-                    point->y = rect.top_left.y;
+                    break;
+    }
+}
+
+/**
+ *\brief    Fonction utilitaire pour drawfunc :
+ *@param    target_surface the surface on which to copy
+ *@param    surface     the surface to copy
+ *@param    cible        the rectangle on which the surface is to be copied
+ *@param    rect_a_copier     part of the surface to copy
+ *
+ */
+void affiche_surface(ei_surface_t   target_surface,
+                    ei_surface_t*   surface,
+                    ei_rect_t*      cible,
+                    ei_rect_t    rect_a_copier)
+{
+    ei_bool_t vrai = EI_TRUE;
+    ei_bool_t faux = EI_FALSE;
+    if((rect_a_copier.top_left).x < 0 || (rect_a_copier.top_left).y < 0){
+        //dans le cas où l'image est plus petite que le cadre, on cree une surface de taille le rectangle
+        ei_surface_t surface_temp = hw_surface_create(surface_fenetre_syst, &(rect_a_copier.size), vrai);
+        hw_surface_lock(surface_temp);
+        //on colle l'image dans la surface temporaire
+        ei_rect_t rect_cible_image = ei_rect(ei_point_zero(),hw_surface_get_size(*surface));
+        if ((rect_a_copier.top_left).x < 0){
+            rect_cible_image.top_left.x = - (rect_a_copier.top_left).x;
+        }
+        if ((rect_a_copier.top_left).y < 0){
+            rect_cible_image.top_left.y = - (rect_a_copier.top_left).y;
+        }
+        ei_copy_surface(surface_temp, &rect_cible_image, *surface, NULL, faux);
+        //on colle la surface temporaire dans le rectangle cible
+        ei_copy_surface(target_surface, cible, surface_temp, NULL, vrai);
+        hw_surface_unlock(surface_temp);
+        hw_surface_free(surface_temp);
+    }
+    else{
+        ei_copy_surface(target_surface, cible, *surface, &rect_a_copier, vrai);
     }
 }
 
@@ -130,6 +161,7 @@ void* ei_frame_allocfunc_t()
                  couleur_top.blue = couleur_fond.blue +5;
          else
                  couleur_top.blue = couleur_fond.blue;
+          // on aurait pu factoriser cette partie qui est aussi dans draw_button
          couleur_top.alpha = couleur_fond.alpha;
          couleur_bot.alpha = couleur_fond.alpha;
          ei_rect_t rectangle = widget -> screen_location;
@@ -169,34 +201,26 @@ void* ei_frame_allocfunc_t()
                 ei_fill(surface,((ei_frame_t*)widget) -> color, &rectangle);
          }
          if (((ei_frame_t*)widget) -> text != NULL ){
-                ei_point_t point = ei_point_zero();
-                associate_point_anchor(((ei_frame_t*)widget) -> anchor_text, rectangle, *(((ei_frame_t*)widget) -> text), *(((ei_frame_t*)widget) -> font), &point);
-                ///< adressing the top-left corner as a point from its anchor
-                ei_draw_text(surface, &point, *(((ei_frame_t*)widget) -> text), \
-                        *(((ei_frame_t*)widget) -> font), *(((ei_frame_t*)widget) -> color_text), clipper);
-                        ///< Drawing said text on the surface
+                ei_anchor_t* ancrage = ((ei_frame_t*)widget) -> anchor_text;
+                char* text = *(((ei_frame_t*)widget) -> text);
+                ei_font_t* font = ((ei_frame_t*)widget) -> font;
+                ei_color_t* color = ((ei_frame_t*)widget) -> color_text;
+                ei_surface_t surface_text = hw_text_create_surface(text, *font, *color);
+                ei_rect_t rect_a_copier = ei_rect_zero();
+                retrieve_rect_surface(ancrage, &surface_text, clipper, &rect_a_copier);
+                affiche_surface(surface_fenetre_syst, &surface_text, clipper, rect_a_copier);
+                // ei_draw_text pas opti.. on l'appelle pas. ILs voulaient qu'on l'utilise, ils passent une anchor.
          }
-         if (((ei_frame_t*)widget) -> image != NULL){
-           // quand tu modifiera cela TNL, modifie l'équivalent dans ei_button_drawfunc TODO
-                ei_size_t taille_surface = hw_surface_get_size(surface);
-                ei_bool_t vrai = EI_TRUE;
-                ei_bool_t faux = EI_FALSE;
-                ei_surface_t surface_temp = hw_surface_create(surface, &taille_surface, vrai);
-                // on copie l'ecran vers la surface temporaire
-                int i = ei_copy_surface(surface_temp, NULL, surface, NULL, faux);
-                // on colle l'image sur cette surface, au bon endroit (cible de l'anchor + size)
-                ei_size_t img_size = hw_surface_get_size(*((ei_frame_t*)widget) -> image);
-                ei_rect_t rect_cible = ei_rect(rectangle.top_left, img_size);
-                ei_rect_t rect_image = hw_surface_get_rect(*((ei_frame_t*)widget) -> image);
-                    // TODO associate point_anchor à factoriser. pour le moment cible = top-left du clipper
-                int j = ei_copy_surface(surface_temp, &rect_cible, *((ei_frame_t*)widget) -> image, &rect_image, hw_surface_has_alpha(((ei_frame_t*)widget) -> image));
-                // on copie le clipper de la surface temporaire, on colle sur le clipper de la surface principale
-                int k = ei_copy_surface (surface, &rectangle, surface_temp, &rectangle, faux);
-                if (i + j + k != 0){
-                    exit(666);
-                }
+         if (((ei_frame_t*)widget) -> image != NULL && ((ei_frame_t*)widget) -> rect != NULL){
+                ei_anchor_t* ancrage = ((ei_frame_t*)widget) -> anchor_image;
+                ei_surface_t* surface = ((ei_frame_t*)widget) -> image;
+                ei_rect_t*  cible = *((ei_frame_t*)widget) -> rect;
+                ei_rect_t rect_a_copier = ei_rect_zero();
+                retrieve_rect_surface(ancrage, surface, cible, &rect_a_copier);
+                affiche_surface(surface_fenetre_syst, surface, cible, rect_a_copier);
          }
  }
+
  ei_linked_point_t* chemin_centre(ei_rect_t rectangle)
  {
    int plus_court_cote = min(rectangle.size.width,rectangle.size.height);
